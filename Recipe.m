@@ -1,21 +1,20 @@
 //
-//  RecipeIngredient.m
+//  Recipe.m
 //  GroceryList
 //
 //  Created by Benjamin Hancock on 10/5/14.
 //  Copyright (c) 2014 Ben Hancock. All rights reserved.
 //
 
+#import "Recipe.h"
 #import "RecipeIngredient.h"
-#import "Ingredient.h"
 
 
-@implementation RecipeIngredient
+@implementation Recipe
 
+@dynamic directions;
 @dynamic name;
-@dynamic quantity;
-@dynamic unit;
-@dynamic ingredient;
-@dynamic recipe;
+@dynamic picture;
+@dynamic recipeIngredients;
 
 @end

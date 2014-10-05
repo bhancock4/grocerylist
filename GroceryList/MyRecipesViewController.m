@@ -10,6 +10,7 @@
 #import "AddRecipeViewController.h"
 #import "RecipeDataAccess.h"
 #import "Recipe.h"
+#import "AppDelegate.h"
 
 @interface MyRecipesViewController ()
 
@@ -37,9 +38,9 @@
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    //NSMutableArray* recipes = [RecipeDataAccess getRecipes];
+    NSMutableArray* recipes = [RecipeDataAccess getRecipes];
     //recipes = nil;
-    
+    Recipe* myRecipe = recipes[0];
     
     
     
@@ -54,26 +55,36 @@
         //self.recipes[0] = recipe;
         //[self.tableView reloadData];
     }
-    recipe = [Recipe new];
+    AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext* context = [appDelegate managedObjectContext];
+    
+    NSEntityDescription *recipeEntityDescription = [NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:context];
+    
+    recipe = [[Recipe alloc] initWithEntity:recipeEntityDescription insertIntoManagedObjectContext:context];
     recipe.name = @"test recipe";
     recipe.directions = @"test recipe directions";
     
-    NSMutableArray* ingredients = [NSMutableArray new];
-    RecipeIngredient* ri1 = [RecipeIngredient new];
+    NSEntityDescription *recipeIngredientEntityDescription = [NSEntityDescription entityForName:@"RecipeIngredient" inManagedObjectContext:context];
+    
+    NSMutableSet* ingredients = [NSMutableSet new];
+    RecipeIngredient* ri1 = [[RecipeIngredient alloc] initWithEntity:recipeIngredientEntityDescription insertIntoManagedObjectContext:context];
     ri1.unit = @"cups";
-    ri1.quantity = 1;
+    ri1.quantity = [NSNumber numberWithInt:1];
     ri1.name = @"sugar";
     [ingredients addObject: ri1];
     
-    RecipeIngredient* ri2 = [RecipeIngredient new];
+    RecipeIngredient* ri2 = [[RecipeIngredient alloc] initWithEntity:recipeIngredientEntityDescription insertIntoManagedObjectContext:context];
     ri2.unit = @"ounces";
-    ri2.quantity = 2;
+    ri2.quantity = [NSNumber numberWithInt:2];
     ri2.name = @"water";
     [ingredients addObject: ri2];
     
     recipe.recipeIngredients = ingredients;
     
-    [RecipeDataAccess insertRecipe:recipe];
+    NSError* error;
+    [context save:&error];
+    
+    //[RecipeDataAccess insertRecipe:recipe];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

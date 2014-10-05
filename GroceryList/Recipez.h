@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "RecipeIngredient.h"
+#import "RecipeIngredientz.h"
 
-@interface Recipe : NSObject
+@interface Recipez : NSObject
 
 @property NSString* name;
 @property NSMutableArray* recipeIngredients;

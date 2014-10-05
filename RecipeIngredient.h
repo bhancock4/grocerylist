@@ -2,15 +2,23 @@
 //  RecipeIngredient.h
 //  GroceryList
 //
-//  Created by Benjamin Hancock on 9/27/14.
+//  Created by Benjamin Hancock on 10/5/14.
 //  Copyright (c) 2014 Ben Hancock. All rights reserved.
 //
 
-#import "Ingredient.h"
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import "Recipe.h"
 
-@interface RecipeIngredient : Ingredient
+@class Ingredient;
+@class Recipe;
 
-@property NSString* unit;
-@property int quantity;
+@interface RecipeIngredient : NSManagedObject
+
+@property (nonatomic, retain) NSString* name;
+@property (nonatomic, retain) NSNumber * quantity;
+@property (nonatomic, retain) NSString * unit;
+@property (nonatomic, retain) Ingredient *ingredient;
+@property (nonatomic, retain) Recipe *recipe;
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Ben Hancock. All rights reserved.
 //
 
-#import "Recipe.h"
+#import "Recipez.h"
 
-@implementation Recipe
+@implementation Recipez
 
 @end

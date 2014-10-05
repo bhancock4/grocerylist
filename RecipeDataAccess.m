@@ -11,6 +11,7 @@
 
 @implementation RecipeDataAccess
 
+/*
 + (NSMutableArray *) getRecipes
 {
     NSArray* objects = [DataAccess getEntitiesByName:@"Recipe"];
@@ -37,7 +38,9 @@
     }
     return recipes;
 }
+ */
 
+/*
 + (BOOL) insertRecipe: (Recipe*) recipe
 {
     BOOL success = YES;
@@ -69,6 +72,30 @@
         [context save:&error];
     }
     return success;
+}*/
+
++ (NSMutableArray *) getRecipes
+{
+    return [DataAccess getEntitiesByName:@"Recipe"];
 }
+
++ (BOOL) insertRecipe: (Recipe*) recipe
+{
+    BOOL success = YES;
+    if(YES != success)  //check for duplicates
+        success = NO;
+    else
+    {
+        AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext* context = [appDelegate managedObjectContext];
+        NSManagedObject* newRecipe;
+        newRecipe = [NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:context];
+        
+        NSError* error;
+        [context save:&error];
+    }
+    return success;
+}
+
 
 @end
