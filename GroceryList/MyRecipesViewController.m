@@ -37,7 +37,7 @@
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    NSMutableArray* recipes = [RecipeDataAccess getRecipes];
+    //NSMutableArray* recipes = [RecipeDataAccess getRecipes];
     //recipes = nil;
     
     
