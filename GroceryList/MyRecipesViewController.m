@@ -37,11 +37,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    AddRecipeViewController* addRecipeVC = (AddRecipeViewController *)segue.destinationViewController;
-    NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
-    addRecipeVC.sourceSegue = segue.identifier;
     if([segue.identifier isEqualToString:@"ShowEditRecipe"])
     {
+        AddRecipeViewController* addRecipeVC = (AddRecipeViewController *)segue.destinationViewController;
+        NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+        addRecipeVC.sourceSegue = segue.identifier;
         addRecipeVC.recipe = [self.recipes objectAtIndex: indexPath.row];
     }
 }
