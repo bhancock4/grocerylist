@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -37,6 +37,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3b3-Nu-jg2" id="XEk-V0-MzQ">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="T8N-Cq-VLF" kind="show" identifier="ShowEditRecipe" id="Yw1-z4-36z"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -70,7 +73,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KwT-z7-Bvg">
-                                <rect key="frame" x="7" y="284" width="307" height="227"/>
+                                <rect key="frame" x="7" y="246" width="307" height="265"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipe Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Hd-AL-bmG">
@@ -113,7 +116,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEQ-xy-oRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="85O-Cx-7dl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3232" y="-196"/>
+            <point key="canvasLocation" x="2878" y="-1202"/>
         </scene>
         <!--Settings-->
         <scene sceneID="utH-A9-S4Y">
@@ -222,10 +225,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LPd-4E-lI9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2420" y="-196"/>
+            <point key="canvasLocation" x="2456" y="-268"/>
         </scene>
     </scenes>
     <resources>
         <image name="Calendar" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Yw1-z4-36z"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -7,17 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-@class XYZToDoItem;
+#import "AppDelegate.h"
 
 @interface DataAccess : NSObject
 
-+ (NSArray *) getEntitiesByName: (NSString *) entityName;
-+ (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty;
-//+ (BOOL)insertToDoListItem: (XYZToDoItem*) item;
-//+ (XYZToDoItem*) getToDoListItemByItemName: (NSString*) itemName;
-//+ (NSMutableArray*) getToDoListItems: (NSPredicate*) predicate;
-//+ (NSMutableArray*) getToDoListItemByCompleted: (BOOL) completed;
-//+ (void) updateToDoListItem: (XYZToDoItem*) updatedItem;
-//+ (void) deleteToDoListItem: (XYZToDoItem*) deletedItem;
+@property (nonatomic, retain) NSManagedObjectContext* context;
+
++ (id)sharedDataAccess;
+- (NSArray *) getEntitiesByName: (NSString *) entityName;
+- (NSArray *) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate *) predicate;
+- (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty;
 
 @end

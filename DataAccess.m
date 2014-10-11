@@ -7,16 +7,44 @@
 //
 
 #import "DataAccess.h"
-#import "AppDelegate.h"
 
 @implementation DataAccess
 
-+ (NSArray *) getEntitiesByName: (NSString *) entityName
++ (id)sharedDataAccess
 {
-    return [DataAccess getEntitiesByName:entityName WithPredicate:nil AndSortByProperty:nil];
+    static DataAccess* sharedMyDataAccess = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMyDataAccess = [[self alloc] init];
+    });
+    return sharedMyDataAccess;
 }
 
-+ (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty
+- (id)init
+{
+    if(self = [super init])
+    {
+        self.context = [(AppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    //
+}
+
+- (NSArray *) getEntitiesByName: (NSString *) entityName
+{
+    return [self getEntitiesByName:entityName WithPredicate:nil AndSortByProperty:nil];
+}
+
+- (NSArray *) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate *) predicate
+{
+    return [self getEntitiesByName:entityName WithPredicate:predicate AndSortByProperty:nil];
+}
+
+- (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty
 {
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext* context = [appDelegate managedObjectContext];

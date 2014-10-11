@@ -12,5 +12,6 @@
 @interface AddRecipeViewController : UIViewController
 
 @property Recipe* recipe;
+@property (nonatomic) NSString* sourceSegue;
 
 @end

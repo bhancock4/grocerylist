@@ -9,9 +9,12 @@
 #import "DataAccess.h"
 #import "Recipe.h"
 
-@interface RecipeDataAccess : DataAccess
+@interface RecipeDataAccess : NSObject
 
-+ (BOOL) insertRecipe: (Recipe*) recipe;
++ (Recipe*) initNewRecipe;
++ (BOOL) saveRecipe: (Recipe *) recipe;
++ (BOOL) validateRecipe: (Recipe *) recipe;
 + (NSMutableArray *) getRecipes;
++ (Recipe *) getRecipeByName: (NSString *) name;
 
 @end

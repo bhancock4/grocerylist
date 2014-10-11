@@ -14,77 +14,60 @@
 
 @interface MyRecipesViewController ()
 
+@property Recipe* selectedRecipe;
+
 @end
 
 @implementation MyRecipesViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-
     
+    self.recipes = [RecipeDataAccess getRecipes];
+    //self.tableView.editing = YES;  //edit mode allows reordering
+    //self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    AddRecipeViewController* addRecipeVC = (AddRecipeViewController *)segue.destinationViewController;
+    NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+    addRecipeVC.sourceSegue = segue.identifier;
+    if([segue.identifier isEqualToString:@"ShowEditRecipe"])
+    {
+        addRecipeVC.recipe = [self.recipes objectAtIndex: indexPath.row];
+    }
 }
 
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-    NSMutableArray* recipes = [RecipeDataAccess getRecipes];
-    //recipes = nil;
-    Recipe* myRecipe = recipes[0];
-    
-    
-    
     AddRecipeViewController* source = [segue sourceViewController];
     Recipe* recipe = source.recipe;
     
     if(recipe != nil)
     {
-        //item.order = (int)[self.toDoItems count];
-        //[XYZDataAccess updateToDoListItem: item];
-        //self.recipes = [XYZDataAccess getToDoListItemByCompleted:NO];
-        //self.recipes[0] = recipe;
-        //[self.tableView reloadData];
+        self.recipes = [RecipeDataAccess getRecipes];
+        [self.tableView reloadData];
     }
-    AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext* context = [appDelegate managedObjectContext];
-    
-    NSEntityDescription *recipeEntityDescription = [NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:context];
-    
-    recipe = [[Recipe alloc] initWithEntity:recipeEntityDescription insertIntoManagedObjectContext:context];
-    recipe.name = @"test recipe";
-    recipe.directions = @"test recipe directions";
-    
-    NSEntityDescription *recipeIngredientEntityDescription = [NSEntityDescription entityForName:@"RecipeIngredient" inManagedObjectContext:context];
-    
-    NSMutableSet* ingredients = [NSMutableSet new];
-    RecipeIngredient* ri1 = [[RecipeIngredient alloc] initWithEntity:recipeIngredientEntityDescription insertIntoManagedObjectContext:context];
-    ri1.unit = @"cups";
-    ri1.quantity = [NSNumber numberWithInt:1];
-    ri1.name = @"sugar";
-    [ingredients addObject: ri1];
-    
-    RecipeIngredient* ri2 = [[RecipeIngredient alloc] initWithEntity:recipeIngredientEntityDescription insertIntoManagedObjectContext:context];
-    ri2.unit = @"ounces";
-    ri2.quantity = [NSNumber numberWithInt:2];
-    ri2.name = @"water";
-    [ingredients addObject: ri2];
-    
-    recipe.recipeIngredients = ingredients;
-    
-    NSError* error;
-    [context save:&error];
-    
-    //[RecipeDataAccess insertRecipe:recipe];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return [self.recipes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,19 +76,18 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     //if(indexPath.row < [self.toDoItems count])
-      {
+    
         // Configure the cell
-        Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
-        cell.textLabel.text = recipe.name;
-        //cell.backgroundColor = [XYZUtilities getCellColorFromStatus:toDoItem.status];
-      }
-      //else
-     // {
-         // cell.textLabel.text = @"";
-       //   cell.backgroundColor = [UIColor whiteColor];
-     // }
+    Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
+    cell.textLabel.text = recipe.name;
+    cell.imageView.image = [UIImage imageNamed: @"Calendar"];
+
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //
+}
 
 @end
