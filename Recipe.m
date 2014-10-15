@@ -8,7 +8,7 @@
 
 #import "Recipe.h"
 #import "RecipeIngredient.h"
-
+#import "DataAccess.h"
 
 @implementation Recipe
 
@@ -16,5 +16,15 @@
 @dynamic name;
 @dynamic picture;
 @dynamic recipeIngredients;
+
+- (BOOL) validateRecipe
+{
+    BOOL isSuccess = YES;
+    if(0)
+    {
+        isSuccess = NO;
+    }
+    return isSuccess;
+}
 
 @end

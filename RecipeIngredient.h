@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "Recipe.h"
+#import "BaseEntity.h"
 
 @class Ingredient;
 @class Recipe;
 
-@interface RecipeIngredient : NSManagedObject
+@interface RecipeIngredient : BaseEntity
 
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSNumber * quantity;

@@ -10,7 +10,7 @@
 
 @interface MyRecipesViewController : UITableViewController
 
-@property NSMutableArray* recipes;
+@property NSArray* recipes;
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "AddRecipeViewController.h"
 #import "AppDelegate.h"
-#import "RecipeDataAccess.h"
+#import "Recipe.h"
 
 @interface AddRecipeViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *recipeName;
@@ -49,16 +49,16 @@
     BOOL shouldSegue = YES;
     
     if(self.isUpdating)
-        self.recipe = [RecipeDataAccess getRecipeByName:self.initialRecipeName];
+        self.recipe = [Recipe getEntityByName:self.initialRecipeName];
     else
-        self.recipe = [RecipeDataAccess initNewRecipe];
+        self.recipe = [Recipe newEntity];
     
     if(nil != self.recipe && sender == self.saveButton && self.recipeName.text.length > 0)
     {
         self.recipe.name = self.recipeName.text;
         self.recipe.directions = self.recipeDirections.text;
         
-        if(![RecipeDataAccess saveRecipe: self.recipe])
+        if(![self.recipe saveEntity])
         {
             shouldSegue = NO;
             

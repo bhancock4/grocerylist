@@ -8,7 +8,6 @@
 
 #import "MyRecipesViewController.h"
 #import "AddRecipeViewController.h"
-#import "RecipeDataAccess.h"
 #import "Recipe.h"
 #import "AppDelegate.h"
 
@@ -24,7 +23,7 @@
 {
     [super viewDidLoad];
     
-    self.recipes = [RecipeDataAccess getRecipes];
+    self.recipes = [Recipe getEntities];
     //self.tableView.editing = YES;  //edit mode allows reordering
     //self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
 }
@@ -53,7 +52,7 @@
     
     if(recipe != nil)
     {
-        self.recipes = [RecipeDataAccess getRecipes];
+        self.recipes = [Recipe getEntities];
         [self.tableView reloadData];
     }
 }

@@ -25,7 +25,7 @@
 		0DA596CB19E1803A002EE12E /* Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA596CA19E1803A002EE12E /* Ingredient.m */; };
 		0DA596CE19E18068002EE12E /* RecipeIngredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA596CD19E18068002EE12E /* RecipeIngredient.m */; };
 		0DA596D119E1807E002EE12E /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA596D019E1807E002EE12E /* Recipe.m */; };
-		0DF4C1FD19DFA7B5005E0A1F /* RecipeDataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF4C1FC19DFA7B5005E0A1F /* RecipeDataAccess.m */; };
+		0DB57E9C19EB621900441BAF /* BaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB57E9B19EB621900441BAF /* BaseEntity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +73,8 @@
 		0DA596CD19E18068002EE12E /* RecipeIngredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeIngredient.m; sourceTree = "<group>"; };
 		0DA596CF19E1807E002EE12E /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
 		0DA596D019E1807E002EE12E /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
-		0DF4C1FB19DFA7B5005E0A1F /* RecipeDataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeDataAccess.h; sourceTree = "<group>"; };
-		0DF4C1FC19DFA7B5005E0A1F /* RecipeDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDataAccess.m; sourceTree = "<group>"; };
+		0DB57E9A19EB621900441BAF /* BaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEntity.h; sourceTree = "<group>"; };
+		0DB57E9B19EB621900441BAF /* BaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEntity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +180,8 @@
 				0DA596CA19E1803A002EE12E /* Ingredient.m */,
 				0D934B9719D6824D003A51BC /* DataAccess.h */,
 				0D934B9819D6824D003A51BC /* DataAccess.m */,
-				0DF4C1FB19DFA7B5005E0A1F /* RecipeDataAccess.h */,
-				0DF4C1FC19DFA7B5005E0A1F /* RecipeDataAccess.m */,
+				0DB57E9A19EB621900441BAF /* BaseEntity.h */,
+				0DB57E9B19EB621900441BAF /* BaseEntity.m */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -287,12 +287,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DA596CB19E1803A002EE12E /* Ingredient.m in Sources */,
+				0DB57E9C19EB621900441BAF /* BaseEntity.m in Sources */,
 				0DA596D119E1807E002EE12E /* Recipe.m in Sources */,
 				0D934B5E19D6611F003A51BC /* MyRecipesViewController.m in Sources */,
 				0DA596CE19E18068002EE12E /* RecipeIngredient.m in Sources */,
 				0D934B8C19D67B23003A51BC /* GroceryCalendar.m in Sources */,
 				0D934B9919D6824D003A51BC /* DataAccess.m in Sources */,
-				0DF4C1FD19DFA7B5005E0A1F /* RecipeDataAccess.m in Sources */,
 				0D934B7D19D666A9003A51BC /* ShoppingListsViewController.m in Sources */,
 				0D934B5819D6611F003A51BC /* AppDelegate.m in Sources */,
 				0D934B8019D666D6003A51BC /* SettingsViewController.m in Sources */,

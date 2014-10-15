@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "BaseEntity.h"
 
 
-@interface Ingredient : NSManagedObject
+@interface Ingredient : BaseEntity
 
 @property (nonatomic, retain) NSString * name;
 
