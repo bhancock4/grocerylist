@@ -9,15 +9,16 @@
 #import "AddRecipeViewController.h"
 #import "AppDelegate.h"
 #import "Recipe.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AddRecipeViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *recipeName;
-@property (weak, nonatomic) IBOutlet UITextField *recipeDirections;
+@property (weak, nonatomic) IBOutlet UIImageView *RecipeImage;
+@property (weak, nonatomic) IBOutlet UITextView *recipeDirections;
 @property (weak, nonatomic) IBOutlet UITableView *tableRecipeIngredients;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
-@property BOOL isUpdating;
-@property NSString* initialRecipeName;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddIngredient;
 @end
 
 @implementation AddRecipeViewController
@@ -25,27 +26,58 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.recipeIngredients = [[NSMutableArray alloc] init];
     
     if([self.sourceSegue isEqualToString:@"ShowEditRecipe"])
     {
+        self.navigationItem.title = self.recipe.name;
+        self.recipeName.hidden = YES;
         self.recipeName.text = self.recipe.name;
-        self.recipeDirections.text = self.recipe.directions;
+        self.recipeName.userInteractionEnabled = NO;
         self.initialRecipeName = self.recipe.name;
+        self.recipeDirections.text = self.recipe.directions;
+        self.recipeIngredients = [NSMutableArray arrayWithArray:[self.recipe.recipeIngredients allObjects]];
+        
         self.isUpdating = YES;
     }
     else
+    {
+        self.recipeName.selected = YES;
+        
         self.isUpdating = NO;
+    }
+    [[self.recipeDirections layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[self.recipeDirections layer] setBorderWidth:2.0];
+    [[self.recipeDirections layer] setCornerRadius:10];
+    
+    self.tableRecipeIngredients.delegate = self;
+    self.tableRecipeIngredients.dataSource = self;
+    self.tableRecipeIngredients.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (IBAction)handleAddIngredientClicked:(id)sender
+{
+    RecipeIngredient* recipeIngredient = [RecipeIngredient newEntity];
+    
+    recipeIngredient.unit = @"oz";
+    recipeIngredient.quantity = [NSNumber numberWithInt:1];
+    
+    [self.recipeIngredients insertObject:recipeIngredient atIndex:0];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.recipeIngredients indexOfObject:recipeIngredient] inSection:0];
+
+    [self.tableRecipeIngredients
+     insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
+    
     BOOL shouldSegue = YES;
     
     if(self.isUpdating)
@@ -57,6 +89,7 @@
     {
         self.recipe.name = self.recipeName.text;
         self.recipe.directions = self.recipeDirections.text;
+        self.recipe.recipeIngredients = [NSSet setWithArray: self.recipeIngredients];
         
         if(![self.recipe saveEntity])
         {
@@ -68,25 +101,57 @@
         }
     }
     return shouldSegue;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return [self.recipeIngredients count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"IngredientCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    UITextField* ingredientTextField = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 275, 30)];
+    ingredientTextField.adjustsFontSizeToFitWidth = YES;
+    ingredientTextField.textColor = [UIColor blackColor];
+    ingredientTextField.text = ((RecipeIngredient *)[self.recipeIngredients objectAtIndex:indexPath.row]).name;
+    ingredientTextField.tag = indexPath.row;
+    ingredientTextField.delegate = self;
+    [ingredientTextField setEnabled:YES];
+    [cell.contentView addSubview:ingredientTextField];
     
-/*    NSEntityDescription *recipeIngredientEntityDescription = [NSEntityDescription entityForName:@"RecipeIngredient" inManagedObjectContext:context];
+    [ingredientTextField addTarget:self
+                            action:@selector(textFieldInputDidChange:)
+                  forControlEvents:UIControlEventEditingChanged];
     
-    NSMutableSet* ingredients = [NSMutableSet new];
-    RecipeIngredient* ri1 = [[RecipeIngredient alloc] initWithEntity:recipeIngredientEntityDescription insertIntoManagedObjectContext:context];
-    ri1.unit = @"cups";
-    ri1.quantity = [NSNumber numberWithInt:1];
-    ri1.name = @"sugar";
-    [ingredients addObject: ri1];
-    
-    RecipeIngredient* ri2 = [[RecipeIngredient alloc] initWithEntity:recipeIngredientEntityDescription insertIntoManagedObjectContext:context];
-    ri2.unit = @"ounces";
-    ri2.quantity = [NSNumber numberWithInt:2];
-    ri2.name = @"water";
-    [ingredients addObject: ri2];
-    
-    recipe.recipeIngredients = ingredients;
- */
+    return cell;
+}
+
+- (void) textFieldInputDidChange:(UITextField *) textField
+{
+    RecipeIngredient* ingredient = self.recipeIngredients[textField.tag];
+    ingredient.name = textField.text;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    self.ingredientTextfieldTag = textField.tag;
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField;
+{
+    RecipeIngredient* ingredient = self.recipeIngredients[textField.tag];
+    ingredient.name = textField.text;
 }
 
 /*

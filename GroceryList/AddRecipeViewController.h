@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Recipe.h"
 
-@interface AddRecipeViewController : UIViewController
+@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property Recipe* recipe;
+@property NSMutableArray* recipeIngredients;
 @property (nonatomic) NSString* sourceSegue;
-
+@property long ingredientTextfieldTag;
+@property BOOL isUpdating;
+@property NSString* initialRecipeName;
 @end

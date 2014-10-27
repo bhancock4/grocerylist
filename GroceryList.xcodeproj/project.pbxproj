@@ -26,6 +26,9 @@
 		0DA596CE19E18068002EE12E /* RecipeIngredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA596CD19E18068002EE12E /* RecipeIngredient.m */; };
 		0DA596D119E1807E002EE12E /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA596D019E1807E002EE12E /* Recipe.m */; };
 		0DB57E9C19EB621900441BAF /* BaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB57E9B19EB621900441BAF /* BaseEntity.m */; };
+		0DDAAC1219FDE53600A79246 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDAAC1119FDE53600A79246 /* UIKit.framework */; };
+		0DDAAC1419FDE54000A79246 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDAAC1319FDE54000A79246 /* Foundation.framework */; };
+		0DDAAC1619FDE54C00A79246 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDAAC1519FDE54C00A79246 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +78,9 @@
 		0DA596D019E1807E002EE12E /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
 		0DB57E9A19EB621900441BAF /* BaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEntity.h; sourceTree = "<group>"; };
 		0DB57E9B19EB621900441BAF /* BaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEntity.m; sourceTree = "<group>"; };
+		0DDAAC1119FDE53600A79246 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0DDAAC1319FDE54000A79246 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0DDAAC1519FDE54C00A79246 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DDAAC1619FDE54C00A79246 /* CoreData.framework in Frameworks */,
+				0DDAAC1419FDE54000A79246 /* Foundation.framework in Frameworks */,
+				0DDAAC1219FDE53600A79246 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +107,9 @@
 		0D934B4619D6611F003A51BC = {
 			isa = PBXGroup;
 			children = (
+				0DDAAC1519FDE54C00A79246 /* CoreData.framework */,
+				0DDAAC1319FDE54000A79246 /* Foundation.framework */,
+				0DDAAC1119FDE53600A79246 /* UIKit.framework */,
 				0D934B8D19D67BC7003A51BC /* DataModel */,
 				0D934B5119D6611F003A51BC /* GroceryListUI */,
 				0D934B6E19D6611F003A51BC /* GroceryListTests */,
