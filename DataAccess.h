@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
+#import "BaseEntity.h"
 
 @interface DataAccess : NSObject
 
@@ -17,5 +18,4 @@
 - (NSArray *) getEntitiesByName: (NSString *) entityName;
 - (NSArray *) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate *) predicate;
 - (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty;
-
 @end

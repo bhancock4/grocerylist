@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Recipe.h"
+#import "AddRecipeViewController.h"
+#import "AppDelegate.h"
 
 @interface MyRecipesViewController : UITableViewController
 
-@property NSArray* recipes;
-- (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
+    @property Recipe* selectedRecipe;
+    @property NSArray* recipes;
+
+    - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
 
 @end
 

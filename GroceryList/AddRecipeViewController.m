@@ -7,35 +7,28 @@
 //
 
 #import "AddRecipeViewController.h"
-#import "AppDelegate.h"
-#import "Recipe.h"
-#import <QuartzCore/QuartzCore.h>
-
-@interface AddRecipeViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *recipeName;
-@property (weak, nonatomic) IBOutlet UIImageView *RecipeImage;
-@property (weak, nonatomic) IBOutlet UITextView *recipeDirections;
-@property (weak, nonatomic) IBOutlet UITableView *tableRecipeIngredients;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *btnAddIngredient;
-@end
 
 @implementation AddRecipeViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //initializeour array of ingredients
     self.recipeIngredients = [[NSMutableArray alloc] init];
     
+    //figure out if we got here by adding a new recipe or viewing/editing an existing one
     if([self.sourceSegue isEqualToString:@"ShowEditRecipe"])
     {
+        /* existing recipe, so let's set all the UI fields from the entity, which was given to us by the previous ViewController */
+        
+        //for now at least, prevent editing of an existing recipe's name property
         self.navigationItem.title = self.recipe.name;
-        self.recipeName.hidden = YES;
+        //self.recipeName.hidden = YES;
         self.recipeName.text = self.recipe.name;
-        self.recipeName.userInteractionEnabled = NO;
-        self.initialRecipeName = self.recipe.name;
+        //self.recipeName.userInteractionEnabled = NO;
+        //...set other fields
         self.recipeDirections.text = self.recipe.directions;
+        //set our ingredients array to the entity's recipeIngredients relationship property
         self.recipeIngredients = [NSMutableArray arrayWithArray:[self.recipe.recipeIngredients allObjects]];
         
         self.isUpdating = YES;
@@ -46,26 +39,40 @@
         
         self.isUpdating = NO;
     }
+    //add some styling to the text field to make it obvious what the boundaries are
     [[self.recipeDirections layer] setBorderColor:[[UIColor grayColor] CGColor]];
     [[self.recipeDirections layer] setBorderWidth:2.0];
     [[self.recipeDirections layer] setCornerRadius:10];
     
+    //set this ViewController as the delegate/datasource for the ingredients table
     self.tableRecipeIngredients.delegate = self;
     self.tableRecipeIngredients.dataSource = self;
+    //prevent ingredients table from showing extra lines
     self.tableRecipeIngredients.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self.tableRecipeIngredients registerNib:[UINib nibWithNibName:@"RecipeIngredientTableViewCell"
+                                      bundle:[NSBundle mainBundle]]
+                      forCellReuseIdentifier:@"RecipeIngredientTableViewCell"];
+    
+    self.tableRecipeIngredients.allowsMultipleSelectionDuringEditing = NO;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//button click to add a new ingredient to the recipe
 - (IBAction)handleAddIngredientClicked:(id)sender
 {
+    //instantiate a new ingredient entity
     RecipeIngredient* recipeIngredient = [RecipeIngredient newEntity];
     
-    recipeIngredient.unit = @"oz";
-    recipeIngredient.quantity = [NSNumber numberWithInt:1];
-    
+    //insert the new ingredient at the TOP of the table by putting it at the beginning of our local array
     [self.recipeIngredients insertObject:recipeIngredient atIndex:0];
 
+    //create in indexpath from the local array and use that to insert into the table
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.recipeIngredients indexOfObject:recipeIngredient] inSection:0];
-
     [self.tableRecipeIngredients
      insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
 }
@@ -77,20 +84,22 @@
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    
     BOOL shouldSegue = YES;
     
     if(self.isUpdating)
-        self.recipe = [Recipe getEntityByName:self.initialRecipeName];
+        self.recipe = [Recipe getEntityByName:self.recipe.name];
     else
         self.recipe = [Recipe newEntity];
     
+    //if whatever validation we need succeeds...
     if(nil != self.recipe && sender == self.saveButton && self.recipeName.text.length > 0)
     {
+        //set fields on the entity to be saved
         self.recipe.name = self.recipeName.text;
         self.recipe.directions = self.recipeDirections.text;
         self.recipe.recipeIngredients = [NSSet setWithArray: self.recipeIngredients];
         
+        //if something bad happens then display a pop-up error to the user
         if(![self.recipe saveEntity])
         {
             shouldSegue = NO;
@@ -105,53 +114,46 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [self.recipeIngredients count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"IngredientCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //add our custom cell
+    static NSString *CellIdentifier = @"RecipeIngredientTableViewCell";
+    RecipeIngredientTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    UITextField* ingredientTextField = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 275, 30)];
-    ingredientTextField.adjustsFontSizeToFitWidth = YES;
-    ingredientTextField.textColor = [UIColor blackColor];
-    ingredientTextField.text = ((RecipeIngredient *)[self.recipeIngredients objectAtIndex:indexPath.row]).name;
-    ingredientTextField.tag = indexPath.row;
-    ingredientTextField.delegate = self;
-    [ingredientTextField setEnabled:YES];
-    [cell.contentView addSubview:ingredientTextField];
+    //set the recipIngredient on the cell so it can manage changes to fields
+    cell.recipeIngredient = [self.recipeIngredients objectAtIndex:indexPath.row];
     
-    [ingredientTextField addTarget:self
-                            action:@selector(textFieldInputDidChange:)
-                  forControlEvents:UIControlEventEditingChanged];
+    //set the units UIPicker selected value based on the unit value of the RecipeIngredient entity
+    for(int i = 0; i < cell.pickerData.count; i++)
+    {
+        if([cell.pickerData[i] isEqualToString:cell.recipeIngredient.unit])
+        {
+            [cell.ingredientUnitsUIPickerView selectRow:i inComponent:0 animated:NO];
+        }
+    }
+    //set the other UI fields on the custom cell
+    cell.ingredientQuantityTextField.text = cell.recipeIngredient.quantity;
+    cell.ingredientNameTextField.text = cell.recipeIngredient.name;
     
     return cell;
 }
 
-- (void) textFieldInputDidChange:(UITextField *) textField
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RecipeIngredient* ingredient = self.recipeIngredients[textField.tag];
-    ingredient.name = textField.text;
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    self.ingredientTextfieldTag = textField.tag;
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField;
-{
-    RecipeIngredient* ingredient = self.recipeIngredients[textField.tag];
-    ingredient.name = textField.text;
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        //...this will only persist if we select "save" instead of "cancel"
+        [self.recipeIngredients removeObjectAtIndex:indexPath.row];
+        [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 /*

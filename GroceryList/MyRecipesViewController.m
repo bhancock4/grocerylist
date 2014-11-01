@@ -7,13 +7,8 @@
 //
 
 #import "MyRecipesViewController.h"
-#import "AddRecipeViewController.h"
-#import "Recipe.h"
-#import "AppDelegate.h"
 
 @interface MyRecipesViewController ()
-
-@property Recipe* selectedRecipe;
 
 @end
 
@@ -36,20 +31,25 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    //in the case where we're segue-ing from an existing recipe, we want to give the target ViewController a way to know that, so we set a property on that ViewController
     if([segue.identifier isEqualToString:@"ShowEditRecipe"])
     {
         AddRecipeViewController* addRecipeVC = (AddRecipeViewController *)segue.destinationViewController;
         NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
         addRecipeVC.sourceSegue = segue.identifier;
+        
+        //also, pass the selected recipe along to that ViewController
         addRecipeVC.recipe = [self.recipes objectAtIndex: indexPath.row];
     }
 }
 
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    //get the recipe we just looked at...
     AddRecipeViewController* source = [segue sourceViewController];
     Recipe* recipe = source.recipe;
-    
+    //...and if it's not null then reload our table
+    //i kind of think this whole method might be unnecessary
     if(recipe != nil)
     {
         self.recipes = [Recipe getEntities];
@@ -76,7 +76,7 @@
     
     //if(indexPath.row < [self.toDoItems count])
     
-        // Configure the cell
+    //set up the tableCell based on the recipe populating it
     Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
     cell.textLabel.text = recipe.name;
     cell.imageView.image = [UIImage imageNamed: @"Calendar"];

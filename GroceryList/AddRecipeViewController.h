@@ -8,13 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "Recipe.h"
+#import "AppDelegate.h"
+#import "Recipe.h"
+#import <QuartzCore/QuartzCore.h>
+#import "RecipeIngredientTableViewCell.h"
 
-@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate>
 
 @property Recipe* recipe;
 @property NSMutableArray* recipeIngredients;
+@property NSMutableArray* tempDeletedRecipeIngredients;
 @property (nonatomic) NSString* sourceSegue;
-@property long ingredientTextfieldTag;
 @property BOOL isUpdating;
-@property NSString* initialRecipeName;
+
+@property (weak, nonatomic) IBOutlet UITextField *recipeName;
+@property (weak, nonatomic) IBOutlet UIImageView *RecipeImage;
+@property (weak, nonatomic) IBOutlet UITextView *recipeDirections;
+@property (weak, nonatomic) IBOutlet UITableView *tableRecipeIngredients;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddIngredient;
+
 @end

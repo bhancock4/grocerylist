@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D92BA6F1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D92BA6D1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m */; };
+		0D92BA701A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D92BA6E1A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib */; };
 		0D934B5519D6611F003A51BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5419D6611F003A51BC /* main.m */; };
 		0D934B5819D6611F003A51BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5719D6611F003A51BC /* AppDelegate.m */; };
 		0D934B5B19D6611F003A51BC /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5A19D6611F003A51BC /* CalendarViewController.m */; };
@@ -42,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D92BA6C1A030D6C00AF7070 /* RecipeIngredientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeIngredientTableViewCell.h; sourceTree = "<group>"; };
+		0D92BA6D1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeIngredientTableViewCell.m; sourceTree = "<group>"; };
+		0D92BA6E1A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeIngredientTableViewCell.xib; sourceTree = "<group>"; };
 		0D934B4F19D6611F003A51BC /* GroceryList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroceryList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D934B5319D6611F003A51BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D934B5419D6611F003A51BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -145,6 +150,9 @@
 				0D934B7F19D666D6003A51BC /* SettingsViewController.m */,
 				0D934B8119D67496003A51BC /* AddRecipeViewController.h */,
 				0D934B8219D67496003A51BC /* AddRecipeViewController.m */,
+				0D92BA6C1A030D6C00AF7070 /* RecipeIngredientTableViewCell.h */,
+				0D92BA6D1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m */,
+				0D92BA6E1A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib */,
 			);
 			name = GroceryListUI;
 			path = GroceryList;
@@ -280,6 +288,7 @@
 			files = (
 				0D934B6119D6611F003A51BC /* Main.storyboard in Resources */,
 				0D934B6619D6611F003A51BC /* LaunchScreen.xib in Resources */,
+				0D92BA701A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib in Resources */,
 				0D934B6319D6611F003A51BC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +321,7 @@
 				0D934B5B19D6611F003A51BC /* CalendarViewController.m in Sources */,
 				0D934B8919D67B00003A51BC /* ShoppingList.m in Sources */,
 				0D934B9619D67EA7003A51BC /* DataModel.xcdatamodeld in Sources */,
+				0D92BA6F1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m in Sources */,
 				0D934B5519D6611F003A51BC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
