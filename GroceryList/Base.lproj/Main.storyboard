@@ -73,7 +73,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipe Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Hd-AL-bmG">
-                                <rect key="frame" x="16" y="72" width="288" height="30"/>
+                                <rect key="frame" x="60" y="75" width="242" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -105,12 +105,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4B1-3h-fL0">
-                                <rect key="frame" x="40" y="110" width="240" height="128"/>
+                                <rect key="frame" x="9" y="123" width="294" height="145"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pot_Gray" translatesAutoresizingMaskIntoConstraints="NO" id="2k5-fL-jsn">
+                                <rect key="frame" x="6" y="68" width="44" height="44"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkI-gm-ddn">
+                                <rect key="frame" x="6" y="68" width="44" height="44"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleRecipeImageButtonClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="vb3-EH-yD7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -128,9 +140,11 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="RecipeImage" destination="2k5-fL-jsn" id="Wdj-58-rjR"/>
                         <outlet property="btnAddIngredient" destination="A1e-yn-FYQ" id="ZbG-O4-67l"/>
                         <outlet property="cancelButton" destination="WLV-MZ-hnb" id="9nQ-ec-Bi1"/>
                         <outlet property="recipeDirections" destination="4B1-3h-fL0" id="7Er-2C-LHb"/>
+                        <outlet property="recipeImageButton" destination="AkI-gm-ddn" id="1eI-V5-Tpy"/>
                         <outlet property="recipeName" destination="5Hd-AL-bmG" id="uW3-yK-ywW"/>
                         <outlet property="saveButton" destination="OU1-B8-1XV" id="GlQ-F5-uYH"/>
                         <outlet property="tableRecipeIngredients" destination="z9v-Cd-phe" id="RUf-cP-NOl"/>
@@ -253,6 +267,7 @@
     </scenes>
     <resources>
         <image name="Calendar" width="30" height="30"/>
+        <image name="Pot_Gray" width="225" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Yw1-z4-36z"/>

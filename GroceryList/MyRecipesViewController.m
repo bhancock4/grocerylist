@@ -8,10 +8,6 @@
 
 #import "MyRecipesViewController.h"
 
-@interface MyRecipesViewController ()
-
-@end
-
 @implementation MyRecipesViewController
 
 - (void)viewDidLoad
@@ -19,8 +15,6 @@
     [super viewDidLoad];
     
     self.recipes = [Recipe getEntities];
-    //self.tableView.editing = YES;  //edit mode allows reordering
-    //self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,7 +43,6 @@
     AddRecipeViewController* source = [segue sourceViewController];
     Recipe* recipe = source.recipe;
     //...and if it's not null then reload our table
-    //i kind of think this whole method might be unnecessary
     if(recipe != nil)
     {
         self.recipes = [Recipe getEntities];
@@ -74,14 +67,20 @@
     static NSString *CellIdentifier = @"MyRecipesCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    //if(indexPath.row < [self.toDoItems count])
-    
     //set up the tableCell based on the recipe populating it
     Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
     cell.textLabel.text = recipe.name;
-    cell.imageView.image = [UIImage imageNamed: @"Calendar"];
+    if(nil == recipe.picture)
+        cell.imageView.image = [UIImage imageNamed: @"Calendar"];
+    else
+        cell.imageView.image = [UIImage imageWithData:recipe.picture];
 
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        return 66;
 }
 
 @end

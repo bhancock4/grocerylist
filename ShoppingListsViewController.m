@@ -8,10 +8,6 @@
 
 #import "ShoppingListsViewController.h"
 
-@interface ShoppingListsViewController ()
-
-@end
-
 @implementation ShoppingListsViewController
 
 - (void)viewDidLoad {

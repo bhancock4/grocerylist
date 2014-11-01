@@ -23,9 +23,8 @@
         
         //for now at least, prevent editing of an existing recipe's name property
         self.navigationItem.title = self.recipe.name;
-        //self.recipeName.hidden = YES;
         self.recipeName.text = self.recipe.name;
-        //self.recipeName.userInteractionEnabled = NO;
+        self.RecipeImage.image = [UIImage imageWithData:self.recipe.picture];
         //...set other fields
         self.recipeDirections.text = self.recipe.directions;
         //set our ingredients array to the entity's recipeIngredients relationship property
@@ -63,7 +62,7 @@
 }
 
 //button click to add a new ingredient to the recipe
-- (IBAction)handleAddIngredientClicked:(id)sender
+- (IBAction) handleAddIngredientClicked:(id)sender
 {
     //instantiate a new ingredient entity
     RecipeIngredient* recipeIngredient = [RecipeIngredient newEntity];
@@ -75,6 +74,30 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.recipeIngredients indexOfObject:recipeIngredient] inSection:0];
     [self.tableRecipeIngredients
      insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+}
+
+//button click to add or update recipe image
+- (IBAction)handleRecipeImageButtonClicked:(id)sender
+{
+    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage* chosenImage = info[UIImagePickerControllerEditedImage];
+    self.RecipeImage.image = chosenImage;
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,6 +119,7 @@
     {
         //set fields on the entity to be saved
         self.recipe.name = self.recipeName.text;
+        self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
         self.recipe.directions = self.recipeDirections.text;
         self.recipe.recipeIngredients = [NSSet setWithArray: self.recipeIngredients];
         

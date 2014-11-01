@@ -13,7 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "RecipeIngredientTableViewCell.h"
 
-@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate>
+@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property Recipe* recipe;
 @property NSMutableArray* recipeIngredients;
@@ -28,5 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddIngredient;
+@property (weak, nonatomic) IBOutlet UIButton *recipeImageButton;
 
 @end
