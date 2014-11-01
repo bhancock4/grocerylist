@@ -13,13 +13,17 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    //set the delegate/datasource for the fields on the UITableViewCell
     self.ingredientNameTextField.delegate = self;
-    self.ingredientNameTextField.tag = 2;
     self.ingredientQuantityTextField.delegate = self;
+    //set the tags so we know which textField is firing events
     self.ingredientQuantityTextField.tag = 1;
+    self.ingredientNameTextField.tag = 2;
+    
     self.ingredientUnitsUIPickerView.delegate = self;
     self.ingredientUnitsUIPickerView.dataSource = self;
     
+    //add listeners to the textChanged events on both text fields
     [self.ingredientQuantityTextField addTarget:self
                             action:@selector(textFieldInputDidChange:)
                   forControlEvents:UIControlEventEditingChanged];
@@ -30,6 +34,7 @@
     
     self.ingredientUnitsUIPickerView.transform = CGAffineTransformMakeScale(.4, 0.4);
     
+    //hard-code sone picker data while developing
     self.pickerData = @[@"", @"oz", @"tsp", @"tbs", @"cups", @"lbs"];
 }
 
