@@ -40,8 +40,8 @@
     }
     
     //allow keyboard to be dismissed with a "Done" button
-    [self.recipeName setReturnKeyType:UIReturnKeyDone];
-    [self.recipeDirections setReturnKeyType:UIReturnKeyDone];
+    [self addDoneToolBarToTextFieldKeyboard: self.recipeName];
+    [self addDoneToolBarToTextViewKeyboard: self.recipeDirections];
     
     //add some styling to the text field to make it obvious what the boundaries are
     [[self.recipeDirections layer] setBorderColor:[[UIColor grayColor] CGColor]];
@@ -69,6 +69,36 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (UIToolbar *) getDoneKeyboardToolbar
+{
+    UIToolbar* doneToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    doneToolbar.barStyle = UIBarStyleDefault;
+    doneToolbar.items = [NSArray arrayWithObjects:
+                         [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                         [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonClickedDismissKeyboard)],
+                         nil];
+    [doneToolbar sizeToFit];
+    return doneToolbar;
+}
+
+-(void)addDoneToolBarToTextFieldKeyboard:(UITextField *) textField
+{
+    UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
+    textField.inputAccessoryView = doneToolbar;
+}
+
+-(void)addDoneToolBarToTextViewKeyboard:(UITextView *) textView
+{
+    UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
+    textView.inputAccessoryView = doneToolbar;
+}
+
+-(void)doneButtonClickedDismissKeyboard
+{
+    [self.recipeName resignFirstResponder];
+    [self.recipeDirections resignFirstResponder];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

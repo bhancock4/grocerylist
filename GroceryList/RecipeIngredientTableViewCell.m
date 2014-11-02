@@ -32,9 +32,9 @@
                             action:@selector(textFieldInputDidChange:)
                   forControlEvents:UIControlEventEditingChanged];
     
-    //set the return key type for the keyboard to "Done"
-    [self.ingredientNameTextField setReturnKeyType:UIReturnKeyDone];
-    [self.ingredientQuantityTextField setReturnKeyType:UIReturnKeyDone];
+    //allow keyboard to be dismissed with a "Done" button
+    [self addDoneToolBarToTextFieldKeyboard: self.ingredientQuantityTextField];
+    [self addDoneToolBarToTextFieldKeyboard: self.ingredientNameTextField];
     
     //keep undselected picker wheel from appearing outside cell bounds
     self.clipsToBounds = YES;
@@ -43,7 +43,32 @@
     self.pickerData = @[@"", @"tsp", @"tbs", @"cups", @"oz", @"lbs"];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (UIToolbar *) getDoneKeyboardToolbar
+{
+    UIToolbar* doneToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    doneToolbar.barStyle = UIBarStyleDefault;
+    doneToolbar.items = [NSArray arrayWithObjects:
+                         [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                         [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonClickedDismissKeyboard)],
+                         nil];
+    [doneToolbar sizeToFit];
+    return doneToolbar;
+}
+
+-(void)addDoneToolBarToTextFieldKeyboard:(UITextField *) textField
+{
+    UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
+    textField.inputAccessoryView = doneToolbar;
+}
+
+-(void)doneButtonClickedDismissKeyboard
+{
+    [self.ingredientQuantityTextField resignFirstResponder];
+    [self.ingredientNameTextField resignFirstResponder];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
