@@ -13,7 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "RecipeIngredientTableViewCell.h"
 
-@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property Recipe* recipe;
 @property NSMutableArray* recipeIngredients;

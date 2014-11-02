@@ -14,7 +14,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ABB-1V-YlQ">
-                        <rect key="frame" x="0.0" y="5" width="41" height="30"/>
+                        <rect key="frame" x="0.0" y="7" width="41" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
@@ -24,7 +24,7 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFE-8d-Yte">
-                        <rect key="frame" x="35" y="-66" width="70" height="162"/>
+                        <rect key="frame" x="43" y="-59" width="55" height="162"/>
                     </pickerView>
                 </subviews>
             </tableViewCellContentView>

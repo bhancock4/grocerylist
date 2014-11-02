@@ -38,10 +38,19 @@
         
         self.isUpdating = NO;
     }
+    
+    //allow keyboard to be dismissed with a "Done" button
+    [self.recipeName setReturnKeyType:UIReturnKeyDone];
+    [self.recipeDirections setReturnKeyType:UIReturnKeyDone];
+    
     //add some styling to the text field to make it obvious what the boundaries are
     [[self.recipeDirections layer] setBorderColor:[[UIColor grayColor] CGColor]];
     [[self.recipeDirections layer] setBorderWidth:2.0];
     [[self.recipeDirections layer] setCornerRadius:10];
+    
+    //set this ViewController as the delegate for the text fields
+    self.recipeName.delegate = self;
+    self.recipeDirections.delegate = self;
     
     //set this ViewController as the delegate/datasource for the ingredients table
     self.tableRecipeIngredients.delegate = self;
@@ -54,6 +63,12 @@
                       forCellReuseIdentifier:@"RecipeIngredientTableViewCell"];
     
     self.tableRecipeIngredients.allowsMultipleSelectionDuringEditing = NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,10 +124,15 @@
 {
     BOOL shouldSegue = YES;
     
-    if(self.isUpdating)
-        self.recipe = [Recipe getEntityByName:self.recipe.name];
+    if(sender == self.cancelButton)
+        self.recipe = nil;
     else
-        self.recipe = [Recipe newEntity];
+    {
+        if(self.isUpdating)
+            self.recipe = [Recipe getEntityByName:self.recipe.name];
+        else
+            self.recipe = [Recipe newEntity];
+    }
     
     //if whatever validation we need succeeds...
     if(nil != self.recipe && sender == self.saveButton && self.recipeName.text.length > 0)

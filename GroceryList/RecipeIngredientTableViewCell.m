@@ -32,10 +32,15 @@
                             action:@selector(textFieldInputDidChange:)
                   forControlEvents:UIControlEventEditingChanged];
     
-    self.ingredientUnitsUIPickerView.transform = CGAffineTransformMakeScale(.4, 0.4);
+    //set the return key type for the keyboard to "Done"
+    [self.ingredientNameTextField setReturnKeyType:UIReturnKeyDone];
+    [self.ingredientQuantityTextField setReturnKeyType:UIReturnKeyDone];
+    
+    //keep undselected picker wheel from appearing outside cell bounds
+    self.clipsToBounds = YES;
     
     //hard-code sone picker data while developing
-    self.pickerData = @[@"", @"oz", @"tsp", @"tbs", @"cups", @"lbs"];
+    self.pickerData = @[@"", @"tsp", @"tbs", @"cups", @"oz", @"lbs"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -64,6 +69,18 @@
     self.recipeIngredient.unit = [self.pickerData objectAtIndex:row];
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel* labelUnits = (UILabel*)view;
+    if (!labelUnits)
+    {
+        labelUnits = [[UILabel alloc] init];
+        labelUnits.adjustsFontSizeToFitWidth = YES;
+    }
+    labelUnits.text = self.pickerData[row];
+    return labelUnits;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 {
     [self setEntityValueFromTextField:textField];
@@ -72,6 +89,12 @@
 - (void) textFieldInputDidChange:(UITextField *) textField
 {
     [self setEntityValueFromTextField:textField];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
 }
 
 - (void) setEntityValueFromTextField:(UITextField *) textField
