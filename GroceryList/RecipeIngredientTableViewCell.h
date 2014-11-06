@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RecipeIngredient.h"
+#import "AddRecipeViewController.h"
 
 @interface RecipeIngredientTableViewCell : UITableViewCell <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 

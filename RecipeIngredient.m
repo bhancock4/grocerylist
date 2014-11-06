@@ -15,6 +15,7 @@
 @dynamic name;
 @dynamic quantity;
 @dynamic unit;
+@dynamic order;
 @dynamic ingredient;
 @dynamic recipe;
 

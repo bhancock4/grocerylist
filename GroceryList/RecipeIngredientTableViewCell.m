@@ -106,6 +106,19 @@
     return labelUnits;
 }
 
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField
+{
+    id view = [self superview];
+    
+    while (view && [view isKindOfClass:[UITableView class]] == NO)
+        view = [view superview];
+    
+    UITableView* tableView = (UITableView *)view;
+    ((AddRecipeViewController *)tableView.delegate).selectedIngredientRow = self.recipeIngredient.order;
+    
+    return YES;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 {
     [self setEntityValueFromTextField:textField];

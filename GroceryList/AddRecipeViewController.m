@@ -5,7 +5,7 @@
 //  Created by Benjamin Hancock on 9/26/14.
 //  Copyright (c) 2014 Ben Hancock. All rights reserved.
 //
-
+#define kOFFSET_FOR_KEYBOARD 80.0
 #import "AddRecipeViewController.h"
 
 @implementation AddRecipeViewController
@@ -13,6 +13,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     //initializeour array of ingredients
     self.recipeIngredients = [[NSMutableArray alloc] init];
     
@@ -29,14 +30,14 @@
         self.recipeDirections.text = self.recipe.directions;
         //set our ingredients array to the entity's recipeIngredients relationship property
         self.recipeIngredients = [NSMutableArray arrayWithArray:[self.recipe.recipeIngredients allObjects]];
-        
-        self.isUpdating = YES;
+
+        self.isExistingRecipe = YES;
     }
     else
     {
         self.recipeName.selected = YES;
         
-        self.isUpdating = NO;
+        self.isExistingRecipe = NO;
     }
     
     //allow keyboard to be dismissed with a "Done" button
@@ -111,6 +112,12 @@
 {
     //instantiate a new ingredient entity
     RecipeIngredient* recipeIngredient = [RecipeIngredient newEntity];
+  
+    recipeIngredient.order = 0;
+    for(int i = 0; i < self.recipeIngredients.count; i++)
+    {
+        ++((RecipeIngredient *)self.recipeIngredients[i]).order;
+    }
     
     //insert the new ingredient at the TOP of the table by putting it at the beginning of our local array
     [self.recipeIngredients insertObject:recipeIngredient atIndex:0];
@@ -158,7 +165,7 @@
         self.recipe = nil;
     else
     {
-        if(self.isUpdating)
+        if(self.isExistingRecipe)
             self.recipe = [Recipe getEntityByName:self.recipe.name];
         else
             self.recipe = [Recipe newEntity];
@@ -230,6 +237,87 @@
     }
 }
 
+-(void)keyboardWillShow {
+    // Animate the current view out of the way
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)keyboardWillHide {
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+//method to move the view up/down whenever the keyboard is shown/dismissed
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    int cellIndex = self.selectedIngredientRow < 4 ? self.selectedIngredientRow : 4;
+    int keyboardOffset = kOFFSET_FOR_KEYBOARD + (cellIndex * 44);
+    
+    CGRect rect = self.view.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= keyboardOffset;
+        rect.size.height += keyboardOffset;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += keyboardOffset;
+        rect.size.height -= keyboardOffset;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+ 
+ 
 /*
 #pragma mark - Navigation
 

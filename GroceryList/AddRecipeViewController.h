@@ -19,7 +19,8 @@
 @property NSMutableArray* recipeIngredients;
 @property NSMutableArray* tempDeletedRecipeIngredients;
 @property (nonatomic) NSString* sourceSegue;
-@property BOOL isUpdating;
+@property BOOL isExistingRecipe;
+@property int16_t selectedIngredientRow;
 
 @property (weak, nonatomic) IBOutlet UITextField *recipeName;
 @property (weak, nonatomic) IBOutlet UIImageView *RecipeImage;

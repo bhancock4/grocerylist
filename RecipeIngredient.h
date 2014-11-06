@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString * quantity;
 @property (nonatomic, retain) NSString * unit;
-@property (nonatomic) NSInteger* order;
+@property (nonatomic) int16_t order;
 @property (nonatomic, retain) Ingredient *ingredient;
 @property (nonatomic, retain) Recipe *recipe;
 
