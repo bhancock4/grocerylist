@@ -17,9 +17,23 @@
         <relationship name="ingredient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ingredient" syncable="YES"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="recipeIngredients" inverseEntity="Recipe" syncable="YES"/>
     </entity>
+    <entity name="ShoppingList" representedClassName="ShoppingList" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shoppingListIngredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShoppingListIngredient" inverseName="shoppingList" inverseEntity="ShoppingListIngredient" syncable="YES"/>
+    </entity>
+    <entity name="ShoppingListIngredient" representedClassName="ShoppingListIngredient" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ingredient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ingredient" syncable="YES"/>
+        <relationship name="shoppingList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingList" inverseName="shoppingListIngredients" inverseEntity="ShoppingList" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Ingredient" positionX="-315" positionY="-22" width="128" height="58"/>
-        <element name="Recipe" positionX="61" positionY="-85" width="128" height="105"/>
-        <element name="RecipeIngredient" positionX="-162" positionY="-139" width="128" height="135"/>
+        <element name="Recipe" positionX="34" positionY="-139" width="128" height="103"/>
+        <element name="RecipeIngredient" positionX="-162" positionY="-99" width="128" height="135"/>
+        <element name="ShoppingList" positionX="34" positionY="-270" width="128" height="58"/>
+        <element name="ShoppingListIngredient" positionX="-162" positionY="-280" width="128" height="133"/>
     </elements>
 </model>

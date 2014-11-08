@@ -123,6 +123,15 @@
                                     <action selector="handleRecipeImageButtonClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="vb3-EH-yD7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLG-fE-BzF">
+                                <rect key="frame" x="218" y="277" width="90" height="30"/>
+                                <state key="normal" title="Add to list">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleAddToListClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="CHp-db-eS5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -140,6 +149,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="AddToList" destination="KLG-fE-BzF" id="CHB-VG-3Vp"/>
                         <outlet property="RecipeImage" destination="2k5-fL-jsn" id="Wdj-58-rjR"/>
                         <outlet property="btnAddIngredient" destination="A1e-yn-FYQ" id="ZbG-O4-67l"/>
                         <outlet property="cancelButton" destination="WLV-MZ-hnb" id="9nQ-ec-Bi1"/>

@@ -16,6 +16,7 @@
 
     //initializeour array of ingredients
     self.recipeIngredients = [[NSMutableArray alloc] init];
+    self.shoppingListIngredients = [NSMutableArray new];
     
     //figure out if we got here by adding a new recipe or viewing/editing an existing one
     if([self.sourceSegue isEqualToString:@"ShowEditRecipe"])
@@ -66,12 +67,14 @@
     self.tableRecipeIngredients.allowsMultipleSelectionDuringEditing = NO;
 }
 
+//give up focus when return key is pressed on keyboard
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
 }
 
+//construct an instance of a UIToolBar for the keyboard that contains a "Done" button
 - (UIToolbar *) getDoneKeyboardToolbar
 {
     UIToolbar* doneToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -84,23 +87,28 @@
     return doneToolbar;
 }
 
+//tried doing this with UIControl instead of 2 methods, but apparently the inputAccessoryView
+//property is readonly on that class
 -(void)addDoneToolBarToTextFieldKeyboard:(UITextField *) textField
 {
     UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
     textField.inputAccessoryView = doneToolbar;
 }
 
+//see above comment
 -(void)addDoneToolBarToTextViewKeyboard:(UITextView *) textView
 {
     UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
     textView.inputAccessoryView = doneToolbar;
 }
 
+//dismiss keyboard when done button is clicked
 -(void)doneButtonClickedDismissKeyboard
 {
     [self.recipeName resignFirstResponder];
     [self.recipeDirections resignFirstResponder];
 }
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -237,27 +245,32 @@
     }
 }
 
--(void)keyboardWillShow {
-    // Animate the current view out of the way
-    if (self.view.frame.origin.y >= 0)
+-(void)keyboardWillShow
+{
+    for(UIView* view in self.view.subviews)
     {
-        [self setViewMovedUp:YES];
+        if(view.isFirstResponder)
+        {
+            if(view == self.recipeName || view == self.recipeDirections)
+                return;
+        }
     }
-    else if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
+    
+    [self setViewMovedUp: self.view.frame.origin.y >= 0];
 }
 
--(void)keyboardWillHide {
-    if (self.view.frame.origin.y >= 0)
+-(void)keyboardWillHide
+{
+    for(UIView* view in self.view.subviews)
     {
-        [self setViewMovedUp:YES];
+        if(view.isFirstResponder)
+        {
+            if(view == self.recipeName || view == self.recipeDirections)
+                return;
+        }
     }
-    else if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
+
+    [self setViewMovedUp: self.view.frame.origin.y >= 0];
 }
 
 //method to move the view up/down whenever the keyboard is shown/dismissed
@@ -288,7 +301,7 @@
     [UIView commitAnimations];
 }
 
-
+//register listeners for keyboard event notifications before view is loaded
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -304,6 +317,7 @@
                                                object:nil];
 }
 
+//remove listeners for keyboard event notifications when view is being destroyed
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -316,8 +330,48 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
- 
- 
+
+//button click to add a new ingredient to the recipe
+- (IBAction) handleAddToListClicked:(id)sender
+{
+    ShoppingList* sl = [ShoppingList getEntityByName:@"TestList"];
+    if(sl == nil)
+    {
+        sl = [ShoppingList newEntity];
+        sl.name = @"TestList";
+    }
+    if(sl.shoppingListIngredients.count > 0)
+        self.shoppingListIngredients = [NSMutableArray arrayWithArray:[sl.shoppingListIngredients allObjects]];
+    else
+        self.shoppingListIngredients = [NSMutableArray new];
+    
+    for(RecipeIngredient* ri in self.recipeIngredients)
+    {
+        BOOL foundIngredient = NO;
+        for(ShoppingListIngredient* sli in sl.shoppingListIngredients)
+        {
+            if([sli.name isEqualToString:ri.name])
+            {
+                foundIngredient = YES;
+                sli.unit = ri.unit;
+                sli.quantity = [NSString stringWithFormat:@"%d", [sli.quantity intValue] + [ri.quantity intValue]];
+                [self.shoppingListIngredients addObject:sli];
+            }
+        }
+        if(!foundIngredient)
+        {
+            ShoppingListIngredient* shoppingListIngredient = [ShoppingListIngredient newEntity];
+            shoppingListIngredient.name = ri.name;
+            shoppingListIngredient.unit = ri.unit;
+            shoppingListIngredient.quantity = ri.quantity;
+            [self.shoppingListIngredients addObject: shoppingListIngredient];
+        }
+        foundIngredient = NO;
+    }
+    sl.shoppingListIngredients = [NSSet setWithArray: self.shoppingListIngredients];
+    [sl saveEntity];
+}
+
 /*
 #pragma mark - Navigation
 

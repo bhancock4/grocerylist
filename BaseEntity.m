@@ -20,7 +20,8 @@
 {
     DataAccess* da = [DataAccess sharedDataAccess];
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"(name = %@)", name];
-    return [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate:predicate][0];
+    NSArray* objects = [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate:predicate];
+    return objects.count == 0 ? nil : objects[0];
 }
 
 + (BaseEntity *) newEntity
