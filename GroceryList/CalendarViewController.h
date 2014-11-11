@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBCalendarKit/CalendarKit.h"
 
-@interface CalendarViewController : UIViewController
-
+@interface CalendarViewController : UIViewController <CKCalendarViewDelegate, CKCalendarViewDataSource>
 
 @end
 

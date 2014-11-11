@@ -8,15 +8,24 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
-
-@end
-
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
+    
+    ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
+    ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Calendar"];
+    ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"Calendar"];
+    ((UITabBarItem *)tabBarController.tabBar.items[3]).selectedImage = [UIImage imageNamed:@"Calendar"];
+   
+    // Override point for customization after application launch.
+    return YES;
+}
 
 // 1
 - (NSManagedObjectContext *) managedObjectContext {
@@ -62,18 +71,6 @@
 
 - (NSString *)applicationDocumentsDirectory {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
-    ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
-    ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Calendar"];
-    ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"Calendar"];
-    ((UITabBarItem *)tabBarController.tabBar.items[3]).selectedImage = [UIImage imageNamed:@"Calendar"];
-    
-    // Override point for customization after application launch.
-    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
