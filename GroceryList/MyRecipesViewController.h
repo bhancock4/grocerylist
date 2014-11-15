@@ -10,13 +10,19 @@
 #import "Recipe.h"
 #import "AddRecipeViewController.h"
 #import "AppDelegate.h"
+#import "CalendarDay.h"
 
 @interface MyRecipesViewController : UITableViewController
 
-    @property Recipe* selectedRecipe;
-    @property NSArray* recipes;
+@property Recipe* selectedRecipe;
+@property NSArray* recipes;
+@property (nonatomic) NSString* sourceSegue;
+@property BOOL isInMultiSelectMode;
+@property NSMutableArray* selectedRecipes;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property CalendarDay* calendarDay;
 
-    - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
+- (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
 
 @end
 

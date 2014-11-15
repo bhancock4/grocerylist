@@ -1,0 +1,55 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+/********  General/Shared  **************************************************************/
++ need to implement general utility algorithm to add a recipe to the shopping list
++ need to come up with and implement visual styling
++ create app icon
++ come up with app name
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/********  Calendar  ********************************************************************/
++ why is the embedded navigation controller a darker shade of gray?
++ need ability to add recipes for selected date(s) to shopping list
++ need ability to multi-select dates for shopping list add
++ need ability to remove recipes from dates
+
+- like to add indicator for days added to shopping list?
+- like to change number of indicator dots to reflect associated recipes
+- like ability to re-order recipes for a date
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/********  Recipes  *********************************************************************/
++ need to show/hide + and Done buttons on nav bar based on isInMultiSelectMode
++ need validation on required fields
++ need to change/move button to add to shopping list
++ need to add ability to add image from camera roll as well as camera
++ need to implement auto-complete for ingredient names when adding
++ need ability to re-order ingredients in recipe
++ need to add search to recipe list
++ need to add ability to delete recipes
++ need ability to re-order recipes in list
+
+- like to add separate view vs. edit modes
+- like to add option to view (or multi-select) as collection view (just images?)
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/********  Shopping List  ***************************************************************/
++ need to populate list from data
++ need ability to add new items
++ need ability to delete items
++ need ability to re-order items in the list
++ need ability to "check off" items"
++ need to implement custom cell for adding/checking off items
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/********  Settings  ********************************************************************/
++ need to add place to add/remove/edit list of units for ingredients
+
+
+
+
+
+
+
+
+
+

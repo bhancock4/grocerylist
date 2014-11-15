@@ -15,12 +15,41 @@
     [super viewDidLoad];
     
     self.recipes = [Recipe getEntities];
+    
+    self.isInMultiSelectMode = NO;
+    
+    //figure out if we got here by adding a new recipe or viewing/editing an existing one
+    if([self.sourceSegue isEqualToString:@"SelectRecipesForCalendar"])
+    {
+        self.isInMultiSelectMode = YES;
+        self.selectedRecipes = [NSMutableArray new];
+        //NSMutableArray* toolBarButtons = [self.toolbarItems mutableCopy];
+        //[toolBarButtons removeObject:self.doneButton];
+        //[self setToolbarItems: toolBarButtons animated: NO];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    BOOL shouldSegue = YES;
+    if(self.isInMultiSelectMode)
+    {
+        if(nil != identifier)
+            shouldSegue = NO;
+        else
+        {
+            self.calendarDay.recipes = [NSSet setWithArray: self.selectedRecipes];
+            [self.calendarDay saveEntity];
+        }
+    }
+    return shouldSegue;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -50,6 +79,9 @@
     }
 }
 
+- (IBAction)unwindToCalendar:(id)sender {
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -74,8 +106,43 @@
         cell.imageView.image = [UIImage imageNamed: @"Calendar"];
     else
         cell.imageView.image = [UIImage imageWithData:recipe.picture];
-
+    
+    if(self.isInMultiSelectMode)
+    {
+        for(Recipe* selectedRecipe in self.selectedRecipes)
+        {
+            if([selectedRecipe.name isEqualToString:recipe.name])
+            {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                break;
+            }
+            else
+                cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
     return cell;
+}
+
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.isInMultiSelectMode)
+    {
+        Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
+        BOOL foundRecipe = NO;
+        for(Recipe* selectedRecipe in self.selectedRecipes)
+        {
+            if([selectedRecipe.name isEqualToString:recipe.name])
+            {
+                foundRecipe = YES;
+                [self.selectedRecipes removeObject:selectedRecipe];
+                break;
+            }
+        }
+        if(!foundRecipe)
+            [self.selectedRecipes addObject:recipe];
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

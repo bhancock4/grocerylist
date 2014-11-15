@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CalendarDay" representedClassName="CalendarDay" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="recipes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="calendarDay" inverseEntity="Recipe" syncable="YES"/>
+    </entity>
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Recipe" representedClassName="Recipe" syncable="YES">
+        <attribute name="calendarOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="directions" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="recipeOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="calendarDay" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CalendarDay" inverseName="recipes" inverseEntity="CalendarDay" syncable="YES"/>
         <relationship name="recipeIngredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecipeIngredient" inverseName="recipe" inverseEntity="RecipeIngredient" syncable="YES"/>
     </entity>
     <entity name="RecipeIngredient" representedClassName="RecipeIngredient" syncable="YES">
@@ -30,8 +37,9 @@
         <relationship name="shoppingList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingList" inverseName="shoppingListIngredients" inverseEntity="ShoppingList" syncable="YES"/>
     </entity>
     <elements>
+        <element name="CalendarDay" positionX="9" positionY="62" width="128" height="73"/>
         <element name="Ingredient" positionX="-315" positionY="-22" width="128" height="58"/>
-        <element name="Recipe" positionX="34" positionY="-139" width="128" height="103"/>
+        <element name="Recipe" positionX="34" positionY="-139" width="128" height="148"/>
         <element name="RecipeIngredient" positionX="-162" positionY="-99" width="128" height="135"/>
         <element name="ShoppingList" positionX="34" positionY="-270" width="128" height="58"/>
         <element name="ShoppingListIngredient" positionX="-162" positionY="-280" width="128" height="133"/>

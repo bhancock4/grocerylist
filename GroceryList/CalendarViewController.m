@@ -16,6 +16,7 @@
     
     //programmatially create/setup instance of the MBCalendarKit calendar/tableview object
     CKCalendarView* calendar = [[CKCalendarView alloc] initWithMode:CKCalendarViewModeMonth];
+    self.calendar = calendar;
     calendar.delegate = self;
     calendar.dataSource = self;
     //add the calendar the the UI
@@ -31,24 +32,50 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"SelectRecipesForCalendar"])
+    {
+        UINavigationController* navController = segue.destinationViewController;
+        MyRecipesViewController* myRecipesVC = (MyRecipesViewController *)([navController viewControllers][0]);
+        myRecipesVC.sourceSegue = segue.identifier;
+        myRecipesVC.calendarDay = self.selectedCalendarDay;
+    }
+}
+
+//populate date entry with the recipes
 - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
 {
-    //testing code...adds two bogus CKCalendarEvents on the day 5 days from now
-    NSDateComponents* dateComps1 = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
-    
-    NSDateComponents* dateComps2 = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[[NSDate date] dateByAddingTimeInterval:60*60*24*5]];
-    
-    NSDate* date1 = [[NSCalendar currentCalendar] dateFromComponents:dateComps1];
-    NSDate* date2 = [[NSCalendar currentCalendar] dateFromComponents:dateComps2];
-    
-    if([date1 isEqualToDate:date2])
+    CalendarDay* calendarDay = [CalendarDay getEntityByDate:date];
+    if(nil != calendarDay && calendarDay.recipes.count > 0)
     {
-        CKCalendarEvent* event1 = [CKCalendarEvent eventWithTitle:@"Test Event1" andDate:date andInfo:nil ];
-        CKCalendarEvent* event2 = [CKCalendarEvent eventWithTitle:@"Test Event2" andDate:date andInfo:nil ];
-        
-        return [NSArray arrayWithObjects:event1, event2, nil];
+        NSArray* recipes = [calendarDay.recipes allObjects];
+        NSMutableArray* recipeEvents = [NSMutableArray new];
+        for(Recipe* recipe in recipes)
+        {
+            CKCalendarEvent* recipeEvent = [CKCalendarEvent eventWithTitle: recipe.name andDate: date andInfo: nil];
+            recipeEvent.picture = recipe.picture;
+            [recipeEvents addObject:recipeEvent];
+        }
+        return recipeEvents;
     }
     return nil;
 }
+
+- (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self.calendar reload];
+}
+
+- (void) calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date
+{
+    self.selectedCalendarDay = [CalendarDay getEntityByDate:date];
+    if(nil == self.selectedCalendarDay)
+    {
+        self.selectedCalendarDay = [CalendarDay newEntity];
+        self.selectedCalendarDay.date = date;
+    }
+}
+
 
 @end

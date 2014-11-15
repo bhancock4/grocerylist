@@ -17,5 +17,5 @@
 + (id)sharedDataAccess;
 - (NSArray *) getEntitiesByName: (NSString *) entityName;
 - (NSArray *) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate *) predicate;
-- (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty;
+- (NSArray*) getEntitiesByValue: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty;
 @end

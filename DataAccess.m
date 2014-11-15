@@ -36,15 +36,15 @@
 
 - (NSArray *) getEntitiesByName: (NSString *) entityName
 {
-    return [self getEntitiesByName:entityName WithPredicate:nil AndSortByProperty:nil];
+    return [self getEntitiesByValue:entityName WithPredicate:nil AndSortByProperty:nil];
 }
 
 - (NSArray *) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate *) predicate
 {
-    return [self getEntitiesByName:entityName WithPredicate:predicate AndSortByProperty:nil];
+    return [self getEntitiesByValue:entityName WithPredicate:predicate AndSortByProperty:nil];
 }
 
-- (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty
+- (NSArray*) getEntitiesByValue: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty
 {
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext* context = [appDelegate managedObjectContext];

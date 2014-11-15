@@ -21,6 +21,8 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSData * picture;
 @property (nonatomic, retain) NSSet *recipeIngredients;
+@property (nonatomic) int16_t recipeOrder;
+@property (nonatomic) int16_t calendarOrder;
 @end
 
 @interface Recipe (CoreDataGeneratedAccessors)
