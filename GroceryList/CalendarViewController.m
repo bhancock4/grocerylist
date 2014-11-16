@@ -53,8 +53,7 @@
         NSMutableArray* recipeEvents = [NSMutableArray new];
         for(Recipe* recipe in recipes)
         {
-            CKCalendarEvent* recipeEvent = [CKCalendarEvent eventWithTitle: recipe.name andDate: date andInfo: nil];
-            recipeEvent.picture = recipe.picture;
+            CKCalendarEvent* recipeEvent = [CKCalendarEvent eventWithTitle: recipe.name andDate: date andInfo: nil andImage:recipe.picture];
             [recipeEvents addObject:recipeEvent];
         }
         return recipeEvents;
