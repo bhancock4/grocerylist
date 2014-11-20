@@ -1,1 +1,1 @@
-pod 'MBCalendarKit', '~>2.2.2'
+pod 'MBCalendarKit', :git => 'https://github.com/MosheBerman/MBCalendarKit.git'
