@@ -66,5 +66,19 @@
     return objects;
 }
 
+- (void) deleteEntity: (BaseEntity *) deletedEntity
+{
+    AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext* context = [appDelegate managedObjectContext];
+    //[self getEntitiesByValue:entityName WithPredicate:predicate AndSortByProperty:nil]
+    NSArray* deletedEntityArray = [self getEntitiesByValue: NSStringFromClass([deletedEntity class]) WithPredicate: [NSPredicate predicateWithFormat: @"(name = %@)", deletedEntity.name] AndSortByProperty: nil];
+    
+    if(deletedEntityArray.count == 1)
+    {
+        [context deleteObject: deletedEntityArray[0]];
+        NSError* error;
+        [context save:&error];
+    }
+}
 
 @end

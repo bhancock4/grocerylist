@@ -14,7 +14,7 @@
 {
     [super viewDidLoad];
     
-    self.recipes = [Recipe getEntities];
+    self.recipes = [[Recipe getEntities] mutableCopy];
     
     self.isInMultiSelectMode = NO;
     
@@ -79,7 +79,9 @@
     }
 }
 
-- (IBAction)unwindToCalendar:(id)sender {
+- (IBAction)unwindToCalendar:(id)sender
+{
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -149,5 +151,19 @@
 {
         return 66;
 }
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [Recipe deleteEntity: [self.recipes objectAtIndex:indexPath.row]];
+        [self.recipes removeObjectAtIndex:indexPath.row];
+        
+        // Delete the row from the table view
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
 
 @end

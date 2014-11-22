@@ -14,6 +14,7 @@
 {
     [super viewDidLoad];
 
+    self.keyboardIsShown = NO;
     //initializeour array of ingredients
     self.recipeIngredients = [[NSMutableArray alloc] init];
     self.shoppingListIngredients = [NSMutableArray new];
@@ -247,20 +248,24 @@
 
 -(void)keyboardWillShow
 {
-    for(UIView* view in self.view.subviews)
+    if(!self.keyboardIsShown)
     {
-        if(view.isFirstResponder)
+        self.keyboardIsShown = YES;
+        for(UIView* view in self.view.subviews)
         {
-            if(view == self.recipeName || view == self.recipeDirections)
-                return;
+            if(view.isFirstResponder)
+            {
+                if(view == self.recipeName || view == self.recipeDirections)
+                    return;
+            }
         }
+        [self setViewMovedUp: self.view.frame.origin.y >= 0];
     }
-    
-    [self setViewMovedUp: self.view.frame.origin.y >= 0];
 }
 
 -(void)keyboardWillHide
 {
+    self.keyboardIsShown = NO;
     for(UIView* view in self.view.subviews)
     {
         if(view.isFirstResponder)
@@ -332,44 +337,9 @@
 }
 
 //button click to add a new ingredient to the recipe
-- (IBAction) handleAddToListClicked:(id)sender
+- (IBAction)AddToList:(id)sender 
 {
-    ShoppingList* sl = [ShoppingList getEntityByName:@"TestList"];
-    if(sl == nil)
-    {
-        sl = [ShoppingList newEntity];
-        sl.name = @"TestList";
-    }
-    if(sl.shoppingListIngredients.count > 0)
-        self.shoppingListIngredients = [NSMutableArray arrayWithArray:[sl.shoppingListIngredients allObjects]];
-    else
-        self.shoppingListIngredients = [NSMutableArray new];
-    
-    for(RecipeIngredient* ri in self.recipeIngredients)
-    {
-        BOOL foundIngredient = NO;
-        for(ShoppingListIngredient* sli in sl.shoppingListIngredients)
-        {
-            if([sli.name isEqualToString:ri.name])
-            {
-                foundIngredient = YES;
-                sli.unit = ri.unit;
-                sli.quantity = [NSString stringWithFormat:@"%d", [sli.quantity intValue] + [ri.quantity intValue]];
-                [self.shoppingListIngredients addObject:sli];
-            }
-        }
-        if(!foundIngredient)
-        {
-            ShoppingListIngredient* shoppingListIngredient = [ShoppingListIngredient newEntity];
-            shoppingListIngredient.name = ri.name;
-            shoppingListIngredient.unit = ri.unit;
-            shoppingListIngredient.quantity = ri.quantity;
-            [self.shoppingListIngredients addObject: shoppingListIngredient];
-        }
-        foundIngredient = NO;
-    }
-    sl.shoppingListIngredients = [NSSet setWithArray: self.shoppingListIngredients];
-    [sl saveEntity];
+    [Utilities addToList: @[self.recipe]];
 }
 
 /*
@@ -381,5 +351,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

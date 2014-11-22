@@ -16,5 +16,8 @@
 - (BOOL) validateEntity;
 + (NSArray *) getEntities;
 + (id) getEntityByName: (NSString *) name;
++ (void) deleteEntity: (BaseEntity *) deletedEntity;
+
+@property (nonatomic, retain) NSString* name;
 
 @end

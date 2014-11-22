@@ -18,12 +18,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Meal Calendar" id="xii-yE-pNs">
+                        <barButtonItem key="leftBarButtonItem" image="Calendar" id="Dh4-yq-lSu">
+                            <connections>
+                                <action selector="AddToList:" destination="9pv-A4-QxB" id="9R9-XL-Mfi"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="xkJ-AG-gQi">
                             <connections>
                                 <segue destination="9ZY-0l-hNc" kind="presentation" identifier="SelectRecipesForCalendar" modalTransitionStyle="flipHorizontal" id="q7g-un-1TI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="AddToListButton" destination="Dh4-yq-lSu" id="uzg-wh-ggx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,12 +122,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Ingredient" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMQ-dh-b6G">
-                                <rect key="frame" x="46" y="282" width="124" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4B1-3h-fL0">
                                 <rect key="frame" x="1" y="119" width="318" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -139,15 +141,27 @@
                                     <action selector="handleRecipeImageButtonClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="vb3-EH-yD7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLG-fE-BzF">
-                                <rect key="frame" x="218" y="277" width="90" height="30"/>
-                                <state key="normal" title="Add to list">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-yS-eVu">
+                                <rect key="frame" x="173" y="281" width="22" height="22"/>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="handleAddToListClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="CHp-db-eS5"/>
+                                    <action selector="AddToList:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="aNE-xl-nwS"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopping List" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3P-wU-Ia4">
+                                <rect key="frame" x="203" y="282" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Ingredient" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMQ-dh-b6G">
+                                <rect key="frame" x="46" y="282" width="124" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -165,8 +179,8 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="AddToList" destination="KLG-fE-BzF" id="CHB-VG-3Vp"/>
                         <outlet property="RecipeImage" destination="2k5-fL-jsn" id="Wdj-58-rjR"/>
+                        <outlet property="addToList" destination="kpi-yS-eVu" id="i27-KP-DVA"/>
                         <outlet property="btnAddIngredient" destination="A1e-yn-FYQ" id="ZbG-O4-67l"/>
                         <outlet property="cancelButton" destination="WLV-MZ-hnb" id="9nQ-ec-Bi1"/>
                         <outlet property="recipeDirections" destination="4B1-3h-fL0" id="7Er-2C-LHb"/>
@@ -199,7 +213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRM-Kv-0wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710" y="479"/>
+            <point key="canvasLocation" x="1242" y="479"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -215,7 +229,7 @@
                     <connections>
                         <segue destination="B1i-6T-MDw" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="9ZY-0l-hNc" kind="relationship" relationship="viewControllers" id="mCc-zQ-zqh"/>
-                        <segue destination="oQu-ty-gtc" kind="relationship" relationship="viewControllers" id="Jc3-bX-BIk"/>
+                        <segue destination="LDD-2v-XJp" kind="relationship" relationship="viewControllers" id="Jc3-bX-BIk"/>
                         <segue destination="1dk-Jn-iDb" kind="relationship" relationship="viewControllers" id="9hB-N1-ZI0"/>
                     </connections>
                 </tabBarController>
@@ -232,7 +246,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="HPT-e6-N52">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingListIngredientCellIdentifier" id="HPT-e6-N52">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HPT-e6-N52" id="Uv1-Uh-bYC">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -244,12 +258,12 @@
                             <outlet property="delegate" destination="oQu-ty-gtc" id="g3s-kk-1Aj"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Shopping List" image="Calendar" selectedImage="Calendar" id="Rm3-gv-7KE"/>
+                    <navigationItem key="navigationItem" title="Shopping List" id="icv-sy-5Wo"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ex-5e-tYa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6" y="702"/>
+            <point key="canvasLocation" x="526" y="702"/>
         </scene>
         <!--My Recipes-->
         <scene sceneID="23P-8w-KFi">
@@ -308,6 +322,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r5a-kj-HcD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="710" y="-916"/>
+        </scene>
+        <!--Shopping List-->
+        <scene sceneID="bj5-GL-ZjP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LDD-2v-XJp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Shopping List" image="Calendar" selectedImage="Calendar" id="Rm3-gv-7KE"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IF2-6V-qGz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oQu-ty-gtc" kind="relationship" relationship="rootViewController" id="FpF-HP-zWj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="84K-bE-Sru" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6" y="702"/>
         </scene>
     </scenes>
     <resources>

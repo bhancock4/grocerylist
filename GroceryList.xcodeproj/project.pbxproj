@@ -10,6 +10,7 @@
 		0D2439E31A0E782C0005FFA8 /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = 0D2439E21A0E782C0005FFA8 /* PodFile */; };
 		0D2D14381A159EB20017C30C /* ToDo in Resources */ = {isa = PBXBuildFile; fileRef = 0D2D14371A159EB20017C30C /* ToDo */; };
 		0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D37D11D1A12F5C40061A958 /* CalendarDay.m */; };
+		0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B1E6A1A2075D4006C727C /* Utilities.m */; };
 		0D92BA6F1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D92BA6D1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m */; };
 		0D92BA701A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D92BA6E1A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib */; };
 		0D934B5519D6611F003A51BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5419D6611F003A51BC /* main.m */; };
@@ -52,6 +53,8 @@
 		0D2D14371A159EB20017C30C /* ToDo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ToDo; sourceTree = "<group>"; };
 		0D37D11C1A12F5C40061A958 /* CalendarDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDay.h; sourceTree = "<group>"; };
 		0D37D11D1A12F5C40061A958 /* CalendarDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDay.m; sourceTree = "<group>"; };
+		0D5B1E691A2075D4006C727C /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		0D5B1E6A1A2075D4006C727C /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		0D92BA6C1A030D6C00AF7070 /* RecipeIngredientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeIngredientTableViewCell.h; sourceTree = "<group>"; };
 		0D92BA6D1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeIngredientTableViewCell.m; sourceTree = "<group>"; };
 		0D92BA6E1A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeIngredientTableViewCell.xib; sourceTree = "<group>"; };
@@ -121,9 +124,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D5B1E681A2075A6006C727C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				0D5B1E691A2075D4006C727C /* Utilities.h */,
+				0D5B1E6A1A2075D4006C727C /* Utilities.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		0D934B4619D6611F003A51BC = {
 			isa = PBXGroup;
 			children = (
+				0D5B1E681A2075A6006C727C /* Utility */,
 				0D2D14371A159EB20017C30C /* ToDo */,
 				0D2439E21A0E782C0005FFA8 /* PodFile */,
 				0DDAAC1519FDE54C00A79246 /* CoreData.framework */,
@@ -205,8 +218,8 @@
 			children = (
 				0D934B9419D67EA7003A51BC /* DataModel.xcdatamodeld */,
 				0DA596CF19E1807E002EE12E /* Recipe.h */,
-				0DA596D019E1807E002EE12E /* Recipe.m */,
 				0DA596CC19E18068002EE12E /* RecipeIngredient.h */,
+				0DA596D019E1807E002EE12E /* Recipe.m */,
 				0DA596CD19E18068002EE12E /* RecipeIngredient.m */,
 				0DA596C919E1803A002EE12E /* Ingredient.h */,
 				0DA596CA19E1803A002EE12E /* Ingredient.m */,
@@ -391,6 +404,7 @@
 				0D934B8019D666D6003A51BC /* SettingsViewController.m in Sources */,
 				0D934B8319D67496003A51BC /* AddRecipeViewController.m in Sources */,
 				0D9735FB1A0DDB3A005E6441 /* ShoppingListIngredient.m in Sources */,
+				0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */,
 				0D934B5B19D6611F003A51BC /* CalendarViewController.m in Sources */,
 				0D934B9619D67EA7003A51BC /* DataModel.xcdatamodeld in Sources */,
 				0D9735FE1A0DDBAA005E6441 /* ShoppingList.m in Sources */,

@@ -10,64 +10,85 @@
 
 @implementation ShoppingListsViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSArray* lists = [ShoppingList getEntities];
+    if(lists.count > 0)
+    {
+        self.shoppingList = [ShoppingList getEntities][0];
+        if(!(nil == self.shoppingList))
+        {
+            self.shoppingListIngredients = [NSMutableArray arrayWithArray: [self.shoppingList.shoppingListIngredients allObjects]];
+            [self.tableView reloadData];
+        }
+    }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //self.tableView.editing = YES;  //edit mode allows reordering
+    self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.shoppingListIngredients.count;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"ShoppingListIngredientCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    // Configure the cell
+    ShoppingListIngredient* shoppingListIngredient = [self.shoppingListIngredients objectAtIndex:indexPath.row];
     
+    NSString* ingredientQuantity = shoppingListIngredient.quantity == nil ? @"" : shoppingListIngredient.quantity;
+    
+    NSString* ingredientUnit = shoppingListIngredient.unit == nil ? @"" : shoppingListIngredient.unit;
+    
+    NSArray* ingredientTextComponents = @[ingredientQuantity, ingredientUnit, shoppingListIngredient.name];
+    
+    cell.textLabel.text = [ingredientTextComponents componentsJoinedByString:@" "];
+
     return cell;
 }
-*/
 
-/*
+
+
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [ShoppingListIngredient deleteEntity: [self.shoppingListIngredients objectAtIndex:indexPath.row]];
+        [self.shoppingListIngredients removeObjectAtIndex:indexPath.row];
+        
+        // Delete the row from the table view
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-*/
 
 /*
 // Override to support rearranging the table view.

@@ -15,7 +15,7 @@
 @interface MyRecipesViewController : UITableViewController
 
 @property Recipe* selectedRecipe;
-@property NSArray* recipes;
+@property NSMutableArray* recipes;
 @property (nonatomic) NSString* sourceSegue;
 @property BOOL isInMultiSelectMode;
 @property NSMutableArray* selectedRecipes;

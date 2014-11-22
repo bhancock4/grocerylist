@@ -20,12 +20,10 @@
 /********  Recipes  *********************************************************************/
 + need to show/hide + and Done buttons on nav bar based on isInMultiSelectMode
 + need validation on required fields
-+ need to change/move button to add to shopping list
 + need to add ability to add image from camera roll as well as camera
 + need to implement auto-complete for ingredient names when adding
 + need ability to re-order ingredients in recipe
 + need to add search to recipe list
-+ need to add ability to delete recipes
 + need ability to re-order recipes in list
 
 - like to add separate view vs. edit modes
@@ -35,10 +33,10 @@
 /********  Shopping List  ***************************************************************/
 + need to populate list from data
 + need ability to add new items
-+ need ability to delete items
 + need ability to re-order items in the list
 + need ability to "check off" items"
-+ need to implement custom cell for adding/checking off items
+
+- like to implement custom cell for adding/checking off items
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Settings  ********************************************************************/

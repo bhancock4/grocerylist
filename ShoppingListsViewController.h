@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShoppingList.h"
+#import "ShoppingListIngredient.h"
 
 @interface ShoppingListsViewController : UITableViewController
+
+@property ShoppingList* shoppingList;
+@property NSMutableArray* shoppingListIngredients;
 
 @end

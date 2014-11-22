@@ -14,6 +14,7 @@
 #import "RecipeIngredientTableViewCell.h"
 #import "ShoppingList.h"
 #import "ShoppingListIngredient.h"
+#import "Utilities.h"
 
 @interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -23,7 +24,9 @@
 @property NSMutableArray* tempDeletedRecipeIngredients;
 @property (nonatomic) NSString* sourceSegue;
 @property BOOL isExistingRecipe;
+@property BOOL keyboardIsShown;
 @property int16_t selectedIngredientRow;
+- (IBAction)AddToList:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton*          addToList;
 @property (weak, nonatomic) IBOutlet UITextField*       recipeName;

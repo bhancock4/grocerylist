@@ -34,6 +34,12 @@
     return [[BaseEntity alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:da.context];
 }
 
++ (void) deleteEntity: (BaseEntity *) deletedEntity
+{
+    DataAccess* da = [DataAccess sharedDataAccess];
+    [da deleteEntity:deletedEntity];
+}
+
 - (BOOL) validateEntity
 {
     BOOL isSuccess = YES;
