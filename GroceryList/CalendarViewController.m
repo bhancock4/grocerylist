@@ -63,7 +63,7 @@
 
 - (IBAction)AddToList:(id)sender
 {
-    //[Utilities addToList: @[self.recipe]];
+    [Utilities addToList:[self.selectedCalendarDay.recipes allObjects]];
 }
 
 - (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender

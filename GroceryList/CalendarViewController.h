@@ -19,7 +19,6 @@
 - (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender;
 @property CalendarDay* selectedCalendarDay;
 @property CKCalendarView* calendar;
-@property NSArray* selectedRecipes;
 
 @end
 
