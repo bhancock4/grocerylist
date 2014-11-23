@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[AddRecipeViewController shouldPerformSegueWithIdentifier:sender:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(Recipe *)self.recipe">
+            </PersistentString>
+            <PersistentString
+               value = "sender.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController viewDidLoad]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationItem">
+            </PersistentString>
+            <PersistentString
+               value = "self.navigationController">
+            </PersistentString>
+            <PersistentString
+               value = "self.recipe">
+            </PersistentString>
+            <PersistentString
+               value = "self.recipeIngredients">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController tableView:numberOfRowsInSection:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.recipe.recipeIngredients count]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController setViewMovedUp:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "kOFFSET_FOR_KEYBOARD">
+            </PersistentString>
+            <PersistentString
+               value = "self.selectedIngredientRow">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController tableView:cellForRowAtIndexPath:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController textFieldDidEndEditing:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "ingredient.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController handleAddIngredientClicked:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.recipeIngredients count]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController handleAddToListClicked:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[NSSet setWithArray: ingredients]">
+            </PersistentString>
+            <PersistentString
+               value = "sl.shoppingListIngredients">
+            </PersistentString>
+            <PersistentString
+               value = "sl.ShoppingListIngredients">
+            </PersistentString>
+            <PersistentString
+               value = "ingredients[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController viewDidLoad]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.recipes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController unwindToMyRecipes:sender:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "myRecipe.recipeIngredients">
+            </PersistentString>
+            <PersistentString
+               value = "recipes[0]">
+            </PersistentString>
+            <PersistentString
+               value = "(Recipe_Recipe_ *)$3">
+            </PersistentString>
+            <PersistentString
+               value = "myRecipe.name">
+            </PersistentString>
+            <PersistentString
+               value = "myRecipe-&gt;recipeIngredients">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController prepareForSegue:sender:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.selectedRecipe">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController textFieldDidChange:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[DataAccess getEntitiesByName:WithPredicate:AndSortByProperty:]:DataAccess.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "objects.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -1,0 +1,14 @@
+PODS:
+  - MBCalendarKit (2.2.2)
+
+DEPENDENCIES:
+  - MBCalendarKit (from `https://github.com/MosheBerman/MBCalendarKit.git`)
+
+EXTERNAL SOURCES:
+  MBCalendarKit:
+    :git: https://github.com/MosheBerman/MBCalendarKit.git
+
+SPEC CHECKSUMS:
+  MBCalendarKit: e96bccd60ac1a0045ddfcc9199f3cbdcb317b889
+
+COCOAPODS: 0.34.4
