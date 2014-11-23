@@ -124,6 +124,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D4937221A22217700C768A7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0D934B8119D67496003A51BC /* AddRecipeViewController.h */,
+				0D934B8219D67496003A51BC /* AddRecipeViewController.m */,
+				0D934B5919D6611F003A51BC /* CalendarViewController.h */,
+				0D934B5A19D6611F003A51BC /* CalendarViewController.m */,
+				0D934B5C19D6611F003A51BC /* MyRecipesViewController.h */,
+				0D934B5D19D6611F003A51BC /* MyRecipesViewController.m */,
+				0D934B7E19D666D6003A51BC /* SettingsViewController.h */,
+				0D934B7F19D666D6003A51BC /* SettingsViewController.m */,
+				0D934B7B19D666A9003A51BC /* ShoppingListsViewController.h */,
+				0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0D4937231A22222700C768A7 /* EntityClasses */ = {
+			isa = PBXGroup;
+			children = (
+				0D37D11C1A12F5C40061A958 /* CalendarDay.h */,
+				0D37D11D1A12F5C40061A958 /* CalendarDay.m */,
+				0DA596C919E1803A002EE12E /* Ingredient.h */,
+				0DA596CA19E1803A002EE12E /* Ingredient.m */,
+				0DA596CF19E1807E002EE12E /* Recipe.h */,
+				0DA596D019E1807E002EE12E /* Recipe.m */,
+				0D9735FC1A0DDBAA005E6441 /* ShoppingList.h */,
+				0D9735FD1A0DDBAA005E6441 /* ShoppingList.m */,
+				0D9735F91A0DDB3A005E6441 /* ShoppingListIngredient.h */,
+				0D9735FA1A0DDB3A005E6441 /* ShoppingListIngredient.m */,
+				0DA596CC19E18068002EE12E /* RecipeIngredient.h */,
+				0DA596CD19E18068002EE12E /* RecipeIngredient.m */,
+			);
+			name = EntityClasses;
+			sourceTree = "<group>";
+		};
 		0D5B1E681A2075A6006C727C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,25 +199,16 @@
 		0D934B5119D6611F003A51BC /* GroceryListUI */ = {
 			isa = PBXGroup;
 			children = (
-				0D934B7B19D666A9003A51BC /* ShoppingListsViewController.h */,
-				0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */,
+				0D4937221A22217700C768A7 /* ViewControllers */,
 				0D934B5619D6611F003A51BC /* AppDelegate.h */,
 				0D934B5719D6611F003A51BC /* AppDelegate.m */,
-				0D934B5919D6611F003A51BC /* CalendarViewController.h */,
-				0D934B5A19D6611F003A51BC /* CalendarViewController.m */,
-				0D934B5C19D6611F003A51BC /* MyRecipesViewController.h */,
-				0D934B5D19D6611F003A51BC /* MyRecipesViewController.m */,
 				0D934B5F19D6611F003A51BC /* Main.storyboard */,
-				0D934B6219D6611F003A51BC /* Images.xcassets */,
 				0D934B6419D6611F003A51BC /* LaunchScreen.xib */,
-				0D934B5219D6611F003A51BC /* Supporting Files */,
-				0D934B7E19D666D6003A51BC /* SettingsViewController.h */,
-				0D934B7F19D666D6003A51BC /* SettingsViewController.m */,
-				0D934B8119D67496003A51BC /* AddRecipeViewController.h */,
-				0D934B8219D67496003A51BC /* AddRecipeViewController.m */,
+				0D934B6219D6611F003A51BC /* Images.xcassets */,
 				0D92BA6C1A030D6C00AF7070 /* RecipeIngredientTableViewCell.h */,
 				0D92BA6D1A030D6C00AF7070 /* RecipeIngredientTableViewCell.m */,
 				0D92BA6E1A030D6C00AF7070 /* RecipeIngredientTableViewCell.xib */,
+				0D934B5219D6611F003A51BC /* Supporting Files */,
 			);
 			name = GroceryListUI;
 			path = GroceryList;
@@ -216,23 +243,12 @@
 		0D934B8D19D67BC7003A51BC /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				0D934B9419D67EA7003A51BC /* DataModel.xcdatamodeld */,
-				0DA596CF19E1807E002EE12E /* Recipe.h */,
-				0DA596CC19E18068002EE12E /* RecipeIngredient.h */,
-				0DA596D019E1807E002EE12E /* Recipe.m */,
-				0DA596CD19E18068002EE12E /* RecipeIngredient.m */,
-				0DA596C919E1803A002EE12E /* Ingredient.h */,
-				0DA596CA19E1803A002EE12E /* Ingredient.m */,
-				0D934B9719D6824D003A51BC /* DataAccess.h */,
-				0D934B9819D6824D003A51BC /* DataAccess.m */,
+				0D4937231A22222700C768A7 /* EntityClasses */,
 				0DB57E9A19EB621900441BAF /* BaseEntity.h */,
 				0DB57E9B19EB621900441BAF /* BaseEntity.m */,
-				0D9735F91A0DDB3A005E6441 /* ShoppingListIngredient.h */,
-				0D9735FA1A0DDB3A005E6441 /* ShoppingListIngredient.m */,
-				0D9735FC1A0DDBAA005E6441 /* ShoppingList.h */,
-				0D9735FD1A0DDBAA005E6441 /* ShoppingList.m */,
-				0D37D11C1A12F5C40061A958 /* CalendarDay.h */,
-				0D37D11D1A12F5C40061A958 /* CalendarDay.m */,
+				0D934B9719D6824D003A51BC /* DataAccess.h */,
+				0D934B9819D6824D003A51BC /* DataAccess.m */,
+				0D934B9419D67EA7003A51BC /* DataModel.xcdatamodeld */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
