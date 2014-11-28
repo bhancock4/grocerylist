@@ -13,6 +13,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    UISwitch* multiSelectButton = [UISwitch new];
+    multiSelectButton.onTintColor = [UIColor grayColor];
+    //multiSelectButton.thumbTintColor = [UIColor blueColor];
+    self.multiSelectButton = multiSelectButton;
+    
+    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithCustomView:multiSelectButton];
+    
+    self.navigationItem.leftBarButtonItems = [self.navigationItem.leftBarButtonItems arrayByAddingObject:bbi];
+    
+
     
     //programmatially create/setup instance of the MBCalendarKit calendar/tableview object
     CKCalendarView* calendar = [[CKCalendarView alloc] initWithMode:CKCalendarViewModeMonth];
@@ -61,11 +72,34 @@
     return nil;
 }
 
+//action that fires when the add to shopping list button is pressed
 - (IBAction)AddToList:(id)sender
 {
-    [Utilities addToList:[self.selectedCalendarDay.recipes allObjects]];
+    //if we are dealing with multiple calendar days...
+    if(self.multiSelectButton.isOn)
+    {
+        //grab the begin date...
+        //if the begin was after the end the code in the control class will swap that for us
+        NSDate* beginDate = self.calendar.beginDate;
+        //loop through the days adding one day at a time
+        while([beginDate compare:self.calendar.endDate] == NSOrderedAscending || [beginDate compare:self.calendar.endDate] == NSOrderedSame)
+        {
+            [Utilities addToList: [((CalendarDay *)[CalendarDay getEntityByDate:beginDate]).recipes allObjects]];
+        
+            NSDateComponents* dayComponent = [NSDateComponents new];
+            dayComponent.day = 1;
+            NSCalendar* tempCalendar = [NSCalendar currentCalendar];
+            beginDate = [tempCalendar dateByAddingComponents:dayComponent toDate:beginDate options:0];
+        }
+    }
+    //otherwise, if only a single day was selected just use the recipes for that day
+    else
+    {
+        [Utilities addToList:[self.selectedCalendarDay.recipes allObjects]];
+    }
 }
 
+//refresh the calendar view after coming back from the add recipes screen
 - (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [self.calendar reload];
@@ -73,11 +107,35 @@
 
 - (void) calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date
 {
+    //set the current calendar day
     self.selectedCalendarDay = [CalendarDay getEntityByDate:date];
+    //initialize new calendar entities when a date is selected
     if(nil == self.selectedCalendarDay)
     {
         self.selectedCalendarDay = [CalendarDay newEntity];
         self.selectedCalendarDay.date = date;
+    }
+    //set controller properties for multi-select behavior
+    if(self.multiSelectButton.isOn)
+    {
+        if(!(nil == self.calendar.beginDate) && !(nil == self.calendar.endDate))
+        {
+            self.calendar.beginDate = date;
+            self.calendar.endDate = nil;
+        }
+        else if(nil == self.calendar.beginDate && nil == self.calendar.endDate)
+        {
+            self.calendar.beginDate = date;
+        }
+        else
+        {
+            self.calendar.endDate = date;
+        }
+    }
+    else
+    {
+        self.calendar.beginDate = nil;
+        self.calendar.endDate = nil;
     }
 }
 

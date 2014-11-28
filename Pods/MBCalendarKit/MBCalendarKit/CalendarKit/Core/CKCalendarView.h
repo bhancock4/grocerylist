@@ -31,6 +31,11 @@
 @property (nonatomic, weak) id<CKCalendarViewDataSource> dataSource;
 @property (nonatomic, weak) id<CKCalendarViewDelegate> delegate;
 
+/* added by bhancock4 */
+@property NSDate* beginDate;
+@property NSDate* endDate;
+/* end added by bhancock4 */
+
 /* Initializer */
 
 - (instancetype)init;

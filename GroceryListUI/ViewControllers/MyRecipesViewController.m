@@ -74,7 +74,7 @@
     //...and if it's not null then reload our table
     if(recipe != nil)
     {
-        self.recipes = [Recipe getEntities];
+        self.recipes = [NSMutableArray arrayWithArray:[Recipe getEntities]];
         [self.tableView reloadData];
     }
 }
@@ -164,6 +164,5 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
-
 
 @end

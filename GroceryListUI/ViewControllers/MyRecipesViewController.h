@@ -21,6 +21,7 @@
 @property NSMutableArray* selectedRecipes;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property CalendarDay* calendarDay;
+@property NSString* searchText;
 
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
 

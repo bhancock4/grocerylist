@@ -6,7 +6,7 @@
          contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.calendarDay.date">
+               value = "self.selectedCalendarDay">
             </PersistentString>
             <PersistentString
                value = "myRecipesVC.recipes">
@@ -15,10 +15,10 @@
                value = "segue.destinationViewController">
             </PersistentString>
             <PersistentString
-               value = "segue.identifier">
+               value = "self.calendarDay.date">
             </PersistentString>
             <PersistentString
-               value = "self.selectedCalendarDay">
+               value = "segue.identifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -31,16 +31,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.selectedRecipes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[CalendarViewController calendarView:eventsForDate:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "cd.date">
             </PersistentString>
             <PersistentString
-               value = "cd.recipes.count">
+               value = "arr[1].recipes.count">
             </PersistentString>
             <PersistentString
-               value = "arr[1].recipes.count">
+               value = "cd.recipes.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -59,10 +67,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
+         contextName = "-[CalendarViewController calendarView:didSelectDate:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.selectedRecipes">
+               value = "self.beginDay">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -71,6 +79,22 @@
          <PersistentStrings>
             <PersistentString
                value = "objects">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Utilities addToList:]:Utilities.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "recpie.recipeIngredients">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CalendarViewController AddToList:]:CalendarViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.calendar.endDate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

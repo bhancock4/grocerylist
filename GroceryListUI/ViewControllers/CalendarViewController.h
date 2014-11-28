@@ -13,12 +13,13 @@
 #import "MyRecipesViewController.h"
 
 @interface CalendarViewController : UIViewController <CKCalendarViewDelegate, CKCalendarViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* AddToListButton;
 - (IBAction)AddToList:(id)sender;
-
 - (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender;
 @property CalendarDay* selectedCalendarDay;
 @property CKCalendarView* calendar;
+@property UISwitch* multiSelectButton;
 
 @end
 

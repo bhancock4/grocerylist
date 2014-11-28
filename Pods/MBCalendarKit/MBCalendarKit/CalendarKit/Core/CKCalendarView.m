@@ -236,6 +236,14 @@
     return rect;
 }
 
+- (void) selectDates: (NSArray *) dates
+{
+    NSDate* begindDate = dates[0];
+    NSDate* endDate = dates[1];
+    
+    
+}
+
 - (CGRect)_rectForCellsForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
     CGSize cellSize = [self _cellSize];
@@ -401,7 +409,13 @@
              If the cell can't be selected, hide the number entirely.
              */
             
-            if (cellRepresentsToday && isThisMonth && isInRange) {
+            /* added by bhancock4 */
+            if(!(self.beginDate == nil) && !(self.endDate == nil) &&
+               [self _dateIsBetweenBeginAndEndDates:workingDate])
+            {
+                [cell setState:CKCalendarMonthCellStateSelected];
+            }
+            else /* end added by bhancock4 */ if (cellRepresentsToday && isThisMonth && isInRange) {
                 [cell setState:CKCalendarMonthCellStateTodayDeselected];
             }
             else if(!isInRange)
@@ -1176,6 +1190,40 @@
     
     return [[self calendar] date:date isAfterDate:[self minimumDate]] && [[self calendar] date:date isBeforeDate:[self maximumDate]];
 }
+
+/* begin added by bhancock4 */
+- (BOOL)_dateIsBetweenBeginAndEndDates:(NSDate *)date
+{
+    if(!([self.beginDate compare:self.endDate] == NSOrderedAscending))
+    {
+        NSDate* tempDate = self.beginDate;
+        self.beginDate = self.endDate;
+        self.endDate = tempDate;
+    }
+    
+    //  If there are both the minimum and maximum dates are unset,
+    //  behave as if all dates are in range.
+    if (!self.beginDate && !self.endDate) {
+        return YES;
+    }
+    
+    //  If there's no minimum, treat all dates that are before
+    //  the maximum as valid
+    else if(!self.beginDate)
+    {
+        return [[self calendar]date:date isBeforeDate:self.endDate];
+    }
+    
+    //  If there's no maximum, treat all dates that are before
+    //  the minimum as valid
+    else if(!self.endDate)
+    {
+        return [[self calendar] date:date isAfterDate:self.beginDate];
+    }
+    
+    return ([[self calendar] date:date isSameDayAs:self.beginDate] || [[self calendar] date:date isAfterDate:self.beginDate]) && ([[self calendar] date:date isSameDayAs: self.endDate] || [[self calendar] date:date isBeforeDate:self.endDate]);
+}
+/* end added by bhancock4 */
 
 #pragma mark - Dates & Indices
 
