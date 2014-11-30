@@ -6,7 +6,7 @@
          contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.selectedCalendarDay">
+               value = "segue.identifier">
             </PersistentString>
             <PersistentString
                value = "myRecipesVC.recipes">
@@ -15,10 +15,10 @@
                value = "segue.destinationViewController">
             </PersistentString>
             <PersistentString
-               value = "self.calendarDay.date">
+               value = "self.selectedCalendarDay">
             </PersistentString>
             <PersistentString
-               value = "segue.identifier">
+               value = "self.calendarDay.date">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -45,10 +45,10 @@
                value = "cd.date">
             </PersistentString>
             <PersistentString
-               value = "arr[1].recipes.count">
+               value = "cd.recipes.count">
             </PersistentString>
             <PersistentString
-               value = "cd.recipes.count">
+               value = "arr[1].recipes.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -95,6 +95,22 @@
          <PersistentStrings>
             <PersistentString
                value = "self.calendar.endDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CalendarViewController viewDidLoad]:CalendarViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationItem.leftBarButtonItems">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController filterContentForSearchText:scope:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.filteredRecipes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

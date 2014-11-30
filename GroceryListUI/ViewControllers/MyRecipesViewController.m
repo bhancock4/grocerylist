@@ -14,18 +14,17 @@
 {
     [super viewDidLoad];
     
-    self.recipes = [[Recipe getEntities] mutableCopy];
+    self.recipes = [[Recipe getEntitiesWithSortProperty: @"name"] mutableCopy];
     
     self.isInMultiSelectMode = NO;
+    
+    self.addButton = self.navigationItem.rightBarButtonItem;
     
     //figure out if we got here by adding a new recipe or viewing/editing an existing one
     if([self.sourceSegue isEqualToString:@"SelectRecipesForCalendar"])
     {
         self.isInMultiSelectMode = YES;
         self.selectedRecipes = [NSMutableArray new];
-        //NSMutableArray* toolBarButtons = [self.toolbarItems mutableCopy];
-        //[toolBarButtons removeObject:self.doneButton];
-        //[self setToolbarItems: toolBarButtons animated: NO];
     }
 
 }
@@ -92,17 +91,31 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [self.recipes count];
+    if(tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return self.filteredRecipes.count;
+    }
+    else
+    {
+        return [self.recipes count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"MyRecipesCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     //set up the tableCell based on the recipe populating it
-    Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
+    Recipe* recipe = nil;
+    if(tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        recipe = [self.filteredRecipes objectAtIndex: indexPath.row];
+    }
+    else
+    {
+        recipe = [self.recipes objectAtIndex:indexPath.row];
+    }
     cell.textLabel.text = recipe.name;
     if(nil == recipe.picture)
         cell.imageView.image = [UIImage imageNamed: @"Calendar"];
@@ -150,6 +163,18 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         return 66;
+}
+
+- (void) filterContentForSearchText: (NSString *) searchText scope: (NSString *) scope
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name beginswith[c] %@", searchText];
+    self.filteredRecipes = [self.recipes filteredArrayUsingPredicate:predicate];
+}
+
+- (BOOL) searchDisplayController: (UISearchDisplayController *) controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString scope: [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex: [self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    return YES;
 }
 
 // Override to support editing the table view.

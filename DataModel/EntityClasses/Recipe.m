@@ -12,6 +12,8 @@
 
 @implementation Recipe
 
+@dynamic calendarOrder;
+@dynamic recipeOrder;
 @dynamic directions;
 @dynamic name;
 @dynamic picture;

@@ -17,6 +17,7 @@
 + (NSArray *) getEntities;
 + (id) getEntityByName: (NSString *) name;
 + (void) deleteEntity: (BaseEntity *) deletedEntity;
++ (NSArray *) getEntitiesWithSortProperty: (NSString *) sortProperty;
 
 @property (nonatomic, retain) NSString* name;
 

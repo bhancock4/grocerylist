@@ -45,12 +45,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="tlU-cA-cFt">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Vst-55-dNp">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <outlet property="delegate" destination="3iN-pJ-oAa" id="3wN-J7-dS4"/>
+                                <outlet property="delegate" destination="3iN-pJ-oAa" id="Nye-FL-RAc"/>
                             </connections>
                         </searchBar>
                         <prototypes>
@@ -85,7 +85,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="doneButton" destination="Kge-1t-PUe" id="laM-yr-a9o"/>
-                        <outlet property="searchDisplayController" destination="uVo-ns-9uV" id="eau-Uf-Mf1"/>
+                        <outlet property="searchDisplayController" destination="xs0-Br-kYt" id="GGG-Bh-520"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egL-Uy-uL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -93,10 +93,18 @@
                 <searchDisplayController id="uVo-ns-9uV">
                     <connections>
                         <outlet property="delegate" destination="3iN-pJ-oAa" id="X7j-RG-9Kq"/>
-                        <outlet property="searchBar" destination="tlU-cA-cFt" id="fwn-Of-Kwa"/>
                         <outlet property="searchContentsController" destination="3iN-pJ-oAa" id="cUb-B5-Pz7"/>
                         <outlet property="searchResultsDataSource" destination="3iN-pJ-oAa" id="daK-Bj-Zze"/>
                         <outlet property="searchResultsDelegate" destination="3iN-pJ-oAa" id="yKU-TB-gfd"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="xs0-Br-kYt">
+                    <connections>
+                        <outlet property="delegate" destination="3iN-pJ-oAa" id="RjA-kf-xXt"/>
+                        <outlet property="searchBar" destination="Vst-55-dNp" id="Tl9-oD-k4o"/>
+                        <outlet property="searchContentsController" destination="3iN-pJ-oAa" id="328-3x-cNM"/>
+                        <outlet property="searchResultsDataSource" destination="3iN-pJ-oAa" id="gcK-WO-GY6"/>
+                        <outlet property="searchResultsDelegate" destination="3iN-pJ-oAa" id="uOj-oU-FfR"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -276,7 +284,9 @@
                             <outlet property="delegate" destination="oQu-ty-gtc" id="g3s-kk-1Aj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Shopping List" id="icv-sy-5Wo"/>
+                    <navigationItem key="navigationItem" title="Shopping List" id="icv-sy-5Wo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJ1-Og-RCh"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ex-5e-tYa" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -36,15 +36,15 @@
 
 - (NSArray *) getEntitiesByName: (NSString *) entityName
 {
-    return [self getEntitiesByValue:entityName WithPredicate:nil AndSortByProperty:nil];
+    return [self getEntitiesByName:entityName WithPredicate:nil AndSortByProperty:nil];
 }
 
 - (NSArray *) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate *) predicate
 {
-    return [self getEntitiesByValue:entityName WithPredicate:predicate AndSortByProperty:nil];
+    return [self getEntitiesByName:entityName WithPredicate:predicate AndSortByProperty:nil];
 }
 
-- (NSArray*) getEntitiesByValue: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty
+- (NSArray*) getEntitiesByName: (NSString *) entityName WithPredicate: (NSPredicate*) predicate AndSortByProperty: (NSString *) sortProperty
 {
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext* context = [appDelegate managedObjectContext];
@@ -71,7 +71,7 @@
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext* context = [appDelegate managedObjectContext];
     //[self getEntitiesByValue:entityName WithPredicate:predicate AndSortByProperty:nil]
-    NSArray* deletedEntityArray = [self getEntitiesByValue: NSStringFromClass([deletedEntity class]) WithPredicate: [NSPredicate predicateWithFormat: @"(name = %@)", deletedEntity.name] AndSortByProperty: nil];
+    NSArray* deletedEntityArray = [self getEntitiesByName: NSStringFromClass([deletedEntity class]) WithPredicate: [NSPredicate predicateWithFormat: @"(name = %@)", deletedEntity.name] AndSortByProperty: nil];
     
     if(deletedEntityArray.count == 1)
     {

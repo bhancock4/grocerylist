@@ -12,14 +12,16 @@
 #import "AppDelegate.h"
 #import "CalendarDay.h"
 
-@interface MyRecipesViewController : UITableViewController
+@interface MyRecipesViewController : UITableViewController <UISearchBarDelegate>
 
 @property Recipe* selectedRecipe;
 @property NSMutableArray* recipes;
+@property NSArray* filteredRecipes;
 @property (nonatomic) NSString* sourceSegue;
 @property BOOL isInMultiSelectMode;
 @property NSMutableArray* selectedRecipes;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (strong) IBOutlet UIBarButtonItem* doneButton;
+@property (strong) IBOutlet UIBarButtonItem* addButton;
 @property CalendarDay* calendarDay;
 @property NSString* searchText;
 

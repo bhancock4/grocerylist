@@ -16,14 +16,11 @@
 
     UISwitch* multiSelectButton = [UISwitch new];
     multiSelectButton.onTintColor = [UIColor grayColor];
-    //multiSelectButton.thumbTintColor = [UIColor blueColor];
-    self.multiSelectButton = multiSelectButton;
-    
+    multiSelectButton.onImage = [UIImage imageNamed: @"Calendar"];
+    multiSelectButton.offImage = [UIImage imageNamed: @"Calendar"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithCustomView:multiSelectButton];
-    
     self.navigationItem.leftBarButtonItems = [self.navigationItem.leftBarButtonItems arrayByAddingObject:bbi];
-    
-
+    self.multiSelectButton = multiSelectButton;
     
     //programmatially create/setup instance of the MBCalendarKit calendar/tableview object
     CKCalendarView* calendar = [[CKCalendarView alloc] initWithMode:CKCalendarViewModeMonth];

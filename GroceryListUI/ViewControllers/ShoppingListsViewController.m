@@ -30,6 +30,10 @@
     
     //self.tableView.editing = YES;  //edit mode allows reordering
     self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"RecipeIngredientTableViewCell"
+                                            bundle:[NSBundle mainBundle]]
+                               forCellReuseIdentifier:@"RecipeIngredientTableViewCell"];
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,10 +10,18 @@
 
 @implementation BaseEntity
 
+@synthesize name;
+
 + (NSArray *) getEntities
 {
     DataAccess* da = [DataAccess sharedDataAccess];
     return [da getEntitiesByName: NSStringFromClass([self class])];
+}
+
++ (NSArray *) getEntitiesWithSortProperty: (NSString *) sortProperty
+{
+    DataAccess* da = [DataAccess sharedDataAccess];
+    return [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate: nil AndSortByProperty: sortProperty];
 }
 
 + (id) getEntityByName: (NSString *) name

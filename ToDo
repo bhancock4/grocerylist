@@ -7,8 +7,8 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
-+ why is the embedded navigation controller a darker shade of gray?
 + need ability to remove recipes from dates
++ bug -> multi date select does not work when crossing months
 
 - like to add indicator for days added to shopping list?
 - like to change number of indicator dots to reflect associated recipes
@@ -21,8 +21,6 @@
 + need to add ability to add image from camera roll as well as camera
 + need to implement auto-complete for ingredient names when adding
 + need ability to re-order ingredients in recipe
-+ need to add search to recipe list
-+ need to sort recipes in list alphabetically
 
 - like to add separate view vs. edit modes
 - like to add option to view (or multi-select) as collection view (just images?)
