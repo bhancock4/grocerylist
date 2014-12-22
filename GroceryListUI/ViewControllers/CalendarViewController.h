@@ -11,6 +11,7 @@
 #import "CalendarDay.h"
 #import "Recipe.h"
 #import "MyRecipesViewController.h"
+#import "SevenSwitch.h"
 
 @interface CalendarViewController : UIViewController <CKCalendarViewDelegate, CKCalendarViewDataSource>
 
@@ -19,7 +20,7 @@
 - (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender;
 @property CalendarDay* selectedCalendarDay;
 @property CKCalendarView* calendar;
-@property UISwitch* multiSelectButton;
+@property SevenSwitch* multiSelectButton;
 
 @end
 

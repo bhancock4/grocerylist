@@ -14,10 +14,21 @@
 {
     [super viewDidLoad];
 
-    UISwitch* multiSelectButton = [UISwitch new];
+    /*UISwitch* multiSelectButton = [UISwitch new];
     multiSelectButton.onTintColor = [UIColor grayColor];
     multiSelectButton.onImage = [UIImage imageNamed: @"Calendar"];
     multiSelectButton.offImage = [UIImage imageNamed: @"Calendar"];
+    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithCustomView:multiSelectButton];
+    self.navigationItem.leftBarButtonItems = [self.navigationItem.leftBarButtonItems arrayByAddingObject:bbi];
+    self.multiSelectButton = multiSelectButton;*/
+    
+    SevenSwitch* multiSelectButton = [SevenSwitch new];
+    multiSelectButton.offImage = [UIImage imageNamed: @"Calendar"];
+    multiSelectButton.onImage = [UIImage imageNamed: @"Calendar"];
+    multiSelectButton.activeColor = [UIColor blueColor];
+    multiSelectButton.thumbTintColor = [UIColor blueColor];
+    multiSelectButton.frame = CGRectMake(0, 0, 50, 27);
+    [multiSelectButton addTarget: self action: @selector(multiSelectSwitchChanged:) forControlEvents: UIControlEventTouchUpInside];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithCustomView:multiSelectButton];
     self.navigationItem.leftBarButtonItems = [self.navigationItem.leftBarButtonItems arrayByAddingObject:bbi];
     self.multiSelectButton = multiSelectButton;
@@ -38,6 +49,11 @@
     //keep calendar from being hidden behind navigation controller bars
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
+}
+
+- (void)multiSelectSwitchChanged: (UIButton *) sender
+{
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

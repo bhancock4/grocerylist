@@ -13,6 +13,81 @@
 
 @implementation Utilities
 
++ (BOOL) quantityContainsFractionalPart: (NSString *) quantity
+{
+    return [quantity componentsSeparatedByString: @"/"].count > 1;
+}
+
++ (double) getDecimalValue: (NSString *) quantity
+{
+    double decimalValue = 0;
+    if([Utilities quantityContainsFractionalPart: quantity])
+    {
+        int wholeNumber = 0;
+        int numerator;
+        NSArray* quantityArray = [quantity componentsSeparatedByString: @"/"];
+        NSArray* wholePartArray = [quantityArray[0] componentsSeparatedByString: @" "];
+        if(wholePartArray.count > 1)
+        {
+            wholeNumber = [wholePartArray[0] doubleValue];
+            numerator = [wholePartArray[1] doubleValue];
+        }
+        else
+        {
+            numerator = [wholePartArray[0] doubleValue];
+        }
+        decimalValue = wholeNumber + [quantityArray[0] doubleValue] / [quantityArray[1] doubleValue];
+    }
+    else
+    {
+        decimalValue = [quantity doubleValue];
+    }
+    return decimalValue;
+}
+
++ (NSString *) getFractionalValue: (double) quantity
+{
+    NSString* fractionalValue = @"";
+    
+    long numerator = quantity * 1000000;
+    long denominator = 1000000;
+    long calcNumerator = numerator;
+    long calcDenominator = denominator;
+    long temp = 0;
+    
+    while (calcDenominator != 0)
+    {
+        temp = calcNumerator % calcDenominator;
+        calcNumerator = calcDenominator;
+        calcDenominator = temp;
+    }
+    
+    numerator /= calcNumerator;
+    denominator /= calcNumerator;
+    
+    //format the result
+    if(numerator > denominator)
+    {
+        long mixed = numerator / denominator;
+        numerator -= (mixed * denominator);
+        fractionalValue = [NSString stringWithFormat: @"%ld %ld/%ld", mixed, numerator, denominator];
+    }
+    else if(denominator != 1)
+    {
+        fractionalValue = [NSString stringWithFormat: @"%ld/%ld", numerator, denominator];
+    }
+    else
+    {
+        fractionalValue = [NSString stringWithFormat: @"%ld", numerator];
+    }
+    return fractionalValue;
+}
+
++ (NSString *) addQuantity1: (NSString *) q1 ToQuantity2: (NSString *) q2
+{
+    return [Utilities getFractionalValue: [Utilities getDecimalValue: q1] + [Utilities getDecimalValue: q2]];
+}
+
 + (void) addToList: (NSArray *) recipes
 {
     NSMutableArray* shoppingListIngredients = nil;
@@ -39,8 +114,11 @@
                 {
                     foundIngredient = YES;
                     sli.unit = ri.unit;
-                    sli.quantity = [NSString stringWithFormat:@"%d", [sli.quantity intValue] + [ri.quantity intValue]];
+                    sli.quantity = [Utilities addQuantity1: sli.quantity ToQuantity2: ri.quantity];
+                    //sli.quantity = [NSString stringWithFormat:@"%d", [sli.quantity intValue] + [ri.quantity intValue]];
                     [shoppingListIngredients addObject:sli];
+                    shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
+                    [shoppingList saveEntity];
                 }
             }
             if(!foundIngredient)
@@ -50,11 +128,12 @@
                 shoppingListIngredient.unit = ri.unit;
                 shoppingListIngredient.quantity = ri.quantity;
                 [shoppingListIngredients addObject: shoppingListIngredient];
+                shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
+                [shoppingList saveEntity];
             }
             foundIngredient = NO;
         }
-        shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
-        [shoppingList saveEntity];
+        
         
         UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
                                                                       message:[NSString stringWithFormat: @"The recipe %@ has been added to your shopping list", recipe.name]
@@ -65,5 +144,7 @@
         [listAddConfirmation show];
     }
 }
+
+
 
 @end

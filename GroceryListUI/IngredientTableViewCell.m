@@ -1,14 +1,14 @@
 //
-//  RecipeIngredientTableViewCell.m
+//  IngredientTableViewCell.m
 //  GroceryList
 //
 //  Created by Benjamin Hancock on 10/30/14.
 //  Copyright (c) 2014 Ben Hancock. All rights reserved.
 //
 
-#import "RecipeIngredientTableViewCell.h"
+#import "IngredientTableViewCell.h"
 
-@implementation RecipeIngredientTableViewCell
+@implementation IngredientTableViewCell
 
 - (void)awakeFromNib
 {
@@ -36,7 +36,7 @@
     [self addDoneToolBarToTextFieldKeyboard: self.ingredientQuantityTextField];
     [self addDoneToolBarToTextFieldKeyboard: self.ingredientNameTextField];
     
-    //keep undselected picker wheel from appearing outside cell bounds
+    //keep unselected picker wheel from appearing outside cell bounds
     self.clipsToBounds = YES;
     
     //hard-code sone picker data while developing
@@ -91,7 +91,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.recipeIngredient.unit = [self.pickerData objectAtIndex:row];
+    self.ingredient.unit = [self.pickerData objectAtIndex:row];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
@@ -114,7 +114,14 @@
         view = [view superview];
     
     UITableView* tableView = (UITableView *)view;
-    ((AddRecipeViewController *)tableView.delegate).selectedIngredientRow = self.recipeIngredient.order;
+    if([self.viewControllerName isEqualToString:@"ShoppingListsViewController"])
+    {
+        ((ShoppingListsViewController *)tableView.delegate).selectedIngredientRow = self.ingredient.order;
+    }
+    else
+    {
+        ((AddRecipeViewController *)tableView.delegate).selectedIngredientRow = self.ingredient.order;
+    }
     
     return YES;
 }
@@ -140,11 +147,11 @@
     switch(textField.tag)
     {
         case 1: //quantity text field
-            self.recipeIngredient.quantity = textField.text;
+            self.ingredient.quantity = textField.text;
             break;
             
         case 2: //name text field
-            self.recipeIngredient.name = textField.text;
+            self.ingredient.name = textField.text;
             break;
             
         default: //???

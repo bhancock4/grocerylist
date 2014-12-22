@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SevenSwitch.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1CD29F531A210EA8EE6A7203</key>
+		<key>83EE87AA79072DE607070F8A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E20E51F7DF2736B3D626BD1</key>
+		<key>9E56162DD83008AB94A0B3FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C8CC2F828C3EB18CE6647F91</key>
 		<dict>
 			<key>primary</key>
 			<true/>

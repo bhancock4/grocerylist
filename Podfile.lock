@@ -1,8 +1,10 @@
 PODS:
   - MBCalendarKit (2.2.2)
+  - SevenSwitch (1.4.0)
 
 DEPENDENCIES:
   - MBCalendarKit (from `https://github.com/MosheBerman/MBCalendarKit.git`)
+  - SevenSwitch (~> 1.4)
 
 EXTERNAL SOURCES:
   MBCalendarKit:
@@ -10,5 +12,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MBCalendarKit: e96bccd60ac1a0045ddfcc9199f3cbdcb317b889
+  SevenSwitch: 2f6832907b4f0d4eeb61e2a24acb1e28f6f8c059
 
 COCOAPODS: 0.34.4

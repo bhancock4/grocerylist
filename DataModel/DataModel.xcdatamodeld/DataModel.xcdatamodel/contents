@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="CalendarDay" representedClassName="CalendarDay" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="recipes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="calendarDay" inverseEntity="Recipe" syncable="YES"/>
@@ -37,11 +37,11 @@
         <relationship name="shoppingList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingList" inverseName="shoppingListIngredients" inverseEntity="ShoppingList" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CalendarDay" positionX="9" positionY="62" width="128" height="73"/>
-        <element name="Ingredient" positionX="-315" positionY="-22" width="128" height="58"/>
-        <element name="Recipe" positionX="34" positionY="-139" width="128" height="148"/>
-        <element name="RecipeIngredient" positionX="-162" positionY="-99" width="128" height="135"/>
-        <element name="ShoppingList" positionX="34" positionY="-270" width="128" height="58"/>
-        <element name="ShoppingListIngredient" positionX="-162" positionY="-280" width="128" height="133"/>
+        <element name="CalendarDay" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Ingredient" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Recipe" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="RecipeIngredient" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShoppingList" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShoppingListIngredient" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

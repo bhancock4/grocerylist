@@ -7,12 +7,9 @@
 //
 
 #import "ShoppingListIngredient.h"
-#import "Ingredient.h"
-#import "ShoppingList.h"
 
 @implementation ShoppingListIngredient
 
-@dynamic ingredient;
 @dynamic shoppingList;
 
 @end

@@ -1,1 +1,2 @@
 pod 'MBCalendarKit', :git => 'https://github.com/MosheBerman/MBCalendarKit.git'
+pod 'SevenSwitch', '~> 1.4'

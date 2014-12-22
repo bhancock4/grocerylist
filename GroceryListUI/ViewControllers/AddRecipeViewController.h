@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "Recipe.h"
 #import <QuartzCore/QuartzCore.h>
-#import "RecipeIngredientTableViewCell.h"
+#import "IngredientTableViewCell.h"
 #import "ShoppingList.h"
 #import "ShoppingListIngredient.h"
 #import "Utilities.h"

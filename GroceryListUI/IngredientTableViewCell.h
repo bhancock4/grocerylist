@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "RecipeIngredient.h"
 #import "AddRecipeViewController.h"
+#import "ShoppingListsViewController.h"
 #import "ShoppingListIngredient.h"
 
-@interface RecipeIngredientTableViewCell : UITableViewCell <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface IngredientTableViewCell : UITableViewCell <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 
-@property RecipeIngredient* recipeIngredient;
-@property ShoppingListIngredient* shoppingListIngredient;
+@property Ingredient* ingredient;
+@property NSString* viewControllerName;
+
 @property (weak, nonatomic) IBOutlet UITextField *ingredientNameTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *ingredientUnitsUIPickerView;
 @property (weak, nonatomic) IBOutlet UITextField *ingredientQuantityTextField;

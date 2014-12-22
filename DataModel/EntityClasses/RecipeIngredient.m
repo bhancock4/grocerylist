@@ -11,7 +11,6 @@
 
 @implementation RecipeIngredient
 
-@dynamic ingredient;
 @dynamic recipe;
 
 @end

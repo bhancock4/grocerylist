@@ -13,6 +13,9 @@
 
 @interface Ingredient : BaseEntity
 
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString* name;
+@property (nonatomic, retain) NSString * quantity;
+@property (nonatomic, retain) NSString * unit;
+@property (nonatomic) int16_t order;
 
 @end

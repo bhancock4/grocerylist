@@ -5,7 +5,7 @@
 //  Created by Benjamin Hancock on 9/26/14.
 //  Copyright (c) 2014 Ben Hancock. All rights reserved.
 //
-#define kOFFSET_FOR_KEYBOARD 80.0
+
 #import "AddRecipeViewController.h"
 
 @implementation AddRecipeViewController
@@ -34,12 +34,13 @@
         self.recipeIngredients = [NSMutableArray arrayWithArray:[self.recipe.recipeIngredients allObjects]];
 
         self.isExistingRecipe = YES;
+        self.addToList.enabled = YES;
     }
     else
     {
         self.recipeName.selected = YES;
-        
         self.isExistingRecipe = NO;
+        self.addToList.enabled = NO;
     }
     
     //allow keyboard to be dismissed with a "Done" button
@@ -61,17 +62,15 @@
     //prevent ingredients table from showing extra lines
     self.tableRecipeIngredients.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    [self.tableRecipeIngredients registerNib:[UINib nibWithNibName:@"RecipeIngredientTableViewCell"
+    [self.tableRecipeIngredients registerNib:[UINib nibWithNibName:@"IngredientTableViewCell"
                                       bundle:[NSBundle mainBundle]]
-                      forCellReuseIdentifier:@"RecipeIngredientTableViewCell"];
+                      forCellReuseIdentifier:@"IngredientTableViewCell"];
     
     self.tableRecipeIngredients.allowsMultipleSelectionDuringEditing = NO;
 }
 
-//give up focus when return key is pressed on keyboard
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [textField resignFirstResponder];
     return YES;
 }
 
@@ -110,9 +109,10 @@
     [self.recipeDirections resignFirstResponder];
 }
 
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+//give up focus when return key is pressed on keyboard
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [textField resignFirstResponder];
     return YES;
 }
 
@@ -135,6 +135,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.recipeIngredients indexOfObject:recipeIngredient] inSection:0];
     [self.tableRecipeIngredients
      insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+    self.addToList.enabled = NO;
 }
 
 //button click to add or update recipe image
@@ -215,23 +216,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //add our custom cell
-    static NSString *CellIdentifier = @"RecipeIngredientTableViewCell";
-    RecipeIngredientTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"IngredientTableViewCell";
+    IngredientTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     //set the recipIngredient on the cell so it can manage changes to fields
-    cell.recipeIngredient = [self.recipeIngredients objectAtIndex:indexPath.row];
+    cell.ingredient = [self.recipeIngredients objectAtIndex:indexPath.row];
     
     //set the units UIPicker selected value based on the unit value of the RecipeIngredient entity
     for(int i = 0; i < cell.pickerData.count; i++)
     {
-        if([cell.pickerData[i] isEqualToString:cell.recipeIngredient.unit])
+        if([cell.pickerData[i] isEqualToString:cell.ingredient.unit])
         {
             [cell.ingredientUnitsUIPickerView selectRow:i inComponent:0 animated:NO];
         }
     }
     //set the other UI fields on the custom cell
-    cell.ingredientQuantityTextField.text = cell.recipeIngredient.quantity;
-    cell.ingredientNameTextField.text = cell.recipeIngredient.name;
+    cell.ingredientQuantityTextField.text = [Utilities getFractionalValue: [Utilities getDecimalValue: cell.ingredient.quantity]];
+    cell.ingredientNameTextField.text = cell.ingredient.name;
     
     return cell;
 }
@@ -274,7 +275,6 @@
                 return;
         }
     }
-
     [self setViewMovedUp: self.view.frame.origin.y >= 0];
 }
 

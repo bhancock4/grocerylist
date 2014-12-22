@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRM-Kv-0wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1242" y="479"/>
+            <point key="canvasLocation" x="1417" y="304"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -285,9 +285,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Shopping List" id="icv-sy-5Wo">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJ1-Og-RCh"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJ1-Og-RCh">
+                            <connections>
+                                <action selector="addShoppingListItem:" destination="oQu-ty-gtc" id="Kp7-DO-8ev"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="AddButton" destination="CJ1-Og-RCh" id="gVl-wR-y5F"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ex-5e-tYa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
