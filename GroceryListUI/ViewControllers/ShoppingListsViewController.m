@@ -37,7 +37,14 @@
 //need to add code to get selected text field
 - (void)cellTextFieldEndedEditing
 {
-    self.shoppingList.shoppingListIngredients = [NSSet setWithArray:self.shoppingListIngredients];
+    //begin weird hack -> last ingredient name not persisting so we add/delete a bogus entry to force save
+    [self addShoppingListItem: self.AddButton];
+    [self.shoppingListIngredients removeObjectAtIndex: 0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow: 0 inSection:0];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    //...end weird hack
+    
+    self.shoppingList.shoppingListIngredients = [NSSet setWithArray: self.shoppingListIngredients];
     [self.shoppingList saveEntity];
 }
 
@@ -53,6 +60,8 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"IngredientTableViewCell"
                                                             bundle:[NSBundle mainBundle]]
                       forCellReuseIdentifier:@"IngredientTableViewCell"];
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
 }
 
@@ -73,7 +82,7 @@
     //create in indexpath from the local array and use that to insert into the table
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.shoppingListIngredients indexOfObject:shoppingListIngredient] inSection:0];
     [self.tableView
-     insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+     insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,44 +134,13 @@
     return YES;
 }
 
-//construct an instance of a UIToolBar for the keyboard that contains a "Done" button
-- (UIToolbar *) getDoneKeyboardToolbar
-{
-    UIToolbar* doneToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    doneToolbar.barStyle = UIBarStyleDefault;
-    doneToolbar.items = [NSArray arrayWithObjects:
-                         [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                         [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonClickedDismissKeyboard)],
-                         nil];
-    [doneToolbar sizeToFit];
-    return doneToolbar;
-}
-
-//tried doing this with UIControl instead of 2 methods, but apparently the inputAccessoryView
-//property is readonly on that class
--(void)addDoneToolBarToTextFieldKeyboard:(UITextField *) textField
-{
-    UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
-    textField.inputAccessoryView = doneToolbar;
-}
-
-//see above comment
--(void)addDoneToolBarToTextViewKeyboard:(UITextView *) textView
-{
-    UIToolbar* doneToolbar = [self getDoneKeyboardToolbar];
-    textView.inputAccessoryView = doneToolbar;
-}
-
-//dismiss keyboard when done button is clicked
--(void)doneButtonClickedDismissKeyboard
-{
-    [self.ingredientTextField resignFirstResponder];
-}
-
 //give up focus when return key is pressed on keyboard
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    self.shoppingList.shoppingListIngredients = [NSSet setWithArray:self.shoppingListIngredients];
+    [self.shoppingList saveEntity];
+    
     return YES;
 }
 
@@ -176,6 +154,18 @@
         [self.shoppingList saveEntity];
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 // Override to support rearranging the table view.

@@ -17,7 +17,6 @@
     self.keyboardIsShown = NO;
     //initializeour array of ingredients
     self.recipeIngredients = [[NSMutableArray alloc] init];
-    self.shoppingListIngredients = [NSMutableArray new];
     
     //figure out if we got here by adding a new recipe or viewing/editing an existing one
     if([self.sourceSegue isEqualToString:@"ShowEditRecipe"])
@@ -172,35 +171,79 @@
     BOOL shouldSegue = YES;
     
     if(sender == self.cancelButton)
+    {
         self.recipe = nil;
+        return shouldSegue;
+    }
+    
+    //check for required fields
+    NSString* validationFailureMessage = [self getValidationMessage];
+    if([validationFailureMessage length] > 0)
+    {
+        shouldSegue = NO;
+        UIAlertView* alert = [[UIAlertView alloc]
+                              initWithTitle:@"Validation Error" message: validationFailureMessage delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
     else
     {
         if(self.isExistingRecipe)
             self.recipe = [Recipe getEntityByName:self.recipe.name];
         else
             self.recipe = [Recipe newEntity];
-    }
     
-    //if whatever validation we need succeeds...
-    if(nil != self.recipe && sender == self.saveButton && self.recipeName.text.length > 0)
-    {
-        //set fields on the entity to be saved
-        self.recipe.name = self.recipeName.text;
-        self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
-        self.recipe.directions = self.recipeDirections.text;
-        self.recipe.recipeIngredients = [NSSet setWithArray: self.recipeIngredients];
-        
-        //if something bad happens then display a pop-up error to the user
-        if(![self.recipe saveEntity])
+        //check for required fields
+        NSString* validationFailureMessage = [self getValidationMessage];
+        if([validationFailureMessage length] > 0)
         {
             shouldSegue = NO;
             
             UIAlertView* alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Recipe Save Error" message: @"An error occurred saving the recipe." delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+                                  initWithTitle:@"Validation Error" message: validationFailureMessage delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
             [alert show];
+        }
+        else //passed validation
+        {
+            //set fields on the entity to be saved
+            self.recipe.name = self.recipeName.text;
+            self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
+            self.recipe.directions = self.recipeDirections.text;
+            self.recipe.recipeIngredients = [NSSet setWithArray: self.recipeIngredients];
+        
+            //if something bad happens then display a pop-up error to the user
+            if(![self.recipe saveEntity])
+            {
+                shouldSegue = NO;
+            
+                UIAlertView* alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Recipe Save Error" message: @"An error occurred saving the recipe." delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
     return shouldSegue;
+}
+            
+- (NSString *) getValidationMessage
+{
+    NSString* validationMessage = @"";
+    
+    //ensure the recipe has a name
+    if([self.recipeName.text length] == 0)
+        validationMessage = @"You must supply a recipe name";
+    
+    //ensure that the name is unique
+    Recipe* existingRecipe = [Recipe getEntityByName: self.recipeName.text];
+    if(nil != existingRecipe && !self.isExistingRecipe)
+        validationMessage = @"A recipe with that name already exists";
+    
+    //ensure each ingredient has a name
+    for(RecipeIngredient* recipeIngredient in self.recipeIngredients)
+    {
+        if([recipeIngredient.name length] == 0)
+            validationMessage = @"You must supply a name for each ingredient";
+    }
+    return validationMessage;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

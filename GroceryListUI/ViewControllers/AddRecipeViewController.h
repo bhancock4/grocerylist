@@ -19,7 +19,6 @@
 @interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property Recipe* recipe;
-@property NSMutableArray* shoppingListIngredients;
 @property NSMutableArray* recipeIngredients;
 @property NSMutableArray* tempDeletedRecipeIngredients;
 @property (nonatomic) NSString* sourceSegue;

@@ -17,7 +17,6 @@
 @property ShoppingList* shoppingList;
 @property NSMutableArray* shoppingListIngredients;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* AddButton;
-@property (weak, nonatomic) IBOutlet UITextField* ingredientTextField;
 @property BOOL keyboardIsShown;
 @property int16_t selectedIngredientRow;
 

@@ -116,11 +116,13 @@
     {
         recipe = [self.recipes objectAtIndex:indexPath.row];
     }
-    cell.textLabel.text = recipe.name;
+    
     if(nil == recipe.picture)
         cell.imageView.image = [UIImage imageNamed: @"Calendar"];
     else
         cell.imageView.image = [UIImage imageWithData:recipe.picture];
+    
+    cell.textLabel.text = recipe.name;
     
     if(self.isInMultiSelectMode)
     {

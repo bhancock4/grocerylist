@@ -91,12 +91,12 @@
 + (void) addToList: (NSArray *) recipes
 {
     NSMutableArray* shoppingListIngredients = nil;
-    
     ShoppingList* shoppingList = [ShoppingList getEntityByName:@"ShoppingList"];
     if(shoppingList == nil)
     {
         shoppingList = [ShoppingList newEntity];
         shoppingList.name = @"ShoppingList";
+        [shoppingList saveEntity];
     }
     for(Recipe* recipe in recipes)
     {
@@ -113,9 +113,11 @@
                 if([sli.name isEqualToString:ri.name])
                 {
                     foundIngredient = YES;
-                    sli.unit = ri.unit;
-                    sli.quantity = [Utilities addQuantity1: sli.quantity ToQuantity2: ri.quantity];
-                    //sli.quantity = [NSString stringWithFormat:@"%d", [sli.quantity intValue] + [ri.quantity intValue]];
+                    if([ri.unit length] > 0)
+                        sli.unit = ri.unit;
+                    if([ri.quantity length] > 0)
+                        sli.quantity = [Utilities addQuantity1: sli.quantity ToQuantity2: ri.quantity];
+                    
                     [shoppingListIngredients addObject:sli];
                     shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
                     [shoppingList saveEntity];
@@ -125,8 +127,13 @@
             {
                 ShoppingListIngredient* shoppingListIngredient = [ShoppingListIngredient newEntity];
                 shoppingListIngredient.name = ri.name;
-                shoppingListIngredient.unit = ri.unit;
-                shoppingListIngredient.quantity = ri.quantity;
+                
+                if([ri.unit length] > 0)
+                    shoppingListIngredient.unit = ri.unit;
+                
+                if([ri.quantity length] > 0)
+                    shoppingListIngredient.quantity = ri.quantity;
+                
                 [shoppingListIngredients addObject: shoppingListIngredient];
                 shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
                 [shoppingList saveEntity];
