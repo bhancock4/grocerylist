@@ -14,7 +14,7 @@
          contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.selectedCalendarDay">
+               value = "segue.identifier">
             </PersistentString>
             <PersistentString
                value = "myRecipesVC.recipes">
@@ -23,10 +23,10 @@
                value = "segue.destinationViewController">
             </PersistentString>
             <PersistentString
-               value = "self.calendarDay.date">
+               value = "self.selectedCalendarDay">
             </PersistentString>
             <PersistentString
-               value = "segue.identifier">
+               value = "self.calendarDay.date">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -37,10 +37,10 @@
                value = "cd.date">
             </PersistentString>
             <PersistentString
-               value = "arr[1].recipes.count">
+               value = "cd.recipes.count">
             </PersistentString>
             <PersistentString
-               value = "cd.recipes.count">
+               value = "arr[1].recipes.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -99,6 +99,25 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[CalendarViewController viewDidLoad]:CalendarViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "date">
+            </PersistentString>
+            <PersistentString
+               value = "self.selectedCalendarDay">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ShoppingListsViewController viewWillAppear:]:ShoppingListsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.shoppingList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "+[Utilities addToList:]:Utilities.m">
          <PersistentStrings>
             <PersistentString
@@ -109,22 +128,6 @@
             </PersistentString>
             <PersistentString
                value = "sli.name">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[CalendarViewController viewDidLoad]:CalendarViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.navigationItem.leftBarButtonItems">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ShoppingListsViewController viewWillAppear:]:ShoppingListsViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.shoppingList">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -148,13 +151,13 @@
          contextName = "-[IngredientTableViewCell setEntityValueFromTextField:]:IngredientTableViewCell.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.ingredient.name">
+               value = "self.ingredient.quantity">
             </PersistentString>
             <PersistentString
                value = "textField.text">
             </PersistentString>
             <PersistentString
-               value = "self.ingredient.quantity">
+               value = "self.ingredient.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -162,10 +165,10 @@
          contextName = "-[ShoppingListsViewController addShoppingListItem:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shoppingList">
+               value = "self.shoppingListIngredients">
             </PersistentString>
             <PersistentString
-               value = "self.shoppingListIngredients">
+               value = "self.shoppingList">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -177,6 +180,14 @@
             </PersistentString>
             <PersistentString
                value = "((ShoppingListIngredient *)[((ShoppingList *)self).shoppingListIngredients allObjects][0]).name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddRecipeViewController alertView:clickedButtonAtIndex:]:AddRecipeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.recipeIngredients count]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -20,7 +20,7 @@
 @property (nonatomic, retain) NSString * directions;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSData * picture;
-@property (nonatomic, retain) NSSet *recipeIngredients;
+@property (nonatomic, retain) NSOrderedSet *recipeIngredients;
 @property (nonatomic) int16_t recipeOrder;
 @property (nonatomic) int16_t calendarOrder;
 @end
@@ -29,7 +29,7 @@
 
 - (void)addRecipeIngredientsObject:(RecipeIngredient *)value;
 - (void)removeRecipeIngredientsObject:(RecipeIngredient *)value;
-- (void)addRecipeIngredients:(NSSet *)values;
-- (void)removeRecipeIngredients:(NSSet *)values;
+- (void)addRecipeIngredients:(NSOrderedSet *)values;
+- (void)removeRecipeIngredients:(NSOrderedSet *)values;
 
 @end

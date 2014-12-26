@@ -101,7 +101,7 @@
     for(Recipe* recipe in recipes)
     {
         if(shoppingList.shoppingListIngredients.count > 0)
-            shoppingListIngredients = [NSMutableArray arrayWithArray:[shoppingList.shoppingListIngredients allObjects]];
+            shoppingListIngredients = [NSMutableArray arrayWithArray:[shoppingList.shoppingListIngredients array]];
         else
             shoppingListIngredients = [NSMutableArray new];
         
@@ -119,7 +119,7 @@
                         sli.quantity = [Utilities addQuantity1: sli.quantity ToQuantity2: ri.quantity];
                     
                     [shoppingListIngredients addObject:sli];
-                    shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
+                    shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
                     [shoppingList saveEntity];
                 }
             }
@@ -135,7 +135,7 @@
                     shoppingListIngredient.quantity = ri.quantity;
                 
                 [shoppingListIngredients addObject: shoppingListIngredient];
-                shoppingList.shoppingListIngredients = [NSSet setWithArray: shoppingListIngredients];
+                shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
                 [shoppingList saveEntity];
             }
             foundIngredient = NO;

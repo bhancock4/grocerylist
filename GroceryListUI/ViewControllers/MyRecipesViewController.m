@@ -25,8 +25,14 @@
     {
         self.isInMultiSelectMode = YES;
         self.selectedRecipes = [NSMutableArray new];
+        self.doneButton.enabled = YES;
+        self.addButton.enabled = NO;
     }
-
+    else
+    {
+        self.doneButton.enabled = NO;
+        self.addButton.enabled = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning

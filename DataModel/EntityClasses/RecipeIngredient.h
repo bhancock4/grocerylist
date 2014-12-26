@@ -14,7 +14,6 @@
 @interface RecipeIngredient : Ingredient
 
 
-//@property (nonatomic, retain) Ingredient *ingredient;
 @property (nonatomic, retain) Recipe *recipe;
 
 @end

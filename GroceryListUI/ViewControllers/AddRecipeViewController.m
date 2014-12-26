@@ -30,7 +30,7 @@
         //...set other fields
         self.recipeDirections.text = self.recipe.directions;
         //set our ingredients array to the entity's recipeIngredients relationship property
-        self.recipeIngredients = [NSMutableArray arrayWithArray:[self.recipe.recipeIngredients allObjects]];
+        self.recipeIngredients = [NSMutableArray arrayWithArray:[self.recipe.recipeIngredients array]];
 
         self.isExistingRecipe = YES;
         self.addToList.enabled = YES;
@@ -66,11 +66,30 @@
                       forCellReuseIdentifier:@"IngredientTableViewCell"];
     
     self.tableRecipeIngredients.allowsMultipleSelectionDuringEditing = NO;
+    self.tableRecipeIngredients.editing = YES;  //edit mode allows reordering
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+//hide delete button during edit
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+//allows reordering during edit
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//hide delete button during edit
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
 }
 
 //construct an instance of a UIToolBar for the keyboard that contains a "Done" button
@@ -140,10 +159,32 @@
 //button click to add or update recipe image
 - (IBAction)handleRecipeImageButtonClicked:(id)sender
 {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Take picture or select from library?"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Camera", @"Photo Library", nil];
+    [alert setTag: 2];
+    [alert show];
+}
+
+- (void) presentCamera
+{
     UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.allowsEditing = YES;
     imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+
+- (void) presentPhotoLibrary
+{
+    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [self presentViewController:imagePicker animated:YES completion:NULL];
 }
@@ -200,6 +241,7 @@
             
             UIAlertView* alert = [[UIAlertView alloc]
                                   initWithTitle:@"Validation Error" message: validationFailureMessage delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+            [alert setTag: 3];
             [alert show];
         }
         else //passed validation
@@ -208,7 +250,7 @@
             self.recipe.name = self.recipeName.text;
             self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
             self.recipe.directions = self.recipeDirections.text;
-            self.recipe.recipeIngredients = [NSSet setWithArray: self.recipeIngredients];
+            self.recipe.recipeIngredients = [NSOrderedSet orderedSetWithArray: self.recipeIngredients];
         
             //if something bad happens then display a pop-up error to the user
             if(![self.recipe saveEntity])
@@ -217,6 +259,7 @@
             
                 UIAlertView* alert = [[UIAlertView alloc]
                                   initWithTitle:@"Recipe Save Error" message: @"An error occurred saving the recipe." delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+                [alert setTag: 3];
                 [alert show];
             }
         }
@@ -277,7 +320,82 @@
     cell.ingredientQuantityTextField.text = [Utilities getFractionalValue: [Utilities getDecimalValue: cell.ingredient.quantity]];
     cell.ingredientNameTextField.text = cell.ingredient.name;
     
+    //add a right-swipe gesture to move to delete
+    UISwipeGestureRecognizer* swipeL;
+    swipeL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSwipedLeft: )];
+    swipeL.direction = UISwipeGestureRecognizerDirectionLeft;
+    [cell addGestureRecognizer:swipeL];
+    
     return cell;
+}
+
+- (void)cellWasSwipedLeft:(UIGestureRecognizer *)g
+{
+    NSIndexPath* cellIndex = [self getCellIndexFromGesture: g];
+    self.swipeLIndex = cellIndex;
+    UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:cellIndex];
+    self.preAlertCellColor = cell.backgroundColor;
+    cell.backgroundColor = [UIColor redColor];
+    cell.textLabel.textColor = [UIColor blackColor];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete?"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"OK", nil];
+    [alert setTag: 1];
+    
+    [alert show];
+}
+
+//handle result of user interaction with delete confirm dialog
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 1)
+    {
+        UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
+        cell.textLabel.textColor = [UIColor blackColor];
+    
+        if(buttonIndex == [alertView cancelButtonIndex])
+        {
+            UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
+            cell.backgroundColor = self.preAlertCellColor;
+        }
+        else
+        {
+            [self.recipeIngredients removeObjectAtIndex:self.swipeLIndex.row];
+            [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
+        
+            if([self.recipeIngredients count] > 0)
+            {
+                for(int i = (int)self.swipeLIndex.row; i < [self.recipeIngredients count]; i++)
+                {
+                    RecipeIngredient* item = [self.recipeIngredients objectAtIndex:i];
+                    item.order = i;
+                }
+            }
+        }
+    }
+    else if(alertView.tag == 2)
+    {
+        if(buttonIndex == [alertView cancelButtonIndex])
+        {
+            return;
+        }
+        else if(buttonIndex == 1)
+        {
+            [self presentCamera];
+        }
+        else
+        {
+            [self presentPhotoLibrary];
+        }
+    }
+}
+
+- (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g
+{
+    CGPoint p = [g locationInView:self.tableRecipeIngredients];
+    return [self.tableRecipeIngredients indexPathForRowAtPoint:p];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -288,6 +406,24 @@
         [self.recipeIngredients removeObjectAtIndex:indexPath.row];
         [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSString* strMove = self.recipeIngredients[fromIndexPath.row];
+    [self.recipeIngredients removeObjectAtIndex:fromIndexPath.row];
+    [self.recipeIngredients insertObject:strMove atIndex:toIndexPath.row];
+    
+    for(int i = 0; i < [self.recipeIngredients count]; i++)
+    {
+        RecipeIngredient* ingredient = [self.recipeIngredients objectAtIndex:i];
+        ingredient.order = i;
+    }
+}
+
+- (NSIndexPath*)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    return proposedDestinationIndexPath;
 }
 
 -(void)keyboardWillShow
@@ -384,6 +520,16 @@
 {
     [Utilities addToList: @[self.recipe]];
 }
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+
+
+
+
 
 /*
 #pragma mark - Navigation

@@ -13,14 +13,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    /*UISwitch* multiSelectButton = [UISwitch new];
-    multiSelectButton.onTintColor = [UIColor grayColor];
-    multiSelectButton.onImage = [UIImage imageNamed: @"Calendar"];
-    multiSelectButton.offImage = [UIImage imageNamed: @"Calendar"];
-    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithCustomView:multiSelectButton];
-    self.navigationItem.leftBarButtonItems = [self.navigationItem.leftBarButtonItems arrayByAddingObject:bbi];
-    self.multiSelectButton = multiSelectButton;*/
     
     SevenSwitch* multiSelectButton = [SevenSwitch new];
     multiSelectButton.offImage = [UIImage imageNamed: @"Calendar"];
@@ -49,6 +41,15 @@
     //keep calendar from being hidden behind navigation controller bars
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    NSDateFormatter* df = [NSDateFormatter new];
+    [df setDateFormat: @"MM/dd/YYYY"];
+    NSString* dateString = [df stringFromDate: [NSDate date]];
+    NSDate* date = [df dateFromString:dateString];
+    
+    [self calendarView: self.calendar eventsForDate: date];
+    
+    //self.selectedCalendarDay = [CalendarDay getEntityByDate: date];
 }
 
 - (void)multiSelectSwitchChanged: (UIButton *) sender

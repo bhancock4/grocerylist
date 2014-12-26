@@ -1,31 +1,23 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  General/Shared  **************************************************************/
 + bug -> fix math with fractions
-+ need to come up with and implement visual styling
++ create visual theme
++ create icons for buttone, etc.
 + create app icon
 + come up with app name
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 + need ability to remove recipes from dates
++ bug -> initial today's date not loading data or updating until other daes selected
 + bug -> multi date select does not work when crossing months
-
-- like to add indicator for days added to shopping list?
-- like ability to re-order recipes for a date
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
-+ need to show/hide + and Done buttons on nav bar based on isInMultiSelectMode
-+ need to add ability to add image from camera roll as well as camera
-+ need ability to re-order ingredients in recipe
-
-- like to add separate view vs. edit modes
-- like to add option to view (or multi-select) as collection view (just images?)
++ bug? -> cannot update recipe ingredients (at least when name is the last (or only?) changed)
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Shopping List  ***************************************************************/
-+ need ability to re-order items in the list
-+ need ability to "check off" items"
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Settings  ********************************************************************/

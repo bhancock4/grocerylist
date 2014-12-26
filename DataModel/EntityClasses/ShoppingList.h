@@ -15,14 +15,14 @@
 @interface ShoppingList : BaseEntity
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *shoppingListIngredients;
+@property (nonatomic, retain) NSOrderedSet *shoppingListIngredients;
 @end
 
 @interface ShoppingList (CoreDataGeneratedAccessors)
 
 - (void)addShoppingListIngredientsObject:(ShoppingListIngredient *)value;
 - (void)removeShoppingListIngredientsObject:(ShoppingListIngredient *)value;
-- (void)addShoppingListIngredients:(NSSet *)values;
-- (void)removeShoppingListIngredients:(NSSet *)values;
+- (void)addShoppingListIngredients:(NSOrderedSet *)values;
+- (void)removeShoppingListIngredients:(NSOrderedSet *)values;
 
 @end

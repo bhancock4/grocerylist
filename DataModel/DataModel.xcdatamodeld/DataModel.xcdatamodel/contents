@@ -14,7 +14,7 @@
         <attribute name="picture" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="recipeOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="calendarDay" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CalendarDay" inverseName="recipes" inverseEntity="CalendarDay" syncable="YES"/>
-        <relationship name="recipeIngredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecipeIngredient" inverseName="recipe" inverseEntity="RecipeIngredient" syncable="YES"/>
+        <relationship name="recipeIngredients" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="RecipeIngredient" inverseName="recipe" inverseEntity="RecipeIngredient" syncable="YES"/>
     </entity>
     <entity name="RecipeIngredient" representedClassName="RecipeIngredient" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,9 +26,10 @@
     </entity>
     <entity name="ShoppingList" representedClassName="ShoppingList" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="shoppingListIngredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShoppingListIngredient" inverseName="shoppingList" inverseEntity="ShoppingListIngredient" syncable="YES"/>
+        <relationship name="shoppingListIngredients" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ShoppingListIngredient" inverseName="shoppingList" inverseEntity="ShoppingListIngredient" syncable="YES"/>
     </entity>
     <entity name="ShoppingListIngredient" representedClassName="ShoppingListIngredient" syncable="YES">
+        <attribute name="checked" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,11 +38,11 @@
         <relationship name="shoppingList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingList" inverseName="shoppingListIngredients" inverseEntity="ShoppingList" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CalendarDay" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Ingredient" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Recipe" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="RecipeIngredient" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShoppingList" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShoppingListIngredient" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CalendarDay" positionX="106" positionY="42" width="128" height="75"/>
+        <element name="Ingredient" positionX="-117" positionY="-90" width="128" height="60"/>
+        <element name="Recipe" positionX="-63" positionY="75" width="128" height="148"/>
+        <element name="RecipeIngredient" positionX="25" positionY="-126" width="128" height="133"/>
+        <element name="ShoppingList" positionX="-225" positionY="87" width="128" height="73"/>
+        <element name="ShoppingListIngredient" positionX="-270" positionY="-117" width="128" height="150"/>
     </elements>
 </model>

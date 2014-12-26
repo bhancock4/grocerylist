@@ -12,7 +12,7 @@
 
 @interface ShoppingListIngredient : Ingredient
 
-//@property (nonatomic, retain) Ingredient *ingredient;
 @property (nonatomic, retain) ShoppingList *shoppingList;
+@property BOOL checked;
 
 @end

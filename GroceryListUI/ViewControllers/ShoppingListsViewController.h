@@ -19,7 +19,11 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* AddButton;
 @property BOOL keyboardIsShown;
 @property int16_t selectedIngredientRow;
+@property UIColor* preAlertCellColor;
+@property NSIndexPath* swipeLIndex;
+@property NSIndexPath* longPressIndex;
 
 - (IBAction)addShoppingListItem:(id)sender;
+- (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g;
 
 @end
