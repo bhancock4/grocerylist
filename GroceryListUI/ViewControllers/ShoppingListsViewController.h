@@ -11,8 +11,9 @@
 #import "ShoppingListIngredient.h"
 #import "IngredientTableViewCell.h"
 #import "Utilities.h"
+#import "IngredientTableViewController.h"
 
-@interface ShoppingListsViewController : UITableViewController
+@interface ShoppingListsViewController : IngredientTableViewController
 
 @property ShoppingList* shoppingList;
 @property NSMutableArray* shoppingListIngredients;

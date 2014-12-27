@@ -10,9 +10,22 @@
 
 @implementation ShoppingListsViewController
 
+//######################################################################################################
+#pragma mark - Initialization & setup
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(cellTextFieldEndedEditing)
+                                                 name: UITextFieldTextDidEndEditingNotification
+                                               object: nil];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
     ShoppingList* shoppingList = [ShoppingList getEntityByName:@"ShoppingList"];
     if(shoppingList == nil)
@@ -24,85 +37,29 @@
     self.shoppingList = shoppingList;
     
     if(nil == self.shoppingList.shoppingListIngredients)
-    {
         self.shoppingList.shoppingListIngredients = [NSOrderedSet new];
-    }
     
     self.shoppingListIngredients = [NSMutableArray arrayWithArray: [self.shoppingList.shoppingListIngredients array]];
     
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(cellTextFieldEndedEditing) name: UITextFieldTextDidEndEditingNotification object: nil];
-}
-
-//need to add code to get selected text field
-- (void)cellTextFieldEndedEditing
-{
-    //begin weird hack -> last ingredient name not persisting so we add/delete a bogus entry to force save
-    [self addShoppingListItem: self.AddButton];
-    [self.shoppingListIngredients removeObjectAtIndex: 0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow: 0 inSection:0];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    //...end weird hack
-    
-    self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
-    [self.shoppingList saveEntity];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName: @"IngredientTableViewCell"
+                                               bundle: [NSBundle mainBundle]]
+                               forCellReuseIdentifier: @"IngredientTableViewCell"];
     
     self.keyboardIsShown = NO;
-    
-    //self.tableView.editing = YES;  //edit mode allows reordering
     self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
-    
-    [self.tableView registerNib:[UINib nibWithNibName:@"IngredientTableViewCell"
-                                                            bundle:[NSBundle mainBundle]]
-                      forCellReuseIdentifier:@"IngredientTableViewCell"];
-    
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.editing = YES;  //edit mode allows reordering
     
 }
 
-//hide delete button during edit
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didReceiveMemoryWarning
 {
-    return NO;
+    [super didReceiveMemoryWarning];
 }
 
-//allows reordering during edit
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    NSString* strMove = self.shoppingListIngredients[fromIndexPath.row];
-    [self.shoppingListIngredients removeObjectAtIndex:fromIndexPath.row];
-    [self.shoppingListIngredients insertObject:strMove atIndex:toIndexPath.row];
-    
-    for(int i = 0; i < [self.shoppingListIngredients count]; i++)
-    {
-        ShoppingListIngredient* ingredient = [self.shoppingListIngredients objectAtIndex:i];
-        ingredient.order = i;
-    }
-    self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray:self.shoppingListIngredients];
-    [self.shoppingList saveEntity];
-}
-
-- (NSIndexPath*)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    return proposedDestinationIndexPath;
-}
-
-//hide delete button during edit
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleNone;
-}
+//######################################################################################################
+#pragma mark - Other methods
 
 - (void) addShoppingListItem:(id)sender
 {
@@ -124,11 +81,37 @@
      insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
 }
 
-- (void)didReceiveMemoryWarning
+//save state of shoppig list whenever a cell is edited
+- (void)cellTextFieldEndedEditing
 {
-    [super didReceiveMemoryWarning];
+    //begin weird hack -> last ingredient name not persisting so we add/delete a bogus entry to force save
+    [self addShoppingListItem: self.AddButton];
+    [self.shoppingListIngredients removeObjectAtIndex: 0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow: 0 inSection:0];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    //...end weird hack
+    
+    self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
+    [self.shoppingList saveEntity];
 }
 
+//toggle cell color (completion state) when long pressed
+- (void)cellWasLongPressed:(UILongPressGestureRecognizer *) g
+{
+    if (g.state == UIGestureRecognizerStateBegan)
+    {
+        NSIndexPath* cellIndex = [self getCellIndexFromGesture: g];
+        self.longPressIndex = cellIndex;
+        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellIndex];
+        ShoppingListIngredient* shoppingListIngredient = ((ShoppingListIngredient *)[self.shoppingListIngredients objectAtIndex: cellIndex.row]);
+        
+        shoppingListIngredient.checked = !shoppingListIngredient.checked;
+        cell.backgroundColor = shoppingListIngredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
+    }
+}
+
+
+//######################################################################################################
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -181,19 +164,9 @@
     return cell;
 }
 
-- (void)cellWasLongPressed:(UILongPressGestureRecognizer *) g
-{
-    if (g.state == UIGestureRecognizerStateBegan)
-    {
-        NSIndexPath* cellIndex = [self getCellIndexFromGesture: g];
-        self.longPressIndex = cellIndex;
-        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellIndex];
-        ShoppingListIngredient* shoppingListIngredient = ((ShoppingListIngredient *)[self.shoppingListIngredients objectAtIndex: cellIndex.row]);
-        
-        shoppingListIngredient.checked = !shoppingListIngredient.checked;
-        cell.backgroundColor = shoppingListIngredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
-    }
-}
+
+//######################################################################################################
+#pragma mark - Custom cell delete
 
 - (void)cellWasSwipedLeft:(UIGestureRecognizer *)g
 {
@@ -274,44 +247,51 @@
     }
 }
 
+
+//######################################################################################################
+#pragma mark - Cell reordering
+//hide delete button during edit
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+//hide delete button during edit
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+//allows reordering during edit
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSString* strMove = self.shoppingListIngredients[fromIndexPath.row];
+    [self.shoppingListIngredients removeObjectAtIndex:fromIndexPath.row];
+    [self.shoppingListIngredients insertObject:strMove atIndex:toIndexPath.row];
+    
+    for(int i = 0; i < [self.shoppingListIngredients count]; i++)
+    {
+        ShoppingListIngredient* ingredient = [self.shoppingListIngredients objectAtIndex:i];
+        ingredient.order = i;
+    }
+    self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray:self.shoppingListIngredients];
+    [self.shoppingList saveEntity];
+}
+
+- (NSIndexPath*)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    return proposedDestinationIndexPath;
+}
+
 -(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 @end
