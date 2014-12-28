@@ -18,74 +18,67 @@
     return [quantity componentsSeparatedByString: @"/"].count > 1;
 }
 
-+ (double) getDecimalValue: (NSString *) quantity
++ (NSString *) addRational1: (NSString *) r1 ToRational2: (NSString *) r2
 {
-    double decimalValue = 0;
-    if([Utilities quantityContainsFractionalPart: quantity])
+    //get original whole parts as long integer
+    long r1WholePart = [r1 componentsSeparatedByString: @" "].count > 1 ? [[r1 componentsSeparatedByString: @" "][0] longLongValue] : 0;
+    if(r1WholePart != 0)
     {
-        int wholeNumber = 0;
-        int numerator;
-        NSArray* quantityArray = [quantity componentsSeparatedByString: @"/"];
-        NSArray* wholePartArray = [quantityArray[0] componentsSeparatedByString: @" "];
-        if(wholePartArray.count > 1)
+        r1 = [r1 componentsSeparatedByString: @" "][1];
+    }
+    long r2WholePart = [r2 componentsSeparatedByString: @" "].count > 1 ? [[r2 componentsSeparatedByString: @" "][0] longLongValue] : 0;
+    if(r2WholePart != 0)
+    {
+        r2 = [r2 componentsSeparatedByString: @" "][1];
+    }
+    long resultWholePart = r1WholePart + r2WholePart;
+    
+    //set these to double so we can test integer division result
+    double resultNumerator = 0;
+    double resultDenominator = 1;
+    
+    //extract numerators/denominators as well as original copies for math
+    long r1Numerator = [[r1 componentsSeparatedByString: @"/"][0] longLongValue];
+    long r1Denominator = [[r1 componentsSeparatedByString: @"/"][1] longLongValue];
+    long r1DenominatorOrig = [[r1 componentsSeparatedByString: @"/"][1] longLongValue];
+    long r2Numerator = [[r2 componentsSeparatedByString: @"/"][0] longLongValue];
+    long r2Denominator = [[r2 componentsSeparatedByString: @"/"][1] longLongValue];
+    long r2DenominatorOrig = [[r2 componentsSeparatedByString: @"/"][1] longLongValue];
+    
+    //multiply both sides by d/d od opposite denominator
+    r1Numerator *= r2DenominatorOrig;
+    r1Denominator *= r2DenominatorOrig;
+    r2Numerator *= r1DenominatorOrig;
+    r2Denominator *= r1DenominatorOrig;
+    
+    //add the fractional parts
+    resultNumerator = r1Numerator + r2Numerator;
+    resultDenominator = r1Denominator;  //could use either since both should be equal at this point
+    
+    //extract whole parts from fractional part
+    if(resultNumerator >= resultDenominator)
+    {
+        long tempWholePart = resultNumerator / resultDenominator;
+        resultWholePart += tempWholePart;
+        resultNumerator -= resultDenominator * tempWholePart;
+    }
+    
+    //reduce fraction
+    for(int i = 2; i < resultNumerator; i++)
+    {
+        if((long)resultNumerator % i == 0 && (long)resultDenominator % i == 0)
         {
-            wholeNumber = [wholePartArray[0] doubleValue];
-            numerator = [wholePartArray[1] doubleValue];
+            i = 2;
+            resultNumerator /= i;
+            resultDenominator /= i;
         }
-        else
-        {
-            numerator = [wholePartArray[0] doubleValue];
-        }
-        decimalValue = wholeNumber + [quantityArray[0] doubleValue] / [quantityArray[1] doubleValue];
-    }
-    else
-    {
-        decimalValue = [quantity doubleValue];
-    }
-    return decimalValue;
-}
-
-+ (NSString *) getFractionalValue: (double) quantity
-{
-    NSString* fractionalValue = @"";
-    
-    long numerator = quantity * 1000000;
-    long denominator = 1000000;
-    long calcNumerator = numerator;
-    long calcDenominator = denominator;
-    long temp = 0;
-    
-    while (calcDenominator != 0)
-    {
-        temp = calcNumerator % calcDenominator;
-        calcNumerator = calcDenominator;
-        calcDenominator = temp;
     }
     
-    numerator /= calcNumerator;
-    denominator /= calcNumerator;
+    //parse results out to mixed-number string
+    NSString* wholePart = resultWholePart > 0 ? [NSString stringWithFormat: @"%ld ", resultWholePart] : @"";
+    NSString* rtn = [wholePart stringByAppendingString: [NSString stringWithFormat: @"%ld/%ld", (long)resultNumerator, (long)resultDenominator]];
     
-    //format the result
-    if(numerator > denominator)
-    {
-        long mixed = numerator / denominator;
-        numerator -= (mixed * denominator);
-        fractionalValue = [NSString stringWithFormat: @"%ld %ld/%ld", mixed, numerator, denominator];
-    }
-    else if(denominator != 1)
-    {
-        fractionalValue = [NSString stringWithFormat: @"%ld/%ld", numerator, denominator];
-    }
-    else
-    {
-        fractionalValue = [NSString stringWithFormat: @"%ld", numerator];
-    }
-    return fractionalValue;
-}
-
-+ (NSString *) addQuantity1: (NSString *) q1 ToQuantity2: (NSString *) q2
-{
-    return [Utilities getFractionalValue: [Utilities getDecimalValue: q1] + [Utilities getDecimalValue: q2]];
+    return rtn;
 }
 
 + (void) addToList: (NSArray *) recipes
@@ -116,11 +109,9 @@
                     if([ri.unit length] > 0)
                         sli.unit = ri.unit;
                     if([ri.quantity length] > 0)
-                        sli.quantity = [Utilities addQuantity1: sli.quantity ToQuantity2: ri.quantity];
+                        sli.quantity = [Utilities addRational1: sli.quantity ToRational2: ri.quantity];
                     
                     [shoppingListIngredients addObject:sli];
-                    shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
-                    [shoppingList saveEntity];
                 }
             }
             if(!foundIngredient)
@@ -135,10 +126,10 @@
                     shoppingListIngredient.quantity = ri.quantity;
                 
                 [shoppingListIngredients addObject: shoppingListIngredient];
-                shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
-                [shoppingList saveEntity];
             }
             foundIngredient = NO;
+            shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
+            [shoppingList saveEntity];
         }
         
         
@@ -151,7 +142,6 @@
         [listAddConfirmation show];
     }
 }
-
 
 
 @end

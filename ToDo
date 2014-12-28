@@ -1,15 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  General/Shared  **************************************************************/
-+ bug -> fix math with fractions
 + create visual theme
-+ create icons for buttone, etc.
-+ create app icon
-+ come up with app name
++ create icons for buttons, etc.
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 + need ability to remove recipes from dates
-+ bug -> initial today's date not loading data or updating until other daes selected
++ bug -> initial today's date not loading data or updating until other dates selected
 + bug -> multi date select does not work when crossing months
 
 //////////////////////////////////////////////////////////////////////////////////////////

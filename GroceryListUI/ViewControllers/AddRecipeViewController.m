@@ -10,6 +10,9 @@
 
 @implementation AddRecipeViewController
 
+//###############################################################################################
+#pragma mark - initialization & setup
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -69,28 +72,44 @@
     self.tableRecipeIngredients.editing = YES;  //edit mode allows reordering
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+//register listeners for keyboard event notifications before view is loaded
+- (void)viewWillAppear:(BOOL)animated
 {
-    return YES;
+    [super viewWillAppear:animated];
+    // register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
-//hide delete button during edit
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+//remove listeners for keyboard event notifications when view is being destroyed
+- (void)viewWillDisappear:(BOOL)animated
 {
-    return NO;
+    [super viewWillDisappear:animated];
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
-//allows reordering during edit
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didReceiveMemoryWarning
 {
-    return YES;
+    [super didReceiveMemoryWarning];
 }
 
-//hide delete button during edit
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleNone;
-}
+
+//###############################################################################################
+#pragma mark - text field handlers
 
 //construct an instance of a UIToolBar for the keyboard that contains a "Done" button
 - (UIToolbar *) getDoneKeyboardToolbar
@@ -134,6 +153,75 @@
     return YES;
 }
 
+-(void)keyboardWillShow
+{
+    if(!self.keyboardIsShown)
+    {
+        self.keyboardIsShown = YES;
+        for(UIView* view in self.view.subviews)
+        {
+            if(view.isFirstResponder)
+            {
+                if(view == self.recipeName || view == self.recipeDirections)
+                    return;
+            }
+        }
+        [self setViewMovedUp: self.view.frame.origin.y >= 0];
+    }
+}
+
+-(void)keyboardWillHide
+{
+    self.keyboardIsShown = NO;
+    for(UIView* view in self.view.subviews)
+    {
+        if(view.isFirstResponder)
+        {
+            if(view == self.recipeName || view == self.recipeDirections)
+                return;
+        }
+    }
+    [self setViewMovedUp: self.view.frame.origin.y >= 0];
+}
+
+//method to move the view up/down whenever the keyboard is shown/dismissed
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    int cellIndex = self.selectedIngredientRow < 4 ? self.selectedIngredientRow : 4;
+    int keyboardOffset = kOFFSET_FOR_KEYBOARD + (cellIndex * 44);
+    
+    CGRect rect = self.view.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= keyboardOffset;
+        rect.size.height += keyboardOffset;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += keyboardOffset;
+        rect.size.height -= keyboardOffset;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+}
+
+
+//###############################################################################################
+#pragma mark - other methods
+
+//button click to add a new ingredient to the recipe
+- (IBAction)AddToList:(id)sender
+{
+    [Utilities addToList: @[self.recipe]];
+}
+
 //button click to add a new ingredient to the recipe
 - (IBAction) handleAddIngredientClicked:(id)sender
 {
@@ -154,57 +242,6 @@
     [self.tableRecipeIngredients
      insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
     self.addToList.enabled = NO;
-}
-
-//button click to add or update recipe image
-- (IBAction)handleRecipeImageButtonClicked:(id)sender
-{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Take picture or select from library?"
-                                                    message:@""
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Camera", @"Photo Library", nil];
-    [alert setTag: 2];
-    [alert show];
-}
-
-- (void) presentCamera
-{
-    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.allowsEditing = YES;
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    [self presentViewController:imagePicker animated:YES completion:NULL];
-}
-
-
-- (void) presentPhotoLibrary
-{
-    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.allowsEditing = YES;
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    [self presentViewController:imagePicker animated:YES completion:NULL];
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage* chosenImage = info[UIImagePickerControllerEditedImage];
-    self.RecipeImage.image = chosenImage;
-    
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -232,7 +269,7 @@
             self.recipe = [Recipe getEntityByName:self.recipe.name];
         else
             self.recipe = [Recipe newEntity];
-    
+        
         //check for required fields
         NSString* validationFailureMessage = [self getValidationMessage];
         if([validationFailureMessage length] > 0)
@@ -251,14 +288,14 @@
             self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
             self.recipe.directions = self.recipeDirections.text;
             self.recipe.recipeIngredients = [NSOrderedSet orderedSetWithArray: self.recipeIngredients];
-        
+            
             //if something bad happens then display a pop-up error to the user
             if(![self.recipe saveEntity])
             {
                 shouldSegue = NO;
-            
+                
                 UIAlertView* alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Recipe Save Error" message: @"An error occurred saving the recipe." delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+                                      initWithTitle:@"Recipe Save Error" message: @"An error occurred saving the recipe." delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
                 [alert setTag: 3];
                 [alert show];
             }
@@ -266,7 +303,7 @@
     }
     return shouldSegue;
 }
-            
+
 - (NSString *) getValidationMessage
 {
     NSString* validationMessage = @"";
@@ -288,6 +325,59 @@
     }
     return validationMessage;
 }
+
+
+//###############################################################################################
+#pragma mark - photo methods
+
+//button click to add or update recipe image
+- (IBAction)handleRecipeImageButtonClicked:(id)sender
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Take picture or select from library?"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Camera", @"Photo Library", nil];
+    [alert setTag: 2];
+    [alert show];
+}
+
+- (void) presentCamera
+{
+    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void) presentPhotoLibrary
+{
+    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage* chosenImage = info[UIImagePickerControllerEditedImage];
+    self.RecipeImage.image = chosenImage;
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+//###############################################################################################
+#pragma mark - UITableView datasource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -317,7 +407,7 @@
         }
     }
     //set the other UI fields on the custom cell
-    cell.ingredientQuantityTextField.text = [Utilities getFractionalValue: [Utilities getDecimalValue: cell.ingredient.quantity]];
+    cell.ingredientQuantityTextField.text = cell.ingredient.quantity;
     cell.ingredientNameTextField.text = cell.ingredient.name;
     
     //add a right-swipe gesture to move to delete
@@ -328,6 +418,9 @@
     
     return cell;
 }
+
+//###############################################################################################
+#pragma mark - Custom delete functionality
 
 - (void)cellWasSwipedLeft:(UIGestureRecognizer *)g
 {
@@ -408,6 +501,33 @@
     }
 }
 
+
+//###############################################################################################
+#pragma mark - Cell reordering
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//hide delete button during edit
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+//allows reordering during edit
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//hide delete button during edit
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     NSString* strMove = self.recipeIngredients[fromIndexPath.row];
@@ -426,120 +546,10 @@
     return proposedDestinationIndexPath;
 }
 
--(void)keyboardWillShow
-{
-    if(!self.keyboardIsShown)
-    {
-        self.keyboardIsShown = YES;
-        for(UIView* view in self.view.subviews)
-        {
-            if(view.isFirstResponder)
-            {
-                if(view == self.recipeName || view == self.recipeDirections)
-                    return;
-            }
-        }
-        [self setViewMovedUp: self.view.frame.origin.y >= 0];
-    }
-}
-
--(void)keyboardWillHide
-{
-    self.keyboardIsShown = NO;
-    for(UIView* view in self.view.subviews)
-    {
-        if(view.isFirstResponder)
-        {
-            if(view == self.recipeName || view == self.recipeDirections)
-                return;
-        }
-    }
-    [self setViewMovedUp: self.view.frame.origin.y >= 0];
-}
-
-//method to move the view up/down whenever the keyboard is shown/dismissed
--(void)setViewMovedUp:(BOOL)movedUp
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
-    
-    int cellIndex = self.selectedIngredientRow < 4 ? self.selectedIngredientRow : 4;
-    int keyboardOffset = kOFFSET_FOR_KEYBOARD + (cellIndex * 44);
-    
-    CGRect rect = self.view.frame;
-    if (movedUp)
-    {
-        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
-        // 2. increase the size of the view so that the area behind the keyboard is covered up.
-        rect.origin.y -= keyboardOffset;
-        rect.size.height += keyboardOffset;
-    }
-    else
-    {
-        // revert back to the normal state.
-        rect.origin.y += keyboardOffset;
-        rect.size.height -= keyboardOffset;
-    }
-    self.view.frame = rect;
-    
-    [UIView commitAnimations];
-}
-
-//register listeners for keyboard event notifications before view is loaded
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    // register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-}
-
-//remove listeners for keyboard event notifications when view is being destroyed
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    // unregister for keyboard notifications while not visible.
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
-}
-
-//button click to add a new ingredient to the recipe
-- (IBAction)AddToList:(id)sender 
-{
-    [Utilities addToList: @[self.recipe]];
-}
-
 -(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
-
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 @end

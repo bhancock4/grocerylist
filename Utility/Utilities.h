@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include <stdio.h>
 
 #define kOFFSET_FOR_KEYBOARD 80.0
 
@@ -14,8 +15,8 @@
 
 + (void) addToList: (NSArray *) recipes;
 + (BOOL) quantityContainsFractionalPart: (NSString *) quantity;
-+ (double) getDecimalValue: (NSString *) quantity;
-+ (NSString *) getFractionalValue: (double) quantity;
-+ (NSString *) addQuantity1: (NSString *) q1 ToQuantity2: (NSString *) q2;
+//+ (double) getDecimalValue: (NSString *) quantity;
+//+ (NSString *) getFractionalValue: (double) quantity;
++ (NSString *) addRational1: (NSString *) r1 ToRational2: (NSString *) r2;
 
 @end

@@ -21,11 +21,6 @@
                                              selector: @selector(cellTextFieldEndedEditing)
                                                  name: UITextFieldTextDidEndEditingNotification
                                                object: nil];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
     
     ShoppingList* shoppingList = [ShoppingList getEntityByName:@"ShoppingList"];
     if(shoppingList == nil)
@@ -41,6 +36,13 @@
     
     self.shoppingListIngredients = [NSMutableArray arrayWithArray: [self.shoppingList.shoppingListIngredients array]];
     
+    [self.tableView reloadData];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
     [self.tableView registerNib:[UINib nibWithNibName: @"IngredientTableViewCell"
                                                bundle: [NSBundle mainBundle]]
                                forCellReuseIdentifier: @"IngredientTableViewCell"];
@@ -49,7 +51,6 @@
     self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.editing = YES;  //edit mode allows reordering
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -144,7 +145,7 @@
         }
     }
     //set the other UI fields on the custom cell
-    cell.ingredientQuantityTextField.text = [Utilities getFractionalValue: [Utilities getDecimalValue: cell.ingredient.quantity]];
+    cell.ingredientQuantityTextField.text = cell.ingredient.quantity;
     cell.ingredientNameTextField.text = cell.ingredient.name;
     
     //add a right-swipe gesture to move to delete
