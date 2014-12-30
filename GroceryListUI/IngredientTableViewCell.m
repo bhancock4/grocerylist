@@ -40,7 +40,7 @@
     self.clipsToBounds = YES;
     
     //hard-code sone picker data while developing
-    self.pickerData = @[@"", @"tsp", @"tbs", @"cups", @"oz", @"lbs"];
+    self.pickerData = nil;
 }
 
 - (UIToolbar *) getDoneKeyboardToolbar

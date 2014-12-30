@@ -11,9 +11,9 @@
 #import "ShoppingListIngredient.h"
 #import "IngredientTableViewCell.h"
 #import "Utilities.h"
-#import "IngredientTableViewController.h"
 
-@interface ShoppingListsViewController : IngredientTableViewController
+@interface ShoppingListsViewController : UITableViewController
+- (IBAction)clearShoppingList:(id)sender;
 
 @property ShoppingList* shoppingList;
 @property NSMutableArray* shoppingListIngredients;

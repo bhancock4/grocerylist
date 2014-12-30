@@ -326,6 +326,50 @@
     return validationMessage;
 }
 
+//handle result of user interaction with delete confirm dialog
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 1)
+    {
+        UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
+        cell.textLabel.textColor = [UIColor blackColor];
+        
+        if(buttonIndex == [alertView cancelButtonIndex])
+        {
+            UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
+            cell.backgroundColor = self.preAlertCellColor;
+        }
+        else
+        {
+            [self.recipeIngredients removeObjectAtIndex:self.swipeLIndex.row];
+            [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
+            
+            if([self.recipeIngredients count] > 0)
+            {
+                for(int i = (int)self.swipeLIndex.row; i < [self.recipeIngredients count]; i++)
+                {
+                    RecipeIngredient* item = [self.recipeIngredients objectAtIndex:i];
+                    item.order = i;
+                }
+            }
+        }
+    }
+    else if(alertView.tag == 2)
+    {
+        if(buttonIndex == [alertView cancelButtonIndex])
+        {
+            return;
+        }
+        else if(buttonIndex == 1)
+        {
+            [self presentCamera];
+        }
+        else
+        {
+            [self presentPhotoLibrary];
+        }
+    }
+}
 
 //###############################################################################################
 #pragma mark - photo methods
@@ -440,50 +484,6 @@
     [alert show];
 }
 
-//handle result of user interaction with delete confirm dialog
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(alertView.tag == 1)
-    {
-        UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
-        cell.textLabel.textColor = [UIColor blackColor];
-    
-        if(buttonIndex == [alertView cancelButtonIndex])
-        {
-            UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
-            cell.backgroundColor = self.preAlertCellColor;
-        }
-        else
-        {
-            [self.recipeIngredients removeObjectAtIndex:self.swipeLIndex.row];
-            [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
-        
-            if([self.recipeIngredients count] > 0)
-            {
-                for(int i = (int)self.swipeLIndex.row; i < [self.recipeIngredients count]; i++)
-                {
-                    RecipeIngredient* item = [self.recipeIngredients objectAtIndex:i];
-                    item.order = i;
-                }
-            }
-        }
-    }
-    else if(alertView.tag == 2)
-    {
-        if(buttonIndex == [alertView cancelButtonIndex])
-        {
-            return;
-        }
-        else if(buttonIndex == 1)
-        {
-            [self presentCamera];
-        }
-        else
-        {
-            [self presentPhotoLibrary];
-        }
-    }
-}
 
 - (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g
 {

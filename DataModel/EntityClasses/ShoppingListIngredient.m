@@ -11,5 +11,6 @@
 @implementation ShoppingListIngredient
 
 @dynamic shoppingList;
+@dynamic checked;
 
 @end

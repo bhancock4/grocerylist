@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSString * quantity;
 @property (nonatomic, retain) NSString * unit;
 @property (nonatomic) int16_t order;
+@property BOOL checked;
 
 @end

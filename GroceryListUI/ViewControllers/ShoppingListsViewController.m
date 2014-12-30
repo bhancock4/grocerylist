@@ -58,6 +58,13 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
+    [self.shoppingList saveEntity];
+}
 
 //######################################################################################################
 #pragma mark - Other methods
@@ -107,8 +114,23 @@
         ShoppingListIngredient* shoppingListIngredient = ((ShoppingListIngredient *)[self.shoppingListIngredients objectAtIndex: cellIndex.row]);
         
         shoppingListIngredient.checked = !shoppingListIngredient.checked;
+        self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
+        [self.shoppingList saveEntity];
+        
         cell.backgroundColor = shoppingListIngredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
     }
+}
+
+- (IBAction)clearShoppingList:(id)sender
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Clear all or completed?"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Clear All", @"Clear Completed", nil];
+    
+    [alert setTag:2];
+    [alert show];
 }
 
 
@@ -160,7 +182,7 @@
     longPress.minimumPressDuration = 0.25;  //seconds
     [cell.contentView addGestureRecognizer:longPress];
     
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = cell.ingredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
     
     return cell;
 }
@@ -183,35 +205,66 @@
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"OK", nil];
     
+    [alert setTag:1];
     [alert show];
 }
 
 //handle result of user interaction with delete confirm dialog
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:self.swipeLIndex];
-    cell.textLabel.textColor = [UIColor blackColor];
-    
-    if(buttonIndex == [alertView cancelButtonIndex])
+    if(alertView.tag == 1)
     {
         UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:self.swipeLIndex];
-        cell.backgroundColor = self.preAlertCellColor;
-    }
-    else
-    {
-        [self.shoppingListIngredients removeObjectAtIndex:self.swipeLIndex.row];
-        [self.tableView deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
-        
-        if([self.shoppingListIngredients count] > 0)
+        cell.textLabel.textColor = [UIColor blackColor];
+    
+        if(buttonIndex == [alertView cancelButtonIndex])
         {
-            for(int i = (int)self.swipeLIndex.row; i < [self.shoppingListIngredients count]; i++)
-            {
-                ShoppingListIngredient * item = [self.shoppingListIngredients objectAtIndex:i];
-                item.order = i;
-            }
+            UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:self.swipeLIndex];
+            cell.backgroundColor = self.preAlertCellColor;
         }
-        self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray:self.shoppingListIngredients];
-        [self.shoppingList saveEntity];
+        else
+        {
+            [self.shoppingListIngredients removeObjectAtIndex:self.swipeLIndex.row];
+            [self.tableView deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
+        
+            if([self.shoppingListIngredients count] > 0)
+            {
+                for(int i = (int)self.swipeLIndex.row; i < [self.shoppingListIngredients count]; i++)
+                {
+                    ShoppingListIngredient * item = [self.shoppingListIngredients objectAtIndex:i];
+                    item.order = i;
+                }
+            }
+            self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray:self.shoppingListIngredients];
+            [self.shoppingList saveEntity];
+        }
+    }
+    //clearing items from list
+    else if(alertView.tag == 2)
+    {   //if not cancel...
+        if(buttonIndex != [alertView cancelButtonIndex])
+        {   //if we are clearing all items
+            if(buttonIndex == 1)
+            {
+                for(int i = (int)self.shoppingListIngredients.count - 1; i >= 0; i--)
+                {
+                    [self.shoppingListIngredients removeObjectAtIndex:i];
+                }
+            }
+            else //otherwise only clear completed items
+            {
+                for(int i = (int)self.shoppingListIngredients.count - 1; i >= 0; i--)
+                {
+                    if(((ShoppingListIngredient *)[self.shoppingListIngredients objectAtIndex:i]).checked)
+                    {
+                        [self.shoppingListIngredients removeObjectAtIndex:i];
+                    }
+                }
+            }
+            self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
+            [self.shoppingList saveEntity];
+            [self.tableView reloadData];
+        }
     }
 }
 

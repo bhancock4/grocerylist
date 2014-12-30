@@ -48,13 +48,6 @@
     NSDate* date = [df dateFromString:dateString];
     
     [self calendarView: self.calendar eventsForDate: date];
-    
-    //self.selectedCalendarDay = [CalendarDay getEntityByDate: date];
-}
-
-- (void)multiSelectSwitchChanged: (UIButton *) sender
-{
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -71,15 +64,21 @@
 //populate date entry with the recipes
 - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
 {
-    CalendarDay* calendarDay = [CalendarDay getEntityByDate:date];
+    NSDateFormatter* df = [NSDateFormatter new];
+    [df setDateFormat: @"MM/dd/yyyy"];
+    NSString* dateString = [df stringFromDate: date];
+    NSDate* truncDate = [df dateFromString:dateString];
+    
+    CalendarDay* calendarDay = [CalendarDay getEntityByDate:truncDate];
     if(nil != calendarDay && calendarDay.recipes.count > 0)
     {
         NSArray* recipes = [calendarDay.recipes allObjects];
         NSMutableArray* recipeEvents = [NSMutableArray new];
         for(Recipe* recipe in recipes)
         {
-            CKCalendarEvent* recipeEvent = [CKCalendarEvent eventWithTitle: recipe.name andDate: date andInfo: nil andImage:recipe.picture];
+            CKCalendarEvent* recipeEvent = [CKCalendarEvent eventWithTitle: recipe.name andDate: truncDate andInfo: nil andImage:recipe.picture];
             [recipeEvents addObject:recipeEvent];
+            
         }
         return recipeEvents;
     }

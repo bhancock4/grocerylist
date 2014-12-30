@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D23812B1A4EE31E00F13D7C /* IngredientTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D23812A1A4EE31E00F13D7C /* IngredientTableViewController.m */; };
 		0D2439E31A0E782C0005FFA8 /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = 0D2439E21A0E782C0005FFA8 /* PodFile */; };
 		0D2D14381A159EB20017C30C /* ToDo in Resources */ = {isa = PBXBuildFile; fileRef = 0D2D14371A159EB20017C30C /* ToDo */; };
 		0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D37D11D1A12F5C40061A958 /* CalendarDay.m */; };
@@ -50,8 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D2381291A4EE31E00F13D7C /* IngredientTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientTableViewController.h; sourceTree = "<group>"; };
-		0D23812A1A4EE31E00F13D7C /* IngredientTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientTableViewController.m; sourceTree = "<group>"; };
 		0D2439E21A0E782C0005FFA8 /* PodFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PodFile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0D2D14371A159EB20017C30C /* ToDo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ToDo; sourceTree = "<group>"; };
 		0D37D11C1A12F5C40061A958 /* CalendarDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDay.h; sourceTree = "<group>"; };
@@ -208,8 +205,6 @@
 				0D92BA6D1A030D6C00AF7070 /* IngredientTableViewCell.m */,
 				0D92BA6E1A030D6C00AF7070 /* IngredientTableViewCell.xib */,
 				0D934B5219D6611F003A51BC /* Supporting Files */,
-				0D2381291A4EE31E00F13D7C /* IngredientTableViewController.h */,
-				0D23812A1A4EE31E00F13D7C /* IngredientTableViewController.m */,
 			);
 			path = GroceryListUI;
 			sourceTree = "<group>";
@@ -427,7 +422,6 @@
 				0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */,
 				0D934B5B19D6611F003A51BC /* CalendarViewController.m in Sources */,
 				0D934B9619D67EA7003A51BC /* DataModel.xcdatamodeld in Sources */,
-				0D23812B1A4EE31E00F13D7C /* IngredientTableViewController.m in Sources */,
 				0D9735FE1A0DDBAA005E6441 /* ShoppingList.m in Sources */,
 				0D92BA6F1A030D6C00AF7070 /* IngredientTableViewCell.m in Sources */,
 				0D934B5519D6611F003A51BC /* main.m in Sources */,

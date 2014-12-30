@@ -13,6 +13,11 @@
 
 @implementation Utilities
 
++ (NSArray*) unitPickerData
+{
+    return @[@"", @"tsp", @"tbs", @"cups", @"oz", @"lbs"];
+}
+
 + (BOOL) quantityContainsFractionalPart: (NSString *) quantity
 {
     return [quantity componentsSeparatedByString: @"/"].count > 1;

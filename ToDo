@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  General/Shared  **************************************************************/
 + create visual theme
-+ create icons for buttons, etc.
++ create icons for app, buttons, etc.
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 + need ability to remove recipes from dates
-+ bug -> initial today's date not loading data or updating until other dates selected
-+ bug -> multi date select does not work when crossing months
++ bug -> initial today's date not loading name or right after blank dates selected
++ bug -> multi date select does not work when crossing loaded months
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
@@ -15,7 +15,6 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Shopping List  ***************************************************************/
-+ make sure the list is saved when the units for an ingredient are changed
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Settings  ********************************************************************/
