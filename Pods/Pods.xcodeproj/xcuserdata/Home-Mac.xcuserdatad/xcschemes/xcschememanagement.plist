@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MCSwipeTableViewCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SevenSwitch.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>55AF9D3DB44C30F244134A78</key>
+		<key>5915150905FB70F845FBC88E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>564DFC352B510223331C6511</key>
+		<key>CA7B51490109B5E3CCEBB738</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB5A84E47956A0731E1B0B6F</key>
+		<key>E6EE90599DAD2BA83E0A81C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F279CB6A1641A9DFAC744299</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -147,11 +147,73 @@
     return self.shoppingListIngredients.count;
 }
 
+/*- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    
+    MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        cell = [[MCSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        
+        // Remove inset of iOS 7 separators.
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        
+        // Setting the background color of the cell.
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    // Configuring the views and colors.
+    UIView *checkView = [self viewWithImageName:@"check"];
+    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
+    
+    UIView *crossView = [self viewWithImageName:@"cross"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
+    UIView *clockView = [self viewWithImageName:@"clock"];
+    UIColor *yellowColor = [UIColor colorWithRed:254.0 / 255.0 green:217.0 / 255.0 blue:56.0 / 255.0 alpha:1.0];
+    
+    UIView *listView = [self viewWithImageName:@"list"];
+    UIColor *brownColor = [UIColor colorWithRed:206.0 / 255.0 green:149.0 / 255.0 blue:98.0 / 255.0 alpha:1.0];
+    
+    // Setting the default inactive state color to the tableView background color.
+    [cell setDefaultColor:self.tableView.backgroundView.backgroundColor];
+    
+    [cell.textLabel setText:@"Switch Mode Cell"];
+    [cell.detailTextLabel setText:@"Swipe to switch"];
+    
+    // Adding gestures per state basis.
+    [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Checkmark\" cell");
+    }];
+    
+    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState2 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Cross\" cell");
+    }];
+    
+    [cell setSwipeGestureWithView:clockView color:yellowColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Clock\" cell");
+    }];
+    
+    [cell setSwipeGestureWithView:listView color:brownColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState4 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"List\" cell");
+    }];
+    
+    return cell;
+}*/
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //add our custom cell
     static NSString *CellIdentifier = @"IngredientTableViewCell";
     IngredientTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
+        cell.separatorInset = UIEdgeInsetsZero;
+
     
     cell.viewControllerName = @"ShoppingListsViewController";
     
@@ -170,12 +232,6 @@
     cell.ingredientQuantityTextField.text = cell.ingredient.quantity;
     cell.ingredientNameTextField.text = cell.ingredient.name;
     
-    //add a right-swipe gesture to move to delete
-    UISwipeGestureRecognizer* swipeL;
-    swipeL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSwipedLeft: )];
-    swipeL.direction = UISwipeGestureRecognizerDirectionLeft;
-    [cell addGestureRecognizer:swipeL];
-    
     //add a long press gesture to pick status
     UILongPressGestureRecognizer* longPress;
     longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasLongPressed: )];
@@ -184,63 +240,54 @@
     
     cell.backgroundColor = cell.ingredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
     
+    UIView *crossView = [self viewWithImageName:@"Calendar"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
+    [cell setSwipeGestureWithView:crossView
+                            color:redColor
+                             mode:MCSwipeTableViewCellModeExit
+                            state:MCSwipeTableViewCellState3
+                  completionBlock:^(MCSwipeTableViewCell* cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode)
+                    {
+                        [self deleteIngredientForCell:(IngredientTableViewCell *)cell];
+                     }];
+    
+    cell.firstTrigger = 0.35;
+    cell.secondTrigger = 0.65;
+    
     return cell;
 }
 
-
-//######################################################################################################
-#pragma mark - Custom cell delete
-
-- (void)cellWasSwipedLeft:(UIGestureRecognizer *)g
+- (void) deleteIngredientForCell: (IngredientTableViewCell *) cell
 {
-    NSIndexPath* cellIndex = [self getCellIndexFromGesture: g];
-    self.swipeLIndex = cellIndex;
-    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellIndex];
-    self.preAlertCellColor = cell.backgroundColor;
-    cell.backgroundColor = [UIColor redColor];
-    cell.textLabel.textColor = [UIColor blackColor];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete?"
-                                                    message:@""
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"OK", nil];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.shoppingListIngredients removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     
-    [alert setTag:1];
-    [alert show];
+    if([self.shoppingListIngredients count] > 0)
+    {
+        for(int i = (int)indexPath.row; i < [self.shoppingListIngredients count]; i++)
+        {
+            ShoppingListIngredient * item = [self.shoppingListIngredients objectAtIndex:i];
+            item.order = i;
+        }
+    }
+    self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray:self.shoppingListIngredients];
+    [self.shoppingList saveEntity];
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
 }
 
 //handle result of user interaction with delete confirm dialog
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(alertView.tag == 1)
-    {
-        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:self.swipeLIndex];
-        cell.textLabel.textColor = [UIColor blackColor];
-    
-        if(buttonIndex == [alertView cancelButtonIndex])
-        {
-            UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:self.swipeLIndex];
-            cell.backgroundColor = self.preAlertCellColor;
-        }
-        else
-        {
-            [self.shoppingListIngredients removeObjectAtIndex:self.swipeLIndex.row];
-            [self.tableView deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
-        
-            if([self.shoppingListIngredients count] > 0)
-            {
-                for(int i = (int)self.swipeLIndex.row; i < [self.shoppingListIngredients count]; i++)
-                {
-                    ShoppingListIngredient * item = [self.shoppingListIngredients objectAtIndex:i];
-                    item.order = i;
-                }
-            }
-            self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray:self.shoppingListIngredients];
-            [self.shoppingList saveEntity];
-        }
-    }
     //clearing items from list
-    else if(alertView.tag == 2)
+    if(alertView.tag == 2)  //there used to be a 1...
     {   //if not cancel...
         if(buttonIndex != [alertView cancelButtonIndex])
         {   //if we are clearing all items
@@ -260,18 +307,25 @@
                         [self.shoppingListIngredients removeObjectAtIndex:i];
                     }
                 }
+                //now some elements have been removed so we need to reset the orders on the collection...
+                //we'll sort the elements into an array using the existing order and then just reset from 0
+                NSSortDescriptor *sortDescriptor;
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"order"
+                                                             ascending:YES];
+                NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                NSArray *sortedArray;
+                sortedArray = [self.shoppingListIngredients sortedArrayUsingDescriptors:sortDescriptors];
+                for(int i = 0; i < self.shoppingListIngredients.count; i++)
+                {
+                    ((ShoppingListIngredient *)sortedArray[i]).order = i;
+                }
+                
             }
             self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
             [self.shoppingList saveEntity];
             [self.tableView reloadData];
         }
     }
-}
-
-- (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g
-{
-    CGPoint p = [g locationInView:self.tableView];
-    return [self.tableView indexPathForRowAtPoint:p];
 }
 
 // Override to support conditional editing of the table view.

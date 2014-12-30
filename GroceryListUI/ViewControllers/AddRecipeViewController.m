@@ -216,6 +216,31 @@
 //###############################################################################################
 #pragma mark - other methods
 
+- (void) deleteIngredientForCell: (IngredientTableViewCell *) cell
+{
+    NSIndexPath *indexPath = [self.tableRecipeIngredients indexPathForCell:cell];
+    [self.recipeIngredients removeObjectAtIndex:indexPath.row];
+    [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    if([self.recipeIngredients count] > 0)
+    {
+        for(int i = (int)indexPath.row; i < [self.recipeIngredients count]; i++)
+        {
+            RecipeIngredient * item = [self.recipeIngredients objectAtIndex:i];
+            item.order = i;
+        }
+    }
+    self.recipe.recipeIngredients = [NSOrderedSet orderedSetWithArray:self.recipeIngredients];
+    [self.recipe saveEntity];
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
+}
+
 //button click to add a new ingredient to the recipe
 - (IBAction)AddToList:(id)sender
 {
@@ -329,32 +354,7 @@
 //handle result of user interaction with delete confirm dialog
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(alertView.tag == 1)
-    {
-        UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
-        cell.textLabel.textColor = [UIColor blackColor];
-        
-        if(buttonIndex == [alertView cancelButtonIndex])
-        {
-            UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:self.swipeLIndex];
-            cell.backgroundColor = self.preAlertCellColor;
-        }
-        else
-        {
-            [self.recipeIngredients removeObjectAtIndex:self.swipeLIndex.row];
-            [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[self.swipeLIndex] withRowAnimation:UITableViewRowAnimationFade];
-            
-            if([self.recipeIngredients count] > 0)
-            {
-                for(int i = (int)self.swipeLIndex.row; i < [self.recipeIngredients count]; i++)
-                {
-                    RecipeIngredient* item = [self.recipeIngredients objectAtIndex:i];
-                    item.order = i;
-                }
-            }
-        }
-    }
-    else if(alertView.tag == 2)
+    if(alertView.tag == 2) //there used to be a 1...
     {
         if(buttonIndex == [alertView cancelButtonIndex])
         {
@@ -370,6 +370,17 @@
         }
     }
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        //...this will only persist if we select "save" instead of "cancel"
+        [self.recipeIngredients removeObjectAtIndex:indexPath.row];
+        [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
 
 //###############################################################################################
 #pragma mark - photo methods
@@ -454,51 +465,22 @@
     cell.ingredientQuantityTextField.text = cell.ingredient.quantity;
     cell.ingredientNameTextField.text = cell.ingredient.name;
     
-    //add a right-swipe gesture to move to delete
-    UISwipeGestureRecognizer* swipeL;
-    swipeL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSwipedLeft: )];
-    swipeL.direction = UISwipeGestureRecognizerDirectionLeft;
-    [cell addGestureRecognizer:swipeL];
+    UIView *crossView = [self viewWithImageName:@"Calendar"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
+    [cell setSwipeGestureWithView:crossView
+                            color:redColor
+                             mode:MCSwipeTableViewCellModeExit
+                            state:MCSwipeTableViewCellState3
+                  completionBlock:^(MCSwipeTableViewCell* cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode)
+     {
+         [self deleteIngredientForCell:(IngredientTableViewCell *)cell];
+     }];
+    
+    cell.firstTrigger = 0.35;
+    cell.secondTrigger = 0.65;
     
     return cell;
-}
-
-//###############################################################################################
-#pragma mark - Custom delete functionality
-
-- (void)cellWasSwipedLeft:(UIGestureRecognizer *)g
-{
-    NSIndexPath* cellIndex = [self getCellIndexFromGesture: g];
-    self.swipeLIndex = cellIndex;
-    UITableViewCell* cell = [self.tableRecipeIngredients cellForRowAtIndexPath:cellIndex];
-    self.preAlertCellColor = cell.backgroundColor;
-    cell.backgroundColor = [UIColor redColor];
-    cell.textLabel.textColor = [UIColor blackColor];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete?"
-                                                    message:@""
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"OK", nil];
-    [alert setTag: 1];
-    
-    [alert show];
-}
-
-
-- (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g
-{
-    CGPoint p = [g locationInView:self.tableRecipeIngredients];
-    return [self.tableRecipeIngredients indexPathForRowAtPoint:p];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        //...this will only persist if we select "save" instead of "cancel"
-        [self.recipeIngredients removeObjectAtIndex:indexPath.row];
-        [self.tableRecipeIngredients deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
 }
 
 

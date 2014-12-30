@@ -11,8 +11,9 @@
 #import "AddRecipeViewController.h"
 #import "ShoppingListsViewController.h"
 #import "ShoppingListIngredient.h"
+#import "MCSwipeTableViewCell.h"
 
-@interface IngredientTableViewCell : UITableViewCell <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface IngredientTableViewCell : MCSwipeTableViewCell <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property Ingredient* ingredient;
 @property NSString* viewControllerName;

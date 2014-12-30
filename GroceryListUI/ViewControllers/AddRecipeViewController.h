@@ -26,7 +26,6 @@
 @property BOOL keyboardIsShown;
 @property int16_t selectedIngredientRow;
 @property UIColor* preAlertCellColor;
-@property NSIndexPath* swipeLIndex;
 - (IBAction)AddToList:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton*          addToList;
