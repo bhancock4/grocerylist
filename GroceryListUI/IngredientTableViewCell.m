@@ -40,7 +40,7 @@
     self.clipsToBounds = YES;
     
     //hard-code sone picker data while developing
-    self.pickerData = nil;
+    self.pickerData = [Utilities unitPickerData];
 }
 
 - (UIToolbar *) getDoneKeyboardToolbar

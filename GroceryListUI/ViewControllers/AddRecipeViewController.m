@@ -465,7 +465,7 @@
     cell.ingredientQuantityTextField.text = cell.ingredient.quantity;
     cell.ingredientNameTextField.text = cell.ingredient.name;
     
-    UIView *crossView = [self viewWithImageName:@"Calendar"];
+    UIView *crossView = [self viewWithImageName:@"RedXDelete"];
     UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
     
     [cell setSwipeGestureWithView:crossView
@@ -481,6 +481,12 @@
     cell.secondTrigger = 0.65;
     
     return cell;
+}
+
+- (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g
+{
+    CGPoint p = [g locationInView:self.tableRecipeIngredients];
+    return [self.tableRecipeIngredients indexPathForRowAtPoint:p];
 }
 
 

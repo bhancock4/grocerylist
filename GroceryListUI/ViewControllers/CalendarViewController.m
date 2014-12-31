@@ -112,6 +112,11 @@
     }
 }
 
+- (void)multiSelectSwitchChanged: (UIButton *) sender
+{
+    
+}
+
 //refresh the calendar view after coming back from the add recipes screen
 - (IBAction) unwindToCalendar:(UIStoryboardSegue *)segue sender:(id)sender
 {
