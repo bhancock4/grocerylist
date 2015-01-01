@@ -1,12 +1,20 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  General/Shared  **************************************************************/
-+ create visual theme, colors and icons for app, buttons, etc.
++ create visual color theme
++ create app icon
++ create recipes icon
++ create shopping list icon
++ create add to shopping list (single) icon
++ create single date select icon
++ create multiple date select icon
++ create blank image icon
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 + need ability to remove recipes from dates
 + bug -> initial today's date not loading name or right after blank dates selected
 + bug -> multi date select does not work when crossing loaded months
++ bug -> first add to list doesn't get ingredien names???
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/

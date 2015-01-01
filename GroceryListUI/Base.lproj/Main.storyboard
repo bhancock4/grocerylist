@@ -42,7 +42,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MyRecipesViewController" title="My Recipes" id="3iN-pJ-oAa" userLabel="My Recipes" customClass="MyRecipesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="V0l-e5-Tdd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="Vst-55-dNp">
@@ -119,7 +119,7 @@
                         <viewControllerLayoutGuide type="bottom" id="J7B-Xu-Wsb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UYq-B5-T3P">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipe Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Hd-AL-bmG">
@@ -234,7 +234,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="Calendar" selectedImage="Calendar" id="qwG-vj-U49"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="Settings" selectedImage="Settings" id="qwG-vj-U49"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRM-Kv-0wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -309,7 +309,7 @@
         <scene sceneID="23P-8w-KFi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9ZY-0l-hNc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Recipes" image="Calendar" selectedImage="Calendar" id="3N0-Bg-Cal"/>
+                    <tabBarItem key="tabBarItem" title="My Recipes" image="Recipes" selectedImage="Recipes" id="3N0-Bg-Cal"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3FV-0R-w1h">
@@ -384,11 +384,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Calendar" width="30" height="30"/>
+        <image name="Calendar" width="50" height="50"/>
         <image name="Pot_Gray" width="225" height="150"/>
+        <image name="Recipes" width="50" height="50"/>
+        <image name="Settings" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q7g-un-1TI"/>
         <segue reference="Yw1-z4-36z"/>
+        <segue reference="mCc-zQ-zqh"/>
     </inferredMetricsTieBreakers>
 </document>

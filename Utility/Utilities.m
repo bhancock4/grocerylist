@@ -25,17 +25,48 @@
 
 + (NSString *) addRational1: (NSString *) r1 ToRational2: (NSString *) r2
 {
+    long r1WholePart = 0;
+    long r2WholePart = 0;
     //get original whole parts as long integer
-    long r1WholePart = [r1 componentsSeparatedByString: @" "].count > 1 ? [[r1 componentsSeparatedByString: @" "][0] longLongValue] : 0;
-    if(r1WholePart != 0)
+    
+    //if there is a fractional component...
+    if([r1 componentsSeparatedByString:@"/"].count > 1)
     {
-        r1 = [r1 componentsSeparatedByString: @" "][1];
+        //check to see if there is also a whole component and extract it
+        r1WholePart = [r1 componentsSeparatedByString: @" "].count > 1 ? [[r1 componentsSeparatedByString: @" "][0] longLongValue] : 0;
+        
+        //if there was a whole part then set r1 to the rational component
+        if(r1WholePart != 0)
+        {
+            r1 = [r1 componentsSeparatedByString: @" "][1];
+        }
     }
-    long r2WholePart = [r2 componentsSeparatedByString: @" "].count > 1 ? [[r2 componentsSeparatedByString: @" "][0] longLongValue] : 0;
-    if(r2WholePart != 0)
+    else //there was no rational component
     {
-        r2 = [r2 componentsSeparatedByString: @" "][1];
+        r1WholePart = [r1 longLongValue];
+        r1 = @"0/1";
     }
+    
+    
+    //if there is a fractional component...
+    if([r2 componentsSeparatedByString:@"/"].count > 1)
+    {
+        //check to see if there is also a whole component and extract it
+        r2WholePart = [r2 componentsSeparatedByString: @" "].count > 1 ? [[r2 componentsSeparatedByString: @" "][0] longLongValue] : 0;
+        
+        //if there was a whole part then set r2 to the rational component
+        if(r2WholePart != 0)
+        {
+            r2 = [r2 componentsSeparatedByString: @" "][1];
+        }
+    }
+    else //there was no rational component
+    {
+        r2WholePart = [r2 longLongValue];
+        r2 = @"0/1";
+    }
+    
+    
     long resultWholePart = r1WholePart + r2WholePart;
     
     //set these to double so we can test integer division result
@@ -81,7 +112,10 @@
     
     //parse results out to mixed-number string
     NSString* wholePart = resultWholePart > 0 ? [NSString stringWithFormat: @"%ld ", resultWholePart] : @"";
-    NSString* rtn = [wholePart stringByAppendingString: [NSString stringWithFormat: @"%ld/%ld", (long)resultNumerator, (long)resultDenominator]];
+    
+    NSString* rationalPart = resultNumerator != 0 ? [NSString stringWithFormat: @"%ld/%ld", (long)resultNumerator, (long)resultDenominator] : @"";
+    
+    NSString* rtn = [wholePart stringByAppendingString: rationalPart];
     
     return rtn;
 }
