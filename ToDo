@@ -14,14 +14,17 @@
 + need ability to remove recipes from dates
 + bug -> initial today's date not loading name or right after blank dates selected
 + bug -> multi date select does not work when crossing loaded months
-+ bug -> first add to list doesn't get ingredien names???
++ bug -> first add to list doesn't get ingredient names???
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
 + bug? -> cannot update recipe ingredients (at least when name is the last (or only?) changed)
++ enforce entry of mixed numbers in custom tablecell custom textfield
++ get rid of two-space auto-decimal
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Shopping List  ***************************************************************/
++ potential issue adding shopping list ingredients with nil quantity or nil unit
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Settings  ********************************************************************/

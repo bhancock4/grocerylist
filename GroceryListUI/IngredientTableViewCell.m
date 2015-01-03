@@ -136,6 +136,23 @@
     [self setEntityValueFromTextField:textField];
 }
 
+- (BOOL) textField: (UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    BOOL shouldChange = YES;
+    
+    //
+    if(textField.tag == 1) //quantity textfield
+    {
+        //general rule...only allowed characters
+        NSCharacterSet* allowedCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@" 0123456789/"];
+        NSRange allowedRange = [string rangeOfCharacterFromSet: allowedCharacterSet];
+        //check if character is allowed or if it is a backspace (string is empty string)
+        if(allowedRange.location == NSNotFound && ![string isEqualToString:@""])
+            shouldChange = NO;
+    }
+    return shouldChange;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
