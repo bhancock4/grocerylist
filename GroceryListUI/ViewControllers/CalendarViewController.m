@@ -42,12 +42,10 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSDateFormatter* df = [NSDateFormatter new];
-    [df setDateFormat: @"MM/dd/YYYY"];
-    NSString* dateString = [df stringFromDate: [NSDate date]];
-    NSDate* date = [df dateFromString:dateString];
+    NSDate* truncDate = [self getTruncatedDate:[NSDate date]];
     
-    [self calendarView: self.calendar eventsForDate: date];
+    [self calendarView:self.calendar didSelectDate:truncDate];
+    [self calendarView: self.calendar eventsForDate:truncDate];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -61,13 +59,46 @@
     }
 }
 
+- (void) calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date
+{
+    NSDate* truncDate = [self getTruncatedDate:date];
+    
+    //set the current calendar day
+    self.selectedCalendarDay = [CalendarDay getEntityByDate:truncDate];
+    //initialize new calendar entities when a date is selected
+    if(nil == self.selectedCalendarDay)
+    {
+        self.selectedCalendarDay = [CalendarDay newEntity];
+        self.selectedCalendarDay.date = date;
+    }
+    //set controller properties for multi-select behavior
+    if(self.multiSelectButton.isOn)
+    {
+        if(!(nil == self.calendar.beginDate) && !(nil == self.calendar.endDate))
+        {
+            self.calendar.beginDate = date;
+            self.calendar.endDate = nil;
+        }
+        else if(nil == self.calendar.beginDate && nil == self.calendar.endDate)
+        {
+            self.calendar.beginDate = date;
+        }
+        else
+        {
+            self.calendar.endDate = date;
+        }
+    }
+    else
+    {
+        self.calendar.beginDate = nil;
+        self.calendar.endDate = nil;
+    }
+}
+
 //populate date entry with the recipes
 - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
 {
-    NSDateFormatter* df = [NSDateFormatter new];
-    [df setDateFormat: @"MM/dd/yyyy"];
-    NSString* dateString = [df stringFromDate: date];
-    NSDate* truncDate = [df dateFromString:dateString];
+    NSDate* truncDate = [self getTruncatedDate:date];
     
     CalendarDay* calendarDay = [CalendarDay getEntityByDate:truncDate];
     if(nil != calendarDay && calendarDay.recipes.count > 0)
@@ -78,7 +109,6 @@
         {
             CKCalendarEvent* recipeEvent = [CKCalendarEvent eventWithTitle: recipe.name andDate: truncDate andInfo: nil andImage:recipe.picture];
             [recipeEvents addObject:recipeEvent];
-            
         }
         return recipeEvents;
     }
@@ -114,7 +144,7 @@
 
 - (void)multiSelectSwitchChanged: (UIButton *) sender
 {
-    
+    //needed to implement delegate...
 }
 
 //refresh the calendar view after coming back from the add recipes screen
@@ -123,38 +153,12 @@
     [self.calendar reload];
 }
 
-- (void) calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date
+- (NSDate *) getTruncatedDate: (NSDate *) date
 {
-    //set the current calendar day
-    self.selectedCalendarDay = [CalendarDay getEntityByDate:date];
-    //initialize new calendar entities when a date is selected
-    if(nil == self.selectedCalendarDay)
-    {
-        self.selectedCalendarDay = [CalendarDay newEntity];
-        self.selectedCalendarDay.date = date;
-    }
-    //set controller properties for multi-select behavior
-    if(self.multiSelectButton.isOn)
-    {
-        if(!(nil == self.calendar.beginDate) && !(nil == self.calendar.endDate))
-        {
-            self.calendar.beginDate = date;
-            self.calendar.endDate = nil;
-        }
-        else if(nil == self.calendar.beginDate && nil == self.calendar.endDate)
-        {
-            self.calendar.beginDate = date;
-        }
-        else
-        {
-            self.calendar.endDate = date;
-        }
-    }
-    else
-    {
-        self.calendar.beginDate = nil;
-        self.calendar.endDate = nil;
-    }
+    NSDateFormatter* df = [NSDateFormatter new];
+    [df setDateFormat: @"MM/dd/yyyy"];
+    NSString* dateString = [df stringFromDate: date];
+    return [df dateFromString:dateString];
 }
 
 

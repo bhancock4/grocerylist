@@ -26,6 +26,18 @@
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"(date >= %@) && (date < %@)", date, dateEnd];
     
     NSArray* objects = [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate:predicate AndSortByProperty:@"calendarOrder"];
+    
+    if(objects.count > 0)
+    {
+        CalendarDay* cd = (CalendarDay *)objects[0];
+        NSArray* recipes = [cd.recipes allObjects];
+        for(int i = 0; i < recipes.count; i++)
+        {
+            NSLog([NSString stringWithFormat:@"Recipe Name: %@", ((Recipe *)recipes[i]).name]);
+            NSLog([NSString stringWithFormat:@"Recipe Directions: %@", ((Recipe *)recipes[i]).directions]);
+        }
+    }
+
     return objects.count == 0 ? nil : objects[0];
 }
 
