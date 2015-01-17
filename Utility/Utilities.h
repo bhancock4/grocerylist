@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #include <stdio.h>
+#import "ShoppingListIngredient.h"
 
 #define kOFFSET_FOR_KEYBOARD 80.0
 
@@ -17,5 +18,6 @@
 + (void) addToList: (NSArray *) recipes;
 + (BOOL) quantityContainsFractionalPart: (NSString *) quantity;
 + (NSString *) addRational1: (NSString *) r1 ToRational2: (NSString *) r2;
++ (BOOL) foundIngredientMatchWithName:(NSString *)name Quantity:(NSString *)quantity Unit:(NSString *)unit ForIngredient:(ShoppingListIngredient *)ingredient;
 
 @end

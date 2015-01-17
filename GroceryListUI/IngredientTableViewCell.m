@@ -150,25 +150,7 @@
         if(allowedRange.location == NSNotFound && ![string isEqualToString:@""])
             shouldChange = NO;
     }
-    
-    /*if((range.location > 0 && [textField.text length] > 0 && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[textField.text characterAtIndex:0]] && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[textField text] characterAtIndex:range.location - 1]]))
-    {
-        textField.text = [textField.text stringByReplacingCharactersInRange:range withString:@" "];
-        //textField.text.selectedRange = NSMakeRange(range.location + 1, 0);
-        shouldChange = NO;
-    }*/
     return shouldChange;
-}
-
-- (BOOL) textView:(UITextView *) textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if((range.location > 0 && [text length] > 0 && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[text characterAtIndex:0]] && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[textView text] characterAtIndex:range.location - 1]]))
-    {
-        textView.text = [textView.text stringByReplacingCharactersInRange:range withString:@" "];
-        textView.selectedRange = NSMakeRange(range.location + 1, 0);
-        return NO;
-    }
-    return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

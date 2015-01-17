@@ -142,7 +142,8 @@
             BOOL foundIngredient = NO;
             for(ShoppingListIngredient* sli in shoppingList.shoppingListIngredients)
             {
-                if([sli.name isEqualToString:ri.name])
+                if([Utilities foundIngredientMatchWithName:ri.name  Quantity:ri.quantity Unit:ri.unit ForIngredient:sli])
+                //if([sli.name isEqualToString:ri.name])
                 {
                     foundIngredient = YES;
                     if([ri.unit length] > 0)
@@ -182,5 +183,20 @@
     }
 }
 
++ (BOOL)foundIngredientMatchWithName:(NSString *)name Quantity:(NSString *)quantity Unit:(NSString *)unit ForIngredient:(ShoppingListIngredient *)ingredient
+{
+    BOOL foundMatch = NO;
+    if([name isEqualToString:ingredient.name])
+    {
+        foundMatch = YES;
+        
+        if(([quantity length] == 0 && [ingredient.quantity length] != 0) || ([quantity length] != 0 && [ingredient.quantity length] == 0))
+            foundMatch = NO;
+        
+        if(([unit length] == 0 && [ingredient.unit length] != 0) || ([unit length] != 0 && [ingredient.unit length] == 0))
+            foundMatch = NO;
+    }
+    return foundMatch;
+}
 
 @end

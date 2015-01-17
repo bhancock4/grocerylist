@@ -18,11 +18,9 @@
 /********  Recipes  *********************************************************************/
 + bug? -> cannot update recipe ingredients (at least when name is the last (or only?) changed)
 + enforce entry of mixed numbers in custom tablecell custom textfield
-+ get rid of two-space auto-decimal (why?)
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Shopping List  ***************************************************************/
-+ potential issue adding shopping list ingredients with nil quantity or nil unit
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Settings  ********************************************************************/
