@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "+[Utilities getSmallerUnitBetween:And:]:Utilities.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[Utilities unitPickerData] indexOfObject:unit1]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[ShoppingListsViewController tableView:cellForRowAtIndexPath:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -31,6 +39,9 @@
             <PersistentString
                value = "sli.quantity">
             </PersistentString>
+            <PersistentString
+               value = "sli.unit">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -46,6 +57,17 @@
          <PersistentStrings>
             <PersistentString
                value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Utilities unit:IsCompatibleWith:]:Utilities.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[Utilities unitPickerData] indexOfObject:@&quot;tsp&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "englishUnitConversionTable[unit1Index][unit2Index]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -159,6 +181,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "+[Utilities reduceIngredient:]:Utilities.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "ingredient.unit">
+            </PersistentString>
+            <PersistentString
+               value = "ingredient.quantity">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[ShoppingListsViewController cellTextFieldEndedEditing:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -186,7 +219,7 @@
          contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.calendarDay.date">
+               value = "segue.destinationViewController">
             </PersistentString>
             <PersistentString
                value = "self.selectedCalendarDay.date">
@@ -198,10 +231,10 @@
                value = "segue.identifier">
             </PersistentString>
             <PersistentString
-               value = "segue.destinationViewController">
+               value = "self.selectedCalendarDay">
             </PersistentString>
             <PersistentString
-               value = "self.selectedCalendarDay">
+               value = "self.calendarDay.date">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -234,10 +267,10 @@
                value = "self.ingredient.name">
             </PersistentString>
             <PersistentString
-               value = "textField.text">
+               value = "self.ingredient.quantity">
             </PersistentString>
             <PersistentString
-               value = "self.ingredient.quantity">
+               value = "textField.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
