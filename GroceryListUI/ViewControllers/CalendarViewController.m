@@ -15,8 +15,8 @@
     [super viewDidLoad];
     
     SevenSwitch* multiSelectButton = [SevenSwitch new];
-    multiSelectButton.offImage = [UIImage imageNamed: @"Calendar"];
-    multiSelectButton.onImage = [UIImage imageNamed: @"Calendar"];
+    multiSelectButton.offImage = [UIImage imageNamed: @"SelectSingle"];
+    multiSelectButton.onImage = [UIImage imageNamed: @"SelectMultiple"];
     multiSelectButton.activeColor = [UIColor blueColor];
     multiSelectButton.thumbTintColor = [UIColor blueColor];
     multiSelectButton.frame = CGRectMake(0, 0, 50, 27);
