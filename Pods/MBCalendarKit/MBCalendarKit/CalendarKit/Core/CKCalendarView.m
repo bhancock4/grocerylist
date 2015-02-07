@@ -1,3 +1,4 @@
+
 //
 //   CKCalendarView.m
 //   MBCalendarKit
@@ -81,7 +82,7 @@
     //  Date bounds
     _minimumDate = nil;
     _maximumDate = nil;
-
+    
 }
 - (instancetype)init
 {
@@ -197,7 +198,7 @@
     
     if (animated) {
         [UIView animateWithDuration:0.4 animations:^{
-            [super setFrame:frame];    
+            [super setFrame:frame];
         }];
     }
     else
@@ -490,7 +491,7 @@
         [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
         [self _cleanupCells:cellsToRemoveAfterAnimation];
         [cellsBeingAnimatedIntoView removeAllObjects];
-        [self setIsAnimating:NO];        
+        [self setIsAnimating:NO];
     }
     
     
@@ -699,7 +700,7 @@
 - (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated
 {
     _maximumDate = maximumDate;
-    [self setDate:[self date] animated:animated];    
+    [self setDate:[self date] animated:animated];
 }
 
 #pragma mark - CKCalendarHeaderViewDataSource
@@ -780,7 +781,7 @@
     {
         return [[self calendar] date:[self date] isSameWeekAs:[self minimumDate]];
     }
-
+    
     return [[self calendar] date:[self date] isSameDayAs:[self minimumDate]];
 }
 
@@ -812,7 +813,7 @@
 {
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
-
+    
     /* If the cells are animating, don't do anything or we'll break the view */
     
     if ([self isAnimating]) {
@@ -1020,7 +1021,7 @@
         }
         return cell;
     }
-
+    
     CKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     CKCalendarEvent *event = [[self events] objectAtIndex:[indexPath row]];
@@ -1180,7 +1181,7 @@
     {
         return [[self calendar]date:date isBeforeDate:[self maximumDate]];
     }
-
+    
     //  If there's no maximum, treat all dates that are before
     //  the minimum as valid
     else if(![self maximumDate])
@@ -1269,7 +1270,7 @@
                 index = [cell index];
                 break;
             }
-
+            
         }
         
         //  Clip the index to minimum and maximum dates
@@ -1282,7 +1283,7 @@
         {
             index = [self _indexFromDate:[self minimumDate]];
         }
-
+        
         // Save the new index
         [self setSelectedIndex:index];
         
@@ -1326,3 +1327,5 @@
     [self setDate:dateToSelect animated:NO];
 }
 @end
+//Status API Training Shop Blog About
+//© 2015 GitHub, Inc. Terms Privacy Security Contact

@@ -10,7 +10,7 @@
 #define COCOAPODS_POD_AVAILABLE_MBCalendarKit
 #define COCOAPODS_VERSION_MAJOR_MBCalendarKit 2
 #define COCOAPODS_VERSION_MINOR_MBCalendarKit 2
-#define COCOAPODS_VERSION_PATCH_MBCalendarKit 2
+#define COCOAPODS_VERSION_PATCH_MBCalendarKit 7
 
 // MCSwipeTableViewCell
 #define COCOAPODS_POD_AVAILABLE_MCSwipeTableViewCell

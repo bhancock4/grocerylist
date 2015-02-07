@@ -69,7 +69,12 @@
     
     [self setToolbarItems:@[todayButton, item] animated:NO];
     [[self navigationController] setToolbarHidden:NO animated:NO];
-
+    
+    /* Remove bar translucency. */
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.toolbar.translucent = NO;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,7 +107,7 @@
 
 #pragma mark - CKCalendarViewDelegate
 
-// Called before/after the selected date changes
+// Called before the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date
 {
     if ([self isEqual:[self delegate]]) {
@@ -114,6 +119,7 @@
     }
 }
 
+// Called after the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date
 {
     if ([self isEqual:[self delegate]]) {
@@ -143,4 +149,20 @@
 {
     return _calendarView;
 }
+
+#pragma mark - Orientation Support
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [[self calendarView] reloadAnimated:NO];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        
+    }];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [[self calendarView] reloadAnimated:NO];
+}
+
 @end

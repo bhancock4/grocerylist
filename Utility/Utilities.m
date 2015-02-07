@@ -214,6 +214,7 @@ int englishUnitConversionTable[8][8] = {
         shoppingList.name = @"ShoppingList";
         [shoppingList saveEntity];
     }
+    NSMutableDictionary* recipeDictionary;
     for(Recipe* recipe in recipes)
     {
         if(shoppingList.shoppingListIngredients.count > 0)
@@ -272,8 +273,6 @@ int englishUnitConversionTable[8][8] = {
             shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
             [shoppingList saveEntity];
         }
-        
-        
         UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
                                                                       message:[NSString stringWithFormat: @"The recipe %@ has been added to your shopping list", recipe.name]
                                                                      delegate: nil

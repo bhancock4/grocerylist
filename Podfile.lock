@@ -1,19 +1,15 @@
 PODS:
-  - MBCalendarKit (2.2.2)
+  - MBCalendarKit (2.2.7)
   - MCSwipeTableViewCell (2.1.2)
   - SevenSwitch (1.4.0)
 
 DEPENDENCIES:
-  - MBCalendarKit (from `https://github.com/MosheBerman/MBCalendarKit.git`)
+  - MBCalendarKit (~> 2.2.7)
   - MCSwipeTableViewCell (~> 2.1.2)
   - SevenSwitch (~> 1.4)
 
-EXTERNAL SOURCES:
-  MBCalendarKit:
-    :git: https://github.com/MosheBerman/MBCalendarKit.git
-
 SPEC CHECKSUMS:
-  MBCalendarKit: e96bccd60ac1a0045ddfcc9199f3cbdcb317b889
+  MBCalendarKit: ba833595ff81509d2c8b9be55ea6004360a02c66
   MCSwipeTableViewCell: 8e78ff197ab06ba7bfd5c938a00149de8a33afa9
   SevenSwitch: 2f6832907b4f0d4eeb61e2a24acb1e28f6f8c059
 

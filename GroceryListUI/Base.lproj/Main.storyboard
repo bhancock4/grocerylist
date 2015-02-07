@@ -42,7 +42,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MyRecipesViewController" title="My Recipes" id="3iN-pJ-oAa" userLabel="My Recipes" customClass="MyRecipesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="V0l-e5-Tdd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="Vst-55-dNp">
@@ -119,7 +119,7 @@
                         <viewControllerLayoutGuide type="bottom" id="J7B-Xu-Wsb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UYq-B5-T3P">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipe Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Hd-AL-bmG">
@@ -129,6 +129,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1e-yn-FYQ">
                                 <rect key="frame" x="16" y="281" width="22" height="22"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -158,9 +159,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pot_Gray" translatesAutoresizingMaskIntoConstraints="NO" id="2k5-fL-jsn">
                                 <rect key="frame" x="6" y="68" width="44" height="44"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkI-gm-ddn">
-                                <rect key="frame" x="6" y="68" width="44" height="44"/>
-                                <state key="normal">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkI-gm-ddn">
+                                <rect key="frame" x="3" y="65" width="50" height="50"/>
+                                <state key="normal" image="Pot_Gray">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -170,17 +171,18 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopping List" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3P-wU-Ia4">
                                 <rect key="frame" x="203" y="282" width="94" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Ingredient" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMQ-dh-b6G">
                                 <rect key="frame" x="46" y="282" width="124" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-yS-eVu">
                                 <rect key="frame" x="163" y="275" width="35" height="35"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" image="AddToCart">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -367,7 +369,7 @@
         <scene sceneID="bj5-GL-ZjP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LDD-2v-XJp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Shopping List" image="Calendar" selectedImage="Calendar" id="Rm3-gv-7KE"/>
+                    <tabBarItem key="tabBarItem" title="Shopping List" image="ShoppingList" selectedImage="ShoppingList" id="Rm3-gv-7KE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IF2-6V-qGz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -386,12 +388,13 @@
     <resources>
         <image name="AddToCart" width="50" height="50"/>
         <image name="Calendar" width="50" height="50"/>
-        <image name="Pot_Gray" width="225" height="150"/>
+        <image name="Pot_Gray" width="50" height="50"/>
         <image name="Recipes" width="50" height="50"/>
         <image name="Settings" width="50" height="50"/>
+        <image name="ShoppingList" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q7g-un-1TI"/>
+        <segue reference="mCc-zQ-zqh"/>
         <segue reference="Yw1-z4-36z"/>
     </inferredMetricsTieBreakers>
 </document>
