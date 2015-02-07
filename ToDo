@@ -2,17 +2,12 @@
 /********  General/Shared  **************************************************************/
 + create visual color theme
 + create app icon
-+ create recipes icon
-+ create shopping list icon
-+ create add to shopping list (single) icon
-+ create single date select icon
-+ create multiple date select icon
-+ create blank image icon
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 + need ability to remove recipes from dates
 + bug -> multi date select does not work when crossing loaded months
++ bug -> calendar is not taking up full screen width on iPhone6 devices
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
