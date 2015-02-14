@@ -159,15 +159,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pot_Gray" translatesAutoresizingMaskIntoConstraints="NO" id="2k5-fL-jsn">
                                 <rect key="frame" x="6" y="68" width="44" height="44"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkI-gm-ddn">
-                                <rect key="frame" x="3" y="65" width="50" height="50"/>
-                                <state key="normal" image="Pot_Gray">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="handleRecipeImageButtonClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="vb3-EH-yD7"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopping List" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3P-wU-Ia4">
                                 <rect key="frame" x="203" y="282" width="94" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -188,6 +179,15 @@
                                 </state>
                                 <connections>
                                     <action selector="AddToList:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="aNE-xl-nwS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkI-gm-ddn">
+                                <rect key="frame" x="4" y="64" width="50" height="50"/>
+                                <state key="normal" image="Pot_Gray">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleRecipeImageButtonClicked:" destination="T8N-Cq-VLF" eventType="touchUpInside" id="vb3-EH-yD7"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -1,3 +1,3 @@
-pod 'MBCalendarKit', :git => 'https://github.com/MosheBerman/MBCalendarKit.git'
+pod 'MBCalendarKit', '~> 2.2.7'
 pod 'SevenSwitch', '~> 1.4'
 pod 'MCSwipeTableViewCell', '~> 2.1.2'

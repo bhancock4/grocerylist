@@ -6,8 +6,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 + need ability to remove recipes from dates
-+ bug -> multi date select does not work when crossing loaded months
-+ bug -> calendar is not taking up full screen width on iPhone6 devices
++ multi date select does not work when crossing loaded months
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/

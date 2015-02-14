@@ -30,6 +30,14 @@
         self.navigationItem.title = self.recipe.name;
         self.recipeName.text = self.recipe.name;
         self.RecipeImage.image = [UIImage imageWithData:self.recipe.picture];
+        [self.recipeImageButton setImage:[UIImage imageWithData:self.recipe.picture] forState:UIControlStateNormal];
+        
+        //if the recipe still has the default image then show the camera icon
+        if([self.recipe.picture isEqualToData:UIImagePNGRepresentation([UIImage imageNamed:@"Recipes"] )])
+        {
+            [self.recipeImageButton setImage:[UIImage imageNamed:@"Pot_Gray"] forState:UIControlStateNormal];
+        }
+        
         //...set other fields
         self.recipeDirections.text = self.recipe.directions;
         //set our ingredients array to the entity's recipeIngredients relationship property
@@ -311,6 +319,12 @@
             //set fields on the entity to be saved
             self.recipe.name = self.recipeName.text;
             self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
+            
+            //if they didn't set an image then use the default image for this recipe
+            if([self.recipe.picture isEqualToData:UIImagePNGRepresentation([UIImage imageNamed:@"Pot_Gray"] )])
+            {
+                self.recipe.picture = UIImagePNGRepresentation([UIImage imageNamed:@"Recipes"]);
+            }
             self.recipe.directions = self.recipeDirections.text;
             self.recipe.recipeIngredients = [NSOrderedSet orderedSetWithArray: self.recipeIngredients];
             
@@ -421,6 +435,7 @@
 {
     UIImage* chosenImage = info[UIImagePickerControllerEditedImage];
     self.RecipeImage.image = chosenImage;
+    [self.recipeImageButton setImage:chosenImage forState:UIControlStateNormal];
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
