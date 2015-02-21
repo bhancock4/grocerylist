@@ -11,6 +11,8 @@
 		0D2D14381A159EB20017C30C /* ToDo in Resources */ = {isa = PBXBuildFile; fileRef = 0D2D14371A159EB20017C30C /* ToDo */; };
 		0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D37D11D1A12F5C40061A958 /* CalendarDay.m */; };
 		0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B1E6A1A2075D4006C727C /* Utilities.m */; };
+		0D695DA41A984B3700C3048A /* RecipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D695DA21A984B3700C3048A /* RecipeTableViewCell.m */; };
+		0D695DA51A984B3700C3048A /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D695DA31A984B3700C3048A /* RecipeTableViewCell.xib */; };
 		0D92BA6F1A030D6C00AF7070 /* IngredientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D92BA6D1A030D6C00AF7070 /* IngredientTableViewCell.m */; };
 		0D92BA701A030D6C00AF7070 /* IngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D92BA6E1A030D6C00AF7070 /* IngredientTableViewCell.xib */; };
 		0D934B5519D6611F003A51BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5419D6611F003A51BC /* main.m */; };
@@ -55,6 +57,9 @@
 		0D37D11D1A12F5C40061A958 /* CalendarDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDay.m; sourceTree = "<group>"; };
 		0D5B1E691A2075D4006C727C /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		0D5B1E6A1A2075D4006C727C /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		0D695DA11A984B3700C3048A /* RecipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeTableViewCell.h; sourceTree = "<group>"; };
+		0D695DA21A984B3700C3048A /* RecipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeTableViewCell.m; sourceTree = "<group>"; };
+		0D695DA31A984B3700C3048A /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
 		0D92BA6C1A030D6C00AF7070 /* IngredientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientTableViewCell.h; sourceTree = "<group>"; };
 		0D92BA6D1A030D6C00AF7070 /* IngredientTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientTableViewCell.m; sourceTree = "<group>"; };
 		0D92BA6E1A030D6C00AF7070 /* IngredientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IngredientTableViewCell.xib; sourceTree = "<group>"; };
@@ -205,6 +210,9 @@
 				0D92BA6D1A030D6C00AF7070 /* IngredientTableViewCell.m */,
 				0D92BA6E1A030D6C00AF7070 /* IngredientTableViewCell.xib */,
 				0D934B5219D6611F003A51BC /* Supporting Files */,
+				0D695DA11A984B3700C3048A /* RecipeTableViewCell.h */,
+				0D695DA21A984B3700C3048A /* RecipeTableViewCell.m */,
+				0D695DA31A984B3700C3048A /* RecipeTableViewCell.xib */,
 			);
 			path = GroceryListUI;
 			sourceTree = "<group>";
@@ -352,6 +360,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D695DA51A984B3700C3048A /* RecipeTableViewCell.xib in Resources */,
 				0D934B6119D6611F003A51BC /* Main.storyboard in Resources */,
 				0D2439E31A0E782C0005FFA8 /* PodFile in Resources */,
 				0D2D14381A159EB20017C30C /* ToDo in Resources */,
@@ -417,6 +426,7 @@
 				0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */,
 				0D934B7D19D666A9003A51BC /* ShoppingListsViewController.m in Sources */,
 				0D934B5819D6611F003A51BC /* AppDelegate.m in Sources */,
+				0D695DA41A984B3700C3048A /* RecipeTableViewCell.m in Sources */,
 				0D934B8019D666D6003A51BC /* SettingsViewController.m in Sources */,
 				0D934B8319D67496003A51BC /* AddRecipeViewController.m in Sources */,
 				0D9735FB1A0DDB3A005E6441 /* ShoppingListIngredient.m in Sources */,

@@ -33,6 +33,10 @@
         self.doneButton.enabled = NO;
         self.addButton.enabled = YES;
     }
+    
+    [self.tableView registerNib:[UINib nibWithNibName: @"RecipeTableViewCell"
+                                               bundle: [NSBundle mainBundle]]
+         forCellReuseIdentifier: @"RecipeTableViewCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,8 +113,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"MyRecipesCellIdentifier";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"RecipeTableViewCell";
+    RecipeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     //set up the tableCell based on the recipe populating it
     Recipe* recipe = nil;
@@ -143,7 +147,42 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
+    
+    UIView *crossView = [self viewWithImageName:@"RedXDelete"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
+    [cell setSwipeGestureWithView:crossView
+                            color:redColor
+                             mode:MCSwipeTableViewCellModeExit
+                            state:MCSwipeTableViewCellState3
+                  completionBlock:^(MCSwipeTableViewCell* cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode)
+     {
+         [self deleteRecipeForCell:(RecipeTableViewCell *)cell];
+     }];
+    
+    cell.firstTrigger = 0.35;
+    cell.secondTrigger = 0.65;
+    
     return cell;
+}
+
+- (void) deleteRecipeForCell: (RecipeTableViewCell *) cell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    [Recipe deleteEntity: [self.recipes objectAtIndex:indexPath.row]];
+    [self.recipes removeObjectAtIndex:indexPath.row];
+    
+    // Delete the row from the table view
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName
+{
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
 }
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

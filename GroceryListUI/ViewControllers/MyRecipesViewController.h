@@ -11,6 +11,7 @@
 #import "AddRecipeViewController.h"
 #import "AppDelegate.h"
 #import "CalendarDay.h"
+#import "RecipeTableViewCell.h"
 
 @interface MyRecipesViewController : UITableViewController <UISearchBarDelegate>
 
@@ -26,6 +27,8 @@
 @property NSString* searchText;
 
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
+- (void) deleteRecipeForCell: (RecipeTableViewCell *) cell;
+- (UIView *)viewWithImageName:(NSString *)imageName;
 
 @end
 

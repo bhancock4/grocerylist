@@ -5,8 +5,8 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
-+ need ability to remove recipes from dates
-+ multi date select does not work when crossing loaded months
+- need ability to remove recipes from dates
+- multi date select does not work when crossing loaded months
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
@@ -18,4 +18,4 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Settings  ********************************************************************/
-+ need ability to switch between US and metric units
+- need ability to switch between US and metric units
