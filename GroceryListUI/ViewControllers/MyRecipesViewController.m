@@ -75,11 +75,17 @@
     }
 }
 
+//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+ //   [self performSegueWithIdentifier:@"ShowEditRecipe" sender:nil];
+//}
+
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
 {
     //get the recipe we just looked at...
     AddRecipeViewController* source = [segue sourceViewController];
     Recipe* recipe = source.recipe;
+    [recipe saveEntity];
     //...and if it's not null then reload our table
     if(recipe != nil)
     {
@@ -115,6 +121,14 @@
 {
     static NSString *CellIdentifier = @"RecipeTableViewCell";
     RecipeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    //the below keeps adding the gradient every time the method is called
+    /*UIColor* cellColor = [UIColor colorWithRed:196.0/255.0 green:195.0/255.0 blue:143.0/255.0 alpha:1];
+    
+    CAGradientLayer* gradient = [CAGradientLayer layer];
+    gradient.frame = cell.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)cellColor, (id)[[UIColor orangeColor]CGColor], nil];
+    [cell.layer addSublayer:gradient];*/
     
     //set up the tableCell based on the recipe populating it
     Recipe* recipe = nil;
@@ -205,6 +219,8 @@
         
         [self.tableView reloadData];
     }
+    else
+        [self performSegueWithIdentifier:@"ShowEditRecipe" sender:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

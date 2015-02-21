@@ -223,26 +223,6 @@
             </objects>
             <point key="canvasLocation" x="2318" y="-849"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="utH-A9-S4Y">
-            <objects>
-                <viewController storyboardIdentifier="SettingsViewController" id="1dk-Jn-iDb" customClass="SettingsViewControllerTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="P49-Yv-cgV"/>
-                        <viewControllerLayoutGuide type="bottom" id="gtF-bN-wWy"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6fw-28-Cib">
-                        <rect key="frame" x="0.0" y="64" width="320" height="519"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="Settings" selectedImage="Settings" id="qwG-vj-U49"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mRM-Kv-0wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1417" y="304"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -258,7 +238,6 @@
                         <segue destination="B1i-6T-MDw" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="9ZY-0l-hNc" kind="relationship" relationship="viewControllers" id="mCc-zQ-zqh"/>
                         <segue destination="LDD-2v-XJp" kind="relationship" relationship="viewControllers" id="Jc3-bX-BIk"/>
-                        <segue destination="1dk-Jn-iDb" kind="relationship" relationship="viewControllers" id="9hB-N1-ZI0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -390,7 +369,6 @@
         <image name="Calendar" width="50" height="50"/>
         <image name="Pot_Gray" width="50" height="50"/>
         <image name="Recipes" width="50" height="50"/>
-        <image name="Settings" width="50" height="50"/>
         <image name="ShoppingList" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>

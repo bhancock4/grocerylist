@@ -21,7 +21,6 @@
 		0D934B5E19D6611F003A51BC /* MyRecipesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5D19D6611F003A51BC /* MyRecipesViewController.m */; };
 		0D934B6119D6611F003A51BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D934B5F19D6611F003A51BC /* Main.storyboard */; };
 		0D934B6319D6611F003A51BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D934B6219D6611F003A51BC /* Images.xcassets */; };
-		0D934B6619D6611F003A51BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D934B6419D6611F003A51BC /* LaunchScreen.xib */; };
 		0D934B7219D6611F003A51BC /* GroceryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7119D6611F003A51BC /* GroceryListTests.m */; };
 		0D934B7D19D666A9003A51BC /* ShoppingListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */; };
 		0D934B8019D666D6003A51BC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7F19D666D6003A51BC /* SettingsViewController.m */; };
@@ -74,7 +73,6 @@
 		0D934B5D19D6611F003A51BC /* MyRecipesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyRecipesViewController.m; sourceTree = "<group>"; };
 		0D934B6019D6611F003A51BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D934B6219D6611F003A51BC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0D934B6519D6611F003A51BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0D934B6B19D6611F003A51BC /* GroceryListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroceryListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D934B7019D6611F003A51BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D934B7119D6611F003A51BC /* GroceryListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroceryListTests.m; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				0D934B5619D6611F003A51BC /* AppDelegate.h */,
 				0D934B5719D6611F003A51BC /* AppDelegate.m */,
 				0D934B5F19D6611F003A51BC /* Main.storyboard */,
-				0D934B6419D6611F003A51BC /* LaunchScreen.xib */,
 				0D934B6219D6611F003A51BC /* Images.xcassets */,
 				0D92BA6C1A030D6C00AF7070 /* IngredientTableViewCell.h */,
 				0D92BA6D1A030D6C00AF7070 /* IngredientTableViewCell.m */,
@@ -364,7 +361,6 @@
 				0D934B6119D6611F003A51BC /* Main.storyboard in Resources */,
 				0D2439E31A0E782C0005FFA8 /* PodFile in Resources */,
 				0D2D14381A159EB20017C30C /* ToDo in Resources */,
-				0D934B6619D6611F003A51BC /* LaunchScreen.xib in Resources */,
 				0D92BA701A030D6C00AF7070 /* IngredientTableViewCell.xib in Resources */,
 				0D934B6319D6611F003A51BC /* Images.xcassets in Resources */,
 			);
@@ -464,14 +460,6 @@
 				0D934B6019D6611F003A51BC /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		0D934B6419D6611F003A51BC /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0D934B6519D6611F003A51BC /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
