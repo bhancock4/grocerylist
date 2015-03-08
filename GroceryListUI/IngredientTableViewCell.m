@@ -149,6 +149,15 @@
         //check if character is allowed or if it is a backspace (string is empty string)
         if(allowedRange.location == NSNotFound && ![string isEqualToString:@""])
             shouldChange = NO;
+        
+        if ( (range.location > 0 && [string length] > 0 &&
+              [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[string characterAtIndex:0]] &&
+              [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[textField text] characterAtIndex:range.location - 1]]) )
+        {
+            //Manually replace the space with your own space, programmatically
+            textField.text = [textField.text stringByReplacingCharactersInRange:range withString:@" "];
+            return NO;
+        }
     }
     return shouldChange;
 }
