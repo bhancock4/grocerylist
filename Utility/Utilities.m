@@ -13,6 +13,11 @@
 
 @implementation Utilities
 
++ (UIColor *) cellBackGroundColor
+{
+    return [UIColor colorWithRed:255.0/255.0 green:178.0/255.0 blue:30.0/255.0 alpha:1.0];
+}
+
 int englishUnitConversionTable[8][8] = {
     //           lbs     gallons     quarts      pints   cups    oz      tbs     tsp
     /*lbs*/     {1,      0,          0,          0,      0,      0,     0,      0},
@@ -204,7 +209,7 @@ int englishUnitConversionTable[8][8] = {
     return rtn;
 }
 
-+ (void) addToList: (NSArray *) recipes
++ (NSString *) addToList: (NSArray *) recipes
 {
     NSMutableArray* shoppingListIngredients = nil;
     ShoppingList* shoppingList = [ShoppingList getEntityByName:@"ShoppingList"];
@@ -214,7 +219,7 @@ int englishUnitConversionTable[8][8] = {
         shoppingList.name = @"ShoppingList";
         [shoppingList saveEntity];
     }
-    NSMutableDictionary* recipeDictionary;
+    NSMutableDictionary* recipeDictionary = [NSMutableDictionary new];
     for(Recipe* recipe in recipes)
     {
         if(shoppingList.shoppingListIngredients.count > 0)
@@ -273,14 +278,22 @@ int englishUnitConversionTable[8][8] = {
             shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
             [shoppingList saveEntity];
         }
-        UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
-                                                                      message:[NSString stringWithFormat: @"The recipe %@ has been added to your shopping list", recipe.name]
-                                                                     delegate: nil
-                                                            cancelButtonTitle:@"OK"
-                                                            otherButtonTitles:nil];
-        
-        [listAddConfirmation show];
+        if([recipeDictionary objectForKey:recipe.name] == nil)
+        {
+            [recipeDictionary setObject:@"1" forKey:recipe.name];
+        }
+        else
+        {
+            int recipeCount = [[recipeDictionary objectForKey:recipe.name] intValue] + 1;
+            [recipeDictionary setObject:[NSString stringWithFormat:@"%d", recipeCount] forKey:recipe.name];
+        }
     }
+    NSString* recipeList = @"";
+    for(id key in recipeDictionary)
+    {
+        recipeList = [recipeList stringByAppendingString:[NSString stringWithFormat:@"\r%@ %@", [recipeDictionary objectForKey:key], key]];
+    }
+    return recipeList;
 }
 
 + (BOOL)foundIngredientMatchWithName:(NSString *)name Quantity:(NSString *)quantity Unit:(NSString *)unit ForIngredient:(ShoppingListIngredient *)ingredient

@@ -252,7 +252,14 @@
 //button click to add a new ingredient to the recipe
 - (IBAction)AddToList:(id)sender
 {
-    [Utilities addToList: @[self.recipe]];
+    NSString* recipeList = [Utilities addToList: @[self.recipe]];
+    UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
+                                                                  message:[NSString stringWithFormat: @"The following recipes have been added to your shopping list:%@", recipeList]
+                                                                 delegate: nil
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
+    
+    [listAddConfirmation show];
 }
 
 //button click to add a new ingredient to the recipe

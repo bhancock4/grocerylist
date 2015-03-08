@@ -118,6 +118,8 @@
 //action that fires when the add to shopping list button is pressed
 - (IBAction)AddToList:(id)sender
 {
+    NSString* recipeList = @"";
+    NSMutableArray* recipesToAdd = [NSMutableArray new];
     //if we are dealing with multiple calendar days...
     if(self.multiSelectButton.isOn)
     {
@@ -127,19 +129,27 @@
         //loop through the days adding one day at a time
         while([beginDate compare:self.calendar.endDate] == NSOrderedAscending || [beginDate compare:self.calendar.endDate] == NSOrderedSame)
         {
-            [Utilities addToList: [((CalendarDay *)[CalendarDay getEntityByDate:beginDate]).recipes allObjects]];
+            [recipesToAdd addObjectsFromArray:[((CalendarDay *)[CalendarDay getEntityByDate:beginDate]).recipes allObjects]];
         
             NSDateComponents* dayComponent = [NSDateComponents new];
             dayComponent.day = 1;
             NSCalendar* tempCalendar = [NSCalendar currentCalendar];
             beginDate = [tempCalendar dateByAddingComponents:dayComponent toDate:beginDate options:0];
         }
+        recipeList = [Utilities addToList: recipesToAdd];
     }
     //otherwise, if only a single day was selected just use the recipes for that day
     else
     {
-        [Utilities addToList:[self.selectedCalendarDay.recipes allObjects]];
+        recipeList = [Utilities addToList:[self.selectedCalendarDay.recipes allObjects]];
     }
+    UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
+                                                                  message:[NSString stringWithFormat: @"The following recipes have been added to your shopping list:%@", recipeList]
+                                                                 delegate: nil
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
+    
+    [listAddConfirmation show];
 }
 
 - (void)multiSelectSwitchChanged: (UIButton *) sender

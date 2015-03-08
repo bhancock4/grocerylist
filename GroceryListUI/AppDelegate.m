@@ -23,6 +23,10 @@
     ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
     //((UITabBarItem *)tabBarController.tabBar.items[3]).selectedImage = [UIImage imageNamed:@"Settings"];
     
+    
+    
+    
+    
     // Override point for customization after application launch.
     return YES;
 }

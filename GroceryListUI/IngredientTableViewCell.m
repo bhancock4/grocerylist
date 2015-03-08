@@ -164,10 +164,18 @@
     switch(textField.tag)
     {
         case 1: //quantity text field
+            if(![self isProperMixedNumber:textField.text])
+            {
+                UIAlertView* alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Invalid number" message: @"Please enter a valid whole, fractional or mixed number" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+                [alert show];
+                textField.text = @"";
+            }
             self.ingredient.quantity = textField.text;
             break;
             
         case 2: //name text field
+            
             self.ingredient.name = textField.text;
             break;
             
@@ -175,6 +183,81 @@
             break;
     }
     
+}
+
+- (BOOL)isProperMixedNumber:(NSString *)text
+{//return YES;
+    BOOL isProperMixedNumber = YES;
+    
+    NSUInteger len = [text length];
+    unichar buffer[len];
+    [text getCharacters:buffer range:NSMakeRange(0, len)];
+    
+    BOOL foundSpace = NO;
+    BOOL foundSlash = NO;
+    BOOL justFoundSpace = NO;
+    BOOL justFoundSlash = NO;
+    
+    for(int i = 0; i < len; i++)
+    {
+        char c = buffer[i];
+        if(i == 0)
+        {
+            if((c == ' ' || c == '/' || c == '0'))
+            {
+                isProperMixedNumber = NO;
+                break;
+            }
+        }
+        else
+        {
+            if(c == ' ' && (foundSpace || foundSlash))
+            {
+                isProperMixedNumber = NO;
+                break;
+            }
+            if(c == '/' && foundSlash)
+            {
+                isProperMixedNumber = NO;
+                break;
+            }
+            if(c == ' ' && !foundSpace)
+            {
+                foundSpace = YES;
+                justFoundSpace = YES;
+                continue;
+            }
+            if((c == '/' || c == '0') && justFoundSpace)
+            {
+                isProperMixedNumber = NO;
+                break;
+            }
+            if(c == '/' && !foundSlash)
+            {
+                foundSlash = YES;
+                justFoundSlash = YES;
+                continue;
+            }
+            justFoundSpace = NO;
+            justFoundSlash = NO;
+        }
+        
+    }
+   /*
+    NSRange range = NSMakeRange(0, [text length]);
+    NSError* error = nil;
+    
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    
+    if(error)
+        NSLog(@"Something bad happened with the regex creation.");
+    
+    NSUInteger matches = [regex numberOfMatchesInString:text options:0 range:range];
+    
+    if(matches == 0)
+        isProperMixedNumber = NO;
+    */
+    return isProperMixedNumber;
 }
 
 @end
