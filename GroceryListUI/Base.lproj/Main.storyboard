@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <navigationItem key="navigationItem" title="Meal Calendar" id="xii-yE-pNs">
-                        <barButtonItem key="leftBarButtonItem" image="AddToCart" id="Dh4-yq-lSu">
+                        <barButtonItem key="leftBarButtonItem" image="AddToCart2x" id="Dh4-yq-lSu">
                             <connections>
                                 <action selector="AddToList:" destination="9pv-A4-QxB" id="9R9-XL-Mfi"/>
                             </connections>
@@ -173,7 +173,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-yS-eVu">
                                 <rect key="frame" x="163" y="275" width="35" height="35"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="AddToCart">
+                                <state key="normal" image="AddToCart2x">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -364,7 +364,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddToCart" width="50" height="50"/>
+        <image name="AddToCart2x" width="50" height="50"/>
         <image name="Calendar" width="50" height="50"/>
         <image name="Pot_Gray" width="50" height="50"/>
         <image name="Recipes" width="50" height="50"/>

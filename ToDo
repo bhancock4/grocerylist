@@ -2,20 +2,15 @@
 /********  General/Shared  **************************************************************/
 + create visual color theme
 + create app icon
++ create launch screens
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Calendar  ********************************************************************/
 - need ability to remove recipes from dates
-- multi date select does not work when crossing loaded months
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
 + bug? -> cannot update recipe ingredients (at least when name is the last (or only?) changed)
-+ enforce entry of mixed numbers in custom tablecell custom textfield
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Shopping List  ***************************************************************/
-
-//////////////////////////////////////////////////////////////////////////////////////////
-/********  Settings  ********************************************************************/
-- need ability to switch between US and metric units
