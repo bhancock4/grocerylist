@@ -17,6 +17,7 @@
 {
     [super viewDidLoad];
 
+    self.imageIsSet = NO;
     self.keyboardIsShown = NO;
     //initializeour array of ingredients
     self.recipeIngredients = [[NSMutableArray alloc] init];
@@ -37,6 +38,8 @@
         {
             [self.recipeImageButton setImage:[UIImage imageNamed:@"Pot_Gray"] forState:UIControlStateNormal];
         }
+        else
+            self.imageIsSet = YES;
         
         //...set other fields
         self.recipeDirections.text = self.recipe.directions;
@@ -328,7 +331,7 @@
             self.recipe.picture = UIImagePNGRepresentation(self.RecipeImage.image);
             
             //if they didn't set an image then use the default image for this recipe
-            if([self.recipe.picture isEqualToData:UIImagePNGRepresentation([UIImage imageNamed:@"Pot_Gray"] )])
+            if(!self.imageIsSet)
             {
                 self.recipe.picture = UIImagePNGRepresentation([UIImage imageNamed:@"Recipes"]);
             }
@@ -443,6 +446,7 @@
     UIImage* chosenImage = info[UIImagePickerControllerEditedImage];
     self.RecipeImage.image = chosenImage;
     [self.recipeImageButton setImage:chosenImage forState:UIControlStateNormal];
+    self.imageIsSet = YES;
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }

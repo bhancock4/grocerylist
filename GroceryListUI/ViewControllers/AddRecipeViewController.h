@@ -27,6 +27,7 @@
 @property int16_t selectedIngredientRow;
 @property UIColor* preAlertCellColor;
 - (IBAction)AddToList:(id)sender;
+@property BOOL imageIsSet;
 
 @property (weak, nonatomic) IBOutlet UIButton*          addToList;
 @property (weak, nonatomic) IBOutlet UITextField*       recipeName;
