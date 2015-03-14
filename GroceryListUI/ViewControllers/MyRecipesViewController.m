@@ -75,11 +75,6 @@
     }
 }
 
-//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
- //   [self performSegueWithIdentifier:@"ShowEditRecipe" sender:nil];
-//}
-
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
 {
     //get the recipe we just looked at...
