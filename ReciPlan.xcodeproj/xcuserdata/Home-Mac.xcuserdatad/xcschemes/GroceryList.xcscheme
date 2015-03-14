@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0D934B4E19D6611F003A51BC"
-               BuildableName = "GroceryList.app"
-               BlueprintName = "GroceryList"
-               ReferencedContainer = "container:GroceryList.xcodeproj">
+               BuildableName = "ReciPlan.app"
+               BlueprintName = "ReciPlan"
+               ReferencedContainer = "container:ReciPlan.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0D934B6A19D6611F003A51BC"
-               BuildableName = "GroceryListTests.xctest"
-               BlueprintName = "GroceryListTests"
-               ReferencedContainer = "container:GroceryList.xcodeproj">
+               BuildableName = "ReciPlanTests.xctest"
+               BlueprintName = "ReciPlanTests"
+               ReferencedContainer = "container:ReciPlan.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0D934B6A19D6611F003A51BC"
-               BuildableName = "GroceryListTests.xctest"
-               BlueprintName = "GroceryListTests"
-               ReferencedContainer = "container:GroceryList.xcodeproj">
+               BuildableName = "ReciPlanTests.xctest"
+               BlueprintName = "ReciPlanTests"
+               ReferencedContainer = "container:ReciPlan.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0D934B4E19D6611F003A51BC"
-            BuildableName = "GroceryList.app"
-            BlueprintName = "GroceryList"
-            ReferencedContainer = "container:GroceryList.xcodeproj">
+            BuildableName = "ReciPlan.app"
+            BlueprintName = "ReciPlan"
+            ReferencedContainer = "container:ReciPlan.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,13 +72,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0D934B4E19D6611F003A51BC"
-            BuildableName = "GroceryList.app"
-            BlueprintName = "GroceryList"
-            ReferencedContainer = "container:GroceryList.xcodeproj">
+            BuildableName = "ReciPlan.app"
+            BlueprintName = "ReciPlan"
+            ReferencedContainer = "container:ReciPlan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -90,13 +91,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0D934B4E19D6611F003A51BC"
-            BuildableName = "GroceryList.app"
-            BlueprintName = "GroceryList"
-            ReferencedContainer = "container:GroceryList.xcodeproj">
+            BuildableName = "ReciPlan.app"
+            BlueprintName = "ReciPlan"
+            ReferencedContainer = "container:ReciPlan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
