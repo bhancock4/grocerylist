@@ -154,8 +154,6 @@
               [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[string characterAtIndex:0]] &&
               [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[textField text] characterAtIndex:range.location - 1]]) )
         {
-            //Manually replace the space with your own space, programmatically
-            textField.text = [textField.text stringByReplacingCharactersInRange:range withString:@" "];
             return NO;
         }
     }
@@ -195,7 +193,7 @@
 }
 
 - (BOOL)isProperMixedNumber:(NSString *)text
-{//return YES;
+{
     BOOL isProperMixedNumber = YES;
     
     NSUInteger len = [text length];
@@ -252,20 +250,6 @@
         }
         
     }
-   /*
-    NSRange range = NSMakeRange(0, [text length]);
-    NSError* error = nil;
-    
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-    
-    if(error)
-        NSLog(@"Something bad happened with the regex creation.");
-    
-    NSUInteger matches = [regex numberOfMatchesInString:text options:0 range:range];
-    
-    if(matches == 0)
-        isProperMixedNumber = NO;
-    */
     return isProperMixedNumber;
 }
 
