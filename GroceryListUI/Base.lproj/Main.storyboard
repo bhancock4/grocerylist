@@ -298,6 +298,16 @@
             </objects>
             <point key="canvasLocation" x="526" y="702"/>
         </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="vws-fN-Ca2">
+            <objects>
+                <pageViewController storyboardIdentifier="TutorialViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ad1-Ac-LVr" customClass="TutorialViewController" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1gS-Oy-kLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="924" y="702"/>
+        </scene>
         <!--My Recipes-->
         <scene sceneID="23P-8w-KFi">
             <objects>

@@ -178,7 +178,7 @@
                 [alert show];
                 textField.text = @"";
             }
-            self.ingredient.quantity = textField.text;
+            self.ingredient.quantity = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             break;
             
         case 2: //name text field
@@ -248,7 +248,6 @@
             justFoundSpace = NO;
             justFoundSlash = NO;
         }
-        
     }
     return isProperMixedNumber;
 }

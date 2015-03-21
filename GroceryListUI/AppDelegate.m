@@ -18,15 +18,22 @@
 {
     UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
     
-    ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
-    ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Recipes"];
-    ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
-    //((UITabBarItem *)tabBarController.tabBar.items[3]).selectedImage = [UIImage imageNamed:@"Settings"];
-    
-    
-    
-    
-    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
+    if(YES)
+    {
+        self.window.rootViewController = tabBarController;
+        ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
+        ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Recipes"];
+        ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.window.rootViewController = [TutorialViewController new];
+    }
+
     // Override point for customization after application launch.
     return YES;
 }
