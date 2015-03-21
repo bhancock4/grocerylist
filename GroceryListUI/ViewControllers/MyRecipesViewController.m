@@ -13,8 +13,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableIsFiltered = NO;
     
     self.recipes = [[Recipe getEntitiesWithSortProperty: @"name"] mutableCopy];
+    self.filteredRecipes = [NSMutableArray arrayWithCapacity:[self.recipes count]];
     
     self.isInMultiSelectMode = NO;
     
@@ -67,11 +69,23 @@
     if([segue.identifier isEqualToString:@"ShowEditRecipe"])
     {
         AddRecipeViewController* addRecipeVC = (AddRecipeViewController *)segue.destinationViewController;
-        NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+        //NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
         addRecipeVC.sourceSegue = segue.identifier;
         
         //also, pass the selected recipe along to that ViewController
-        addRecipeVC.recipe = [self.recipes objectAtIndex: indexPath.row];
+        //addRecipeVC.recipe = [self.recipes objectAtIndex: indexPath.row];
+        
+        if(self.tableIsFiltered)
+        {
+            NSIndexPath* indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            
+            addRecipeVC.recipe = [self.filteredRecipes objectAtIndex: indexPath.row];
+        }
+        else
+        {
+            NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+            addRecipeVC.recipe = [self.recipes objectAtIndex:indexPath.row];
+        }
     }
 }
 
@@ -104,10 +118,12 @@
 {
     if(tableView == self.searchDisplayController.searchResultsTableView)
     {
+        self.tableIsFiltered = YES;
         return self.filteredRecipes.count;
     }
     else
     {
+        self.tableIsFiltered = NO;
         return [self.recipes count];
     }
 }
@@ -217,13 +233,20 @@
 
 - (void) filterContentForSearchText: (NSString *) searchText scope: (NSString *) scope
 {
+    [self.filteredRecipes removeAllObjects];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name beginswith[c] %@", searchText];
-    self.filteredRecipes = [self.recipes filteredArrayUsingPredicate:predicate];
+    self.filteredRecipes = [NSMutableArray arrayWithArray:[self.recipes filteredArrayUsingPredicate:predicate]];
 }
 
 - (BOOL) searchDisplayController: (UISearchDisplayController *) controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self filterContentForSearchText:searchString scope: [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex: [self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
     return YES;
 }
 

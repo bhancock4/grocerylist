@@ -13,11 +13,11 @@
 #import "CalendarDay.h"
 #import "RecipeTableViewCell.h"
 
-@interface MyRecipesViewController : UITableViewController <UISearchBarDelegate>
+@interface MyRecipesViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property Recipe* selectedRecipe;
 @property NSMutableArray* recipes;
-@property NSArray* filteredRecipes;
+@property NSMutableArray* filteredRecipes;
 @property (nonatomic) NSString* sourceSegue;
 @property BOOL isInMultiSelectMode;
 @property NSMutableArray* selectedRecipes;
@@ -25,6 +25,8 @@
 @property (strong) IBOutlet UIBarButtonItem* addButton;
 @property CalendarDay* calendarDay;
 @property NSString* searchText;
+@property IBOutlet UISearchBar* searchBar;
+@property BOOL tableIsFiltered;
 
 - (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender;
 - (void) deleteRecipeForCell: (RecipeTableViewCell *) cell;
