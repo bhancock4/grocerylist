@@ -101,6 +101,8 @@
         self.recipes = [NSMutableArray arrayWithArray:[Recipe getEntities]];
         [self.tableView reloadData];
     }
+    [self.searchDisplayController setActive:NO];
+    self.tableIsFiltered = NO;
 }
 
 - (IBAction)unwindToCalendar:(id)sender
@@ -179,6 +181,11 @@
     
     cell.firstTrigger = 0.35;
     cell.secondTrigger = 0.65;
+    
+    CAGradientLayer* gradient = [CAGradientLayer layer];
+    gradient.frame = cell.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor purpleColor]CGColor], (id)[[UIColor blueColor] CGColor], nil];
+    //[cell.layer insertSublayer:gradient atIndex:0];
     
     return cell;
 }

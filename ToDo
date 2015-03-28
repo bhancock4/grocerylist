@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Recipes  *********************************************************************/
 + bug? -> cannot update recipe ingredients (at least when name is the last (or only?) changed)
++ bug  -> if left with a trialig space or slash it does not invalidate input
++ bug  -> after filtering recipes and cancelling out, the next choice acts like it was the first from the other screen
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /********  Shopping List  ***************************************************************/
