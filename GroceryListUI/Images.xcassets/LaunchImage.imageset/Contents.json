@@ -4,6 +4,14 @@
       "idiom" : "universal",
       "scale" : "1x",
       "filename" : "iOS Simulator Screen Shot Mar 28, 2015, 12.25.08 AM.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

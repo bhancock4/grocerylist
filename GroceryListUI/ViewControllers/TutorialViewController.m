@@ -7,6 +7,7 @@
 //
 
 #import "TutorialViewController.h"
+#import "TutorialChildViewController01.h"
 
 @interface TutorialViewController ()
 
@@ -23,7 +24,7 @@
     self.pageViewController.dataSource = self;
     //[[self.pageViewController view] setFrame:[[self view] bounds]];
     
-    TutorialViewController *initialViewController = [self viewControllerAtIndex:0];
+    TutorialChildViewController01 *initialViewController = [self viewControllerAtIndex:0];
     
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     
@@ -43,7 +44,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
-    NSUInteger index = [(TutorialViewController *)viewController pageIndex];
+    NSUInteger index = [(TutorialChildViewController01 *)viewController index];
     
     if (index == 0) {
         return nil;
@@ -57,7 +58,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     
-    NSUInteger index = [(TutorialViewController *)viewController pageIndex];
+    NSUInteger index = [(TutorialChildViewController01 *)viewController index];
     
     
     index++;
@@ -72,8 +73,8 @@
 
 - (TutorialViewController *)viewControllerAtIndex:(NSUInteger)index {
     
-    TutorialViewController *childViewController = [[TutorialViewController alloc] initWithNibName:@"TutorialViewController" bundle:nil];
-    childViewController.pageIndex = index;
+    TutorialChildViewController01 *childViewController = [[TutorialChildViewController01 alloc] initWithNibName:@"TutorialChildViewController01" bundle:nil];
+    childViewController.index = index;
     
     return childViewController;
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <navigationItem key="navigationItem" title="Meal Calendar" id="xii-yE-pNs">
-                        <barButtonItem key="leftBarButtonItem" image="AddToCart2x" id="Dh4-yq-lSu">
+                        <barButtonItem key="leftBarButtonItem" image="AddToCart" id="Dh4-yq-lSu">
                             <connections>
                                 <action selector="AddToList:" destination="9pv-A4-QxB" id="9R9-XL-Mfi"/>
                             </connections>
@@ -178,9 +178,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-yS-eVu">
-                                <rect key="frame" x="163" y="275" width="35" height="35"/>
+                                <rect key="frame" x="160" y="272" width="41" height="40"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="AddToCart2x">
+                                <state key="normal" image="AddToCart">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -387,7 +387,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddToCart2x" width="50" height="50"/>
+        <image name="AddToCart" width="50" height="50"/>
         <image name="Calendar" width="50" height="50"/>
         <image name="Pot_Gray" width="50" height="50"/>
         <image name="Recipes" width="50" height="50"/>

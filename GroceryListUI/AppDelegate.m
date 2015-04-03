@@ -20,7 +20,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     //if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
-    if(YES)
+    if(NO)
     {
         self.window.rootViewController = tabBarController;
         ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];

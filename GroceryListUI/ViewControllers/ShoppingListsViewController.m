@@ -117,7 +117,9 @@
         self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
         [self.shoppingList saveEntity];
         
-        cell.backgroundColor = shoppingListIngredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
+        UIColor* checkedColor = [UIColor colorWithRed:172.0 / 255.0 green:20.0 / 255.0 blue:227.0 / 255.0 alpha:1.0];
+        
+        cell.backgroundColor = shoppingListIngredient.checked ? checkedColor : [UIColor whiteColor];
     }
 }
 
