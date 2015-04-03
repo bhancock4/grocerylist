@@ -188,7 +188,8 @@
     longPress.minimumPressDuration = 0.25;  //seconds
     [cell.contentView addGestureRecognizer:longPress];
     
-    cell.backgroundColor = cell.ingredient.checked ? [UIColor greenColor] : [UIColor whiteColor];
+    UIColor* checkedColor = [UIColor colorWithRed:172.0 / 255.0 green:20.0 / 255.0 blue:227.0 / 255.0 alpha:1.0];
+    cell.backgroundColor = cell.ingredient.checked ? checkedColor : [UIColor whiteColor];
     
     UIView *crossView = [self viewWithImageName:@"RedXDelete"];
     UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];

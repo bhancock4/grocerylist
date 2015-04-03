@@ -22,7 +22,6 @@
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
     self.pageViewController.dataSource = self;
-    //[[self.pageViewController view] setFrame:[[self view] bounds]];
     
     TutorialChildViewController01 *initialViewController = [self viewControllerAtIndex:0];
     initialViewController.tabBarController = self.tabBarController;
@@ -79,7 +78,6 @@
     childViewController.tabBarController = self.tabBarController;
     
     return childViewController;
-    
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
