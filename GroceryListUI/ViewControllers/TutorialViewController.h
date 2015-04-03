@@ -12,5 +12,6 @@
 
 @property UIPageViewController* pageViewController;
 @property NSInteger pageIndex;
+@property UITabBarController* tabBarController;
 
 @end

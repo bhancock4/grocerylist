@@ -25,6 +25,7 @@
     //[[self.pageViewController view] setFrame:[[self view] bounds]];
     
     TutorialChildViewController01 *initialViewController = [self viewControllerAtIndex:0];
+    initialViewController.tabBarController = self.tabBarController;
     
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     
@@ -63,7 +64,7 @@
     
     index++;
     
-    if (index == 5) {
+    if (index == 4) {
         return nil;
     }
     
@@ -75,6 +76,7 @@
     
     TutorialChildViewController01 *childViewController = [[TutorialChildViewController01 alloc] initWithNibName:@"TutorialChildViewController01" bundle:nil];
     childViewController.index = index;
+    childViewController.tabBarController = self.tabBarController;
     
     return childViewController;
     
@@ -82,7 +84,7 @@
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     // The number of items reflected in the page indicator.
-    return 5;
+    return 4;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {

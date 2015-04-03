@@ -19,8 +19,7 @@
     UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    //if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
-    if(NO)
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
     {
         self.window.rootViewController = tabBarController;
         ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
@@ -31,7 +30,10 @@
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        self.window.rootViewController = [TutorialViewController new];
+        
+        TutorialViewController* tvc = [TutorialViewController new];
+        tvc.tabBarController = tabBarController;
+        self.window.rootViewController = tvc;
     }
 
     // Override point for customization after application launch.

@@ -11,5 +11,9 @@
 @interface TutorialChildViewController01 : UIViewController
 @property (strong, nonatomic) IBOutlet UIImageView *TutorialImageView;
 @property (assign, nonatomic) NSInteger index;
+@property UITabBarController* tabBarController;
+
+- (IBAction)quitTutorialButtonClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *quitTutorialButton;
 
 @end

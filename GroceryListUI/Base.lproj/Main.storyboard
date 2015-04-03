@@ -41,7 +41,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MyRecipesViewController" title="My Recipes" id="3iN-pJ-oAa" userLabel="My Recipes" customClass="MyRecipesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="V0l-e5-Tdd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="Fcl-4K-2xT">
@@ -126,7 +126,7 @@
                         <viewControllerLayoutGuide type="bottom" id="J7B-Xu-Wsb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UYq-B5-T3P">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipe Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Hd-AL-bmG">
@@ -238,7 +238,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="AppRootViewController" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="W28-zg-YXA">
@@ -394,7 +394,7 @@
         <image name="ShoppingList" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q7g-un-1TI"/>
+        <segue reference="mCc-zQ-zqh"/>
         <segue reference="Yw1-z4-36z"/>
     </inferredMetricsTieBreakers>
 </document>
