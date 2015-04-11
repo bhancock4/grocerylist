@@ -128,6 +128,17 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 {
+    if(textField.tag == 1 && [textField.text length] > 1) //quantity textfield
+    {
+        NSString* lastCharString = [textField.text substringWithRange:NSMakeRange([textField.text length] - 1, 1)];
+        if([lastCharString isEqualToString:@"/"] || [lastCharString isEqualToString:@" "])
+        {
+            UIAlertView* alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Invalid number" message: @"Please enter a valid whole, fractional or mixed number" delegate:nil cancelButtonTitle: @"Ok" otherButtonTitles:nil];
+            [alert show];
+            textField.text = @"";
+        }
+    }
     [self setEntityValueFromTextField:textField];
 }
 
@@ -182,7 +193,8 @@
             break;
             
         case 2: //name text field
-            
+            //checking another field (quantity) causes the name change to "stick" ???
+            self.ingredient.quantity = self.ingredient.quantity;
             self.ingredient.name = textField.text;
             break;
             

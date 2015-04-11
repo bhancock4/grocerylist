@@ -120,6 +120,7 @@
 {
     NSString* recipeList = @"";
     NSMutableArray* recipesToAdd = [NSMutableArray new];
+    BOOL dateHasItems = NO;
     //if we are dealing with multiple calendar days...
     if(self.multiSelectButton.isOn)
     {
@@ -136,20 +137,29 @@
             NSCalendar* tempCalendar = [NSCalendar currentCalendar];
             beginDate = [tempCalendar dateByAddingComponents:dayComponent toDate:beginDate options:0];
         }
+        if([recipesToAdd count] > 0)
+            dateHasItems = YES;
+        
         recipeList = [Utilities addToList: recipesToAdd];
     }
     //otherwise, if only a single day was selected just use the recipes for that day
     else
     {
+        if([[self.selectedCalendarDay.recipes allObjects] count] > 0)
+            dateHasItems = YES;
+        
         recipeList = [Utilities addToList:[self.selectedCalendarDay.recipes allObjects]];
     }
-    UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
+    if(dateHasItems)
+    {
+        UIAlertView* listAddConfirmation = [[UIAlertView alloc] initWithTitle:@"Added to Shopping List"
                                                                   message:[NSString stringWithFormat: @"The following recipes have been added to your shopping list:%@", recipeList]
                                                                  delegate: nil
                                                         cancelButtonTitle:@"OK"
                                                         otherButtonTitles:nil];
     
-    [listAddConfirmation show];
+        [listAddConfirmation show];
+    }
 }
 
 - (void)multiSelectSwitchChanged: (UIButton *) sender

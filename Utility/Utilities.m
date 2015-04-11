@@ -264,13 +264,15 @@ int englishUnitConversionTable[8][8] = {
             if(!foundIngredient)
             {
                 ShoppingListIngredient* shoppingListIngredient = [ShoppingListIngredient newEntity];
-                shoppingListIngredient.name = ri.name;
                 
                 if([ri.unit length] > 0)
                     shoppingListIngredient.unit = ri.unit;
                 
                 if([ri.quantity length] > 0)
                     shoppingListIngredient.quantity = ri.quantity;
+                
+                //if name is set before it isn't fetched from the datastore ???
+                shoppingListIngredient.name = ri.name;
                 
                 [shoppingListIngredients addObject: shoppingListIngredient];
             }

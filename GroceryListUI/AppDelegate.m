@@ -37,6 +37,7 @@
         tvc.tabBarController = tabBarController;
         self.window.rootViewController = tvc;
     }
+    self.window.tintColor = [UIColor colorWithRed:19.0 / 255.0 green:73.0 / 255.0 blue:237.0 / 255.0 alpha:1.0];
 
     // Override point for customization after application launch.
     return YES;
