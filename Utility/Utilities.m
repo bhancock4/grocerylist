@@ -234,6 +234,9 @@ int englishUnitConversionTable[8][8] = {
             {
                 if([Utilities foundIngredientMatchWithName:ri.name  Quantity:ri.quantity Unit:ri.unit ForIngredient:sli])
                 {
+                    if(sli.unit == nil)
+                        sli.unit = @"";
+                    
                     NSString* tempUnit = [NSString stringWithString:sli.unit];
                     foundIngredient = YES;
                     if([ri.unit length] > 0)
