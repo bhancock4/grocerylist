@@ -117,7 +117,7 @@
         self.shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: self.shoppingListIngredients];
         [self.shoppingList saveEntity];
         
-        UIColor* checkedColor = [UIColor colorWithRed:19.0 / 255.0 green:73.0 / 255.0 blue:237.0 / 255.0 alpha:1.0];
+        UIColor* checkedColor = [UIColor colorWithRed:101.0 / 255.0 green:0.0 / 255.0 blue:237.0 / 255.0 alpha:1.0];
         
         cell.backgroundColor = shoppingListIngredient.checked ? checkedColor : [UIColor whiteColor];
     }
@@ -188,7 +188,7 @@
     longPress.minimumPressDuration = 0.25;  //seconds
     [cell.contentView addGestureRecognizer:longPress];
     //CA69ED
-    UIColor* checkedColor = [UIColor colorWithRed:19.0 / 255.0 green:73.0 / 255.0 blue:237.0 / 255.0 alpha:1.0];
+    UIColor* checkedColor = [UIColor colorWithRed:101.0 / 255.0 green:0.0 / 255.0 blue:237.0 / 255.0 alpha:1.0];
     cell.backgroundColor = cell.ingredient.checked ? checkedColor : [UIColor whiteColor];
     
     UIView *crossView = [self viewWithImageName:@"RedXDelete"];
