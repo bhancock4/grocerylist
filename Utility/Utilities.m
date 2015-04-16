@@ -224,24 +224,19 @@ int englishUnitConversionTable[8][8] = {
     {
         if(shoppingList.shoppingListIngredients.count > 0)
         {
-            //this might be initializing with stuff already in it and matches are getting added instead
             shoppingListIngredients = [NSMutableArray arrayWithArray:[shoppingList.shoppingListIngredients array]];
-            
-            shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
-            [shoppingList saveEntity];
         }
         else
             shoppingListIngredients = [NSMutableArray new];
         
         for(RecipeIngredient* ri in recipe.recipeIngredients)
         {
+            //this is just here to get the stupid entity prop values initialized...
+            NSString* q = ri.quantity;
+            
             BOOL foundIngredient = NO;
             for(ShoppingListIngredient* sli in shoppingList.shoppingListIngredients)
             {
-                /*NSString* riName = ri.name;
-                NSString* sliName = sli.name;
-                ri.name = [NSString stringWithString:riName];
-                sli.name = [NSString stringWithString:sliName];*/
                 if([Utilities foundIngredientMatchWithName:ri.name  Quantity:ri.quantity Unit:ri.unit ForIngredient:sli])
                 {
                     foundIngredient = YES;
@@ -274,14 +269,6 @@ int englishUnitConversionTable[8][8] = {
                     }
                     [shoppingListIngredients addObject:sli];
                     break;
-                }
-                else
-                {
-                    //NSLog(@"ri.name");
-                    //NSLog(ri.name);
-                    //NSLog(@"sli.name");
-                    //NSLog(sli.name);
-                    //[Utilities foundIngredientMatchWithName:ri.name  Quantity:ri.quantity Unit:ri.unit ForIngredient:sli];
                 }
             }
             if(!foundIngredient)
@@ -324,6 +311,13 @@ int englishUnitConversionTable[8][8] = {
 + (BOOL)foundIngredientMatchWithName:(NSString *)name Quantity:(NSString *)quantity Unit:(NSString *)unit ForIngredient:(ShoppingListIngredient *)ingredient
 {
     BOOL foundMatch = NO;
+    
+    //only here to force the ingredient to initialize all it's prop values
+    if(nil == name || nil == ingredient.name)
+    {
+        NSString* q = ingredient.quantity;
+    }
+    
     if([name isEqualToString:ingredient.name])
     {
         foundMatch = YES;
