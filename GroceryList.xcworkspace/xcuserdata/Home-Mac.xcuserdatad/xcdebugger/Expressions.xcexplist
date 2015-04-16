@@ -3,6 +3,84 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "+[Utilities addToList:]:Utilities.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "ri.quantity">
+            </PersistentString>
+            <PersistentString
+               value = "ri.unit">
+            </PersistentString>
+            <PersistentString
+               value = "sli.name">
+            </PersistentString>
+            <PersistentString
+               value = "sli.quantity">
+            </PersistentString>
+            <PersistentString
+               value = "((ShoppingListIngredient *)shoppingList.shoppingListIngredients[0]).name">
+            </PersistentString>
+            <PersistentString
+               value = "sli.unit">
+            </PersistentString>
+            <PersistentString
+               value = "ri.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController filterContentForSearchText:scope:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.filteredRecipes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BaseEntity saveEntity]:BaseEntity.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.recipes">
+            </PersistentString>
+            <PersistentString
+               value = "((ShoppingListIngredient *)[((ShoppingList *)self).shoppingListIngredients allObjects][0]).name">
+            </PersistentString>
+            <PersistentString
+               value = "(((Recipe *)self).recipeIngredients[0])">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ShoppingListsViewController addShoppingListItem:]:ShoppingListsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.shoppingListIngredients">
+            </PersistentString>
+            <PersistentString
+               value = "self.shoppingList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CalendarViewController AddToList:]:CalendarViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.calendar.endDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "recipe.name">
+            </PersistentString>
+            <PersistentString
+               value = "self.selectedRecipes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "+[Utilities getSmallerUnitBetween:And:]:Utilities.m">
          <PersistentStrings>
             <PersistentString
@@ -11,38 +89,59 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ShoppingListsViewController tableView:cellForRowAtIndexPath:]:ShoppingListsViewController.m">
+         contextName = "-[CalendarViewController calendarView:didSelectDate:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "cell.ingredient.checked">
+               value = "self.selectedCalendarDay.date">
             </PersistentString>
             <PersistentString
-               value = "cell.ingredient.name">
-            </PersistentString>
-            <PersistentString
-               value = "cell.backgroundColor">
+               value = "self.beginDay">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[Utilities addToList:]:Utilities.m">
+         contextName = "-[IngredientTableViewCell textFieldDidEndEditing:]:IngredientTableViewCell.m">
          <PersistentStrings>
             <PersistentString
-               value = "sli.unit == nil">
-            </PersistentString>
-            <PersistentString
-               value = "sli.unit">
-            </PersistentString>
-            <PersistentString
-               value = "sli.quantity">
+               value = "[textField.text length]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ShoppingListsViewController viewWillAppear:]:ShoppingListsViewController.m">
+         contextName = "-[MyRecipesViewController tableView:cellForRowAtIndexPath:]:MyRecipesViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shoppingList">
+               value = "recipe.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Utilities reduceIngredient:]:Utilities.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "ingredient.unit">
+            </PersistentString>
+            <PersistentString
+               value = "ingredient.quantity">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CalendarViewController viewDidLoad]:CalendarViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "date">
+            </PersistentString>
+            <PersistentString
+               value = "self.selectedCalendarDay">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BaseEntity name]:BaseEntity.h">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -55,13 +154,38 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[Utilities unit:IsCompatibleWith:]:Utilities.m">
+         contextName = "-[AddRecipeViewController shouldPerformSegueWithIdentifier:sender:]:AddRecipeViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[[Utilities unitPickerData] indexOfObject:@&quot;tsp&quot;]">
+               value = "([self.recipe.picture isEqualToData:UIImagePNGRepresentation([UIImage imageNamed:@&quot;Recipes&quot;] )])">
             </PersistentString>
             <PersistentString
-               value = "englishUnitConversionTable[unit1Index][unit2Index]">
+               value = "((RecipeIngredient *)self.recipe.recipeIngredients[0]).name">
+            </PersistentString>
+            <PersistentString
+               value = "self.recipe.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[IngredientTableViewCell setEntityValueFromTextField:]:IngredientTableViewCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.ingredient.quantity">
+            </PersistentString>
+            <PersistentString
+               value = "textField.text">
+            </PersistentString>
+            <PersistentString
+               value = "self.ingredient.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ShoppingListsViewController tableView:numberOfRowsInSection:]:ShoppingListsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.shoppingListIngredients.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -70,28 +194,6 @@
          <PersistentStrings>
             <PersistentString
                value = "buffer[0]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[CalendarViewController calendarView:eventsForDate:]:CalendarViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "date">
-            </PersistentString>
-            <PersistentString
-               value = "recipe.name">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[CalendarViewController calendarView:didSelectDate:]:CalendarViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.selectedCalendarDay.date">
-            </PersistentString>
-            <PersistentString
-               value = "self.beginDay">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -113,56 +215,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[CalendarViewController viewDidLoad]:CalendarViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "date">
-            </PersistentString>
-            <PersistentString
-               value = "self.selectedCalendarDay">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[IngredientTableViewCell textFieldDidEndEditing:]:IngredientTableViewCell.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[textField.text length]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[MyRecipesViewController prepareForSegue:sender:]:MyRecipesViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "sender == nil">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AddRecipeViewController alertView:clickedButtonAtIndex:]:AddRecipeViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[self.recipeIngredients count]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[MyRecipesViewController filterContentForSearchText:scope:]:MyRecipesViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.filteredRecipes">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ShoppingListsViewController addShoppingListItem:]:ShoppingListsViewController.m">
+         contextName = "-[ShoppingListsViewController viewWillAppear:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "self.shoppingList">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Utilities foundIngredientMatchWithName:Quantity:Unit:ForIngredient:]:Utilities.m">
+         <PersistentStrings>
             <PersistentString
-               value = "self.shoppingListIngredients">
+               value = "ingredient.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -175,43 +239,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[CalendarDay getEntityByDate:]:CalendarDay.m">
+         contextName = "-[CalendarViewController calendarView:eventsForDate:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "((CalendarDay *)objects[0]).recipes">
+               value = "date">
+            </PersistentString>
+            <PersistentString
+               value = "recipe.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[CalendarViewController AddToList:]:CalendarViewController.m">
+         contextName = "+[Utilities unit:IsCompatibleWith:]:Utilities.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.calendar.endDate">
+               value = "[[Utilities unitPickerData] indexOfObject:@&quot;tsp&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "englishUnitConversionTable[unit1Index][unit2Index]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AddRecipeViewController shouldPerformSegueWithIdentifier:sender:]:AddRecipeViewController.m">
+         contextName = "-[AddRecipeViewController alertView:clickedButtonAtIndex:]:AddRecipeViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "([self.recipe.picture isEqualToData:UIImagePNGRepresentation([UIImage imageNamed:@&quot;Recipes&quot;] )])">
-            </PersistentString>
-            <PersistentString
-               value = "((RecipeIngredient *)self.recipe.recipeIngredients[0]).name">
-            </PersistentString>
-            <PersistentString
-               value = "self.recipe.name">
+               value = "[self.recipeIngredients count]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[Utilities reduceIngredient:]:Utilities.m">
+         contextName = "-[IngredientTableViewCell textField:shouldChangeCharactersInRange:replacementString:]:IngredientTableViewCell.m">
          <PersistentStrings>
             <PersistentString
-               value = "ingredient.unit">
-            </PersistentString>
-            <PersistentString
-               value = "ingredient.quantity">
+               value = "[NSCharacterSet whitespaceCharacterSet] characterIsMember:[textField.text characterAtIndex:0]]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -232,59 +293,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[IngredientTableViewCell textField:shouldChangeCharactersInRange:replacementString:]:IngredientTableViewCell.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[NSCharacterSet whitespaceCharacterSet] characterIsMember:[textField.text characterAtIndex:0]]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[MyRecipesViewController tableView:cellForRowAtIndexPath:]:MyRecipesViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "recipe.name">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "segue.destinationViewController">
-            </PersistentString>
-            <PersistentString
-               value = "self.selectedCalendarDay.date">
-            </PersistentString>
-            <PersistentString
-               value = "myRecipesVC.recipes">
-            </PersistentString>
-            <PersistentString
-               value = "segue.identifier">
-            </PersistentString>
-            <PersistentString
-               value = "self.selectedCalendarDay">
-            </PersistentString>
-            <PersistentString
-               value = "self.calendarDay.date">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[BaseEntity saveEntity]:BaseEntity.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.recipes">
-            </PersistentString>
-            <PersistentString
-               value = "((ShoppingListIngredient *)[((ShoppingList *)self).shoppingListIngredients allObjects][0]).name">
-            </PersistentString>
-            <PersistentString
-               value = "(((Recipe *)self).recipeIngredients[0])">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "+[Utilities addRational1:ToRational2:]:Utilities.m">
          <PersistentStrings>
             <PersistentString
@@ -296,35 +304,55 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[IngredientTableViewCell setEntityValueFromTextField:]:IngredientTableViewCell.m">
+         contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.ingredient.name">
+               value = "self.selectedCalendarDay">
             </PersistentString>
             <PersistentString
-               value = "textField.text">
+               value = "self.selectedCalendarDay.date">
             </PersistentString>
             <PersistentString
-               value = "self.ingredient.quantity">
+               value = "myRecipesVC.recipes">
+            </PersistentString>
+            <PersistentString
+               value = "segue.identifier">
+            </PersistentString>
+            <PersistentString
+               value = "self.calendarDay.date">
+            </PersistentString>
+            <PersistentString
+               value = "segue.destinationViewController">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ShoppingListsViewController tableView:numberOfRowsInSection:]:ShoppingListsViewController.m">
+         contextName = "-[MyRecipesViewController prepareForSegue:sender:]:MyRecipesViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shoppingListIngredients.count">
+               value = "sender == nil">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
+         contextName = "-[ShoppingListsViewController tableView:cellForRowAtIndexPath:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "recipe.name">
+               value = "cell.backgroundColor">
             </PersistentString>
             <PersistentString
-               value = "self.selectedRecipes">
+               value = "cell.ingredient.name">
+            </PersistentString>
+            <PersistentString
+               value = "cell.ingredient.checked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[CalendarDay getEntityByDate:]:CalendarDay.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "((CalendarDay *)objects[0]).recipes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -200,9 +200,9 @@ int englishUnitConversionTable[8][8] = {
     }
     
     //parse results out to mixed-number string
-    NSString* wholePart = resultWholePart > 0 ? [NSString stringWithFormat: @"%ld ", resultWholePart] : @"";
+    NSString* wholePart = resultWholePart > 0 ? [NSString stringWithFormat: @"%ld", resultWholePart] : @"";
     
-    NSString* rationalPart = resultNumerator != 0 ? [NSString stringWithFormat: @"%ld/%ld", (long)resultNumerator, (long)resultDenominator] : @"";
+    NSString* rationalPart = resultNumerator != 0 ? [NSString stringWithFormat: @" %ld/%ld", (long)resultNumerator, (long)resultDenominator] : @"";
     
     NSString* rtn = [wholePart stringByAppendingString: rationalPart];
     
@@ -223,7 +223,13 @@ int englishUnitConversionTable[8][8] = {
     for(Recipe* recipe in recipes)
     {
         if(shoppingList.shoppingListIngredients.count > 0)
+        {
+            //this might be initializing with stuff already in it and matches are getting added instead
             shoppingListIngredients = [NSMutableArray arrayWithArray:[shoppingList.shoppingListIngredients array]];
+            
+            shoppingList.shoppingListIngredients = [NSOrderedSet orderedSetWithArray: shoppingListIngredients];
+            [shoppingList saveEntity];
+        }
         else
             shoppingListIngredients = [NSMutableArray new];
         
@@ -232,13 +238,18 @@ int englishUnitConversionTable[8][8] = {
             BOOL foundIngredient = NO;
             for(ShoppingListIngredient* sli in shoppingList.shoppingListIngredients)
             {
+                /*NSString* riName = ri.name;
+                NSString* sliName = sli.name;
+                ri.name = [NSString stringWithString:riName];
+                sli.name = [NSString stringWithString:sliName];*/
                 if([Utilities foundIngredientMatchWithName:ri.name  Quantity:ri.quantity Unit:ri.unit ForIngredient:sli])
                 {
+                    foundIngredient = YES;
+                    
                     if(sli.unit == nil)
                         sli.unit = @"";
                     
                     NSString* tempUnit = [NSString stringWithString:sli.unit];
-                    foundIngredient = YES;
                     if([ri.unit length] > 0)
                         sli.unit = [Utilities getSmallerUnitBetween:ri.unit And:sli.unit];
                     
@@ -251,7 +262,7 @@ int englishUnitConversionTable[8][8] = {
                         if([[Utilities getSmallerUnitBetween:ri.unit And:sli.unit] isEqualToString:ri.unit])
                         {
                             tempRational = [Utilities multiplyRational:sli.quantity ByInteger:(NSInteger)englishUnitConversionTable[unit2Index][unit1Index]];
-                            
+
                             sli.quantity = [Utilities addRational1: tempRational ToRational2: ri.quantity];
                         }
                         else //sli.unit is the smaller one
@@ -262,6 +273,15 @@ int englishUnitConversionTable[8][8] = {
                         }
                     }
                     [shoppingListIngredients addObject:sli];
+                    break;
+                }
+                else
+                {
+                    //NSLog(@"ri.name");
+                    //NSLog(ri.name);
+                    //NSLog(@"sli.name");
+                    //NSLog(sli.name);
+                    //[Utilities foundIngredientMatchWithName:ri.name  Quantity:ri.quantity Unit:ri.unit ForIngredient:sli];
                 }
             }
             if(!foundIngredient)

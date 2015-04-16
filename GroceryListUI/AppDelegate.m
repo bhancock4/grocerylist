@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [NSThread sleepForTimeInterval:1.3];
+    [NSThread sleepForTimeInterval:0.3];
     
     UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
     
