@@ -1,22 +1,23 @@
 //
-//  SettingsViewController.m
-//  GroceryList
+//  RecipeInstructionsViewController.m
+//  ReciPlan
 //
-//  Created by Benjamin Hancock on 9/26/14.
-//  Copyright (c) 2014 Ben Hancock. All rights reserved.
+//  Created by Benjamin Hancock on 4/17/15.
+//  Copyright (c) 2015 Ben Hancock. All rights reserved.
 //
 
-#import "SettingsViewController.h"
+#import "RecipeInstructionsViewController.h"
 
-@interface SettingsViewController ()
+@interface RecipeInstructionsViewController ()
 
 @end
 
-@implementation SettingsViewController
+@implementation RecipeInstructionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.recipeInstructionsTextView.text = self.recipeInstructions;
 }
 
 - (void)didReceiveMemoryWarning {

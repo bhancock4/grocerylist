@@ -15,6 +15,7 @@
 #import "ShoppingList.h"
 #import "ShoppingListIngredient.h"
 #import "Utilities.h"
+#import "RecipeInstructionsViewController.h"
 
 @interface AddRecipeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -38,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem*   cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton*          btnAddIngredient;
 @property (weak, nonatomic) IBOutlet UIButton*          recipeImageButton;
+@property (weak, nonatomic) IBOutlet UIButton *btnFullScreenInstructions;
 
 - (NSIndexPath*)getCellIndexFromGesture:(UIGestureRecognizer *) g;
 

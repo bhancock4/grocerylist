@@ -17,8 +17,8 @@
     SevenSwitch* multiSelectButton = [SevenSwitch new];
     multiSelectButton.offImage = [UIImage imageNamed: @"SelectSingle"];
     multiSelectButton.onImage = [UIImage imageNamed: @"SelectMultiple"];
-    multiSelectButton.activeColor = [UIColor blueColor];
-    multiSelectButton.thumbTintColor = [UIColor blueColor];
+    multiSelectButton.activeColor = [UIColor customAppColor];
+    multiSelectButton.thumbTintColor = [UIColor customAppColor];
     multiSelectButton.frame = CGRectMake(0, 0, 50, 27);
     [multiSelectButton addTarget: self action: @selector(multiSelectSwitchChanged:) forControlEvents: UIControlEventTouchUpInside];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithCustomView:multiSelectButton];

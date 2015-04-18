@@ -291,6 +291,9 @@
 {
     BOOL shouldSegue = YES;
     
+    if(sender == self.btnFullScreenInstructions)
+        return shouldSegue;
+    
     if(sender == self.cancelButton)
     {
         self.recipe = nil;
@@ -563,6 +566,22 @@
 -(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //in the case where we're segue-ing from an existing recipe, we want to give the target ViewController a way to know that, so we set a property on that ViewController
+    if([segue.identifier isEqualToString:@"seguePresentRecipeInstructions"])
+    {
+        RecipeInstructionsViewController* recipeInstructionsVC = (RecipeInstructionsViewController *)[segue.destinationViewController topViewController];
+
+        recipeInstructionsVC.recipeInstructions = self.recipeDirections.text;
+    }
+}
+
+- (IBAction)unwindToMyRecipes:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //need this method so the instructions segue can unwind
 }
 
 

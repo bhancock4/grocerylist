@@ -12,6 +12,8 @@
 		0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D37D11D1A12F5C40061A958 /* CalendarDay.m */; };
 		0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B1E6A1A2075D4006C727C /* Utilities.m */; };
 		0D5D602E1ABD22F900F9A4F1 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5D602D1ABD22F900F9A4F1 /* TutorialViewController.m */; };
+		0D6592131AE202E2009D59FB /* UIColor+UIColor_CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6592121AE202E2009D59FB /* UIColor+UIColor_CustomColors.m */; };
+		0D6592171AE20D82009D59FB /* RecipeInstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6592161AE20D82009D59FB /* RecipeInstructionsViewController.m */; };
 		0D695DA41A984B3700C3048A /* RecipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D695DA21A984B3700C3048A /* RecipeTableViewCell.m */; };
 		0D695DA51A984B3700C3048A /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D695DA31A984B3700C3048A /* RecipeTableViewCell.xib */; };
 		0D6B8A071AC673C5001E9E41 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B8A061AC673C5001E9E41 /* Launch Screen.xib */; };
@@ -27,7 +29,6 @@
 		0D934B6319D6611F003A51BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D934B6219D6611F003A51BC /* Images.xcassets */; };
 		0D934B7219D6611F003A51BC /* GroceryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7119D6611F003A51BC /* GroceryListTests.m */; };
 		0D934B7D19D666A9003A51BC /* ShoppingListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */; };
-		0D934B8019D666D6003A51BC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7F19D666D6003A51BC /* SettingsViewController.m */; };
 		0D934B8319D67496003A51BC /* AddRecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B8219D67496003A51BC /* AddRecipeViewController.m */; };
 		0D934B9619D67EA7003A51BC /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B9419D67EA7003A51BC /* DataModel.xcdatamodeld */; };
 		0D934B9919D6824D003A51BC /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B9819D6824D003A51BC /* DataAccess.m */; };
@@ -62,6 +63,11 @@
 		0D5B1E6A1A2075D4006C727C /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		0D5D602C1ABD22F900F9A4F1 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		0D5D602D1ABD22F900F9A4F1 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		0D6592111AE202E2009D59FB /* UIColor+UIColor_CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+UIColor_CustomColors.h"; path = "../UIColor+UIColor_CustomColors.h"; sourceTree = "<group>"; };
+		0D6592121AE202E2009D59FB /* UIColor+UIColor_CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+UIColor_CustomColors.m"; path = "../UIColor+UIColor_CustomColors.m"; sourceTree = "<group>"; };
+		0D6592141AE203C1009D59FB /* MyApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyApp-Prefix.pch"; path = "../GroceryListUI/Supporting Files/MyApp-Prefix.pch"; sourceTree = "<group>"; };
+		0D6592151AE20D82009D59FB /* RecipeInstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeInstructionsViewController.h; sourceTree = "<group>"; };
+		0D6592161AE20D82009D59FB /* RecipeInstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeInstructionsViewController.m; sourceTree = "<group>"; };
 		0D695DA11A984B3700C3048A /* RecipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeTableViewCell.h; sourceTree = "<group>"; };
 		0D695DA21A984B3700C3048A /* RecipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeTableViewCell.m; sourceTree = "<group>"; };
 		0D695DA31A984B3700C3048A /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
@@ -88,8 +94,6 @@
 		0D934B7119D6611F003A51BC /* GroceryListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroceryListTests.m; sourceTree = "<group>"; };
 		0D934B7B19D666A9003A51BC /* ShoppingListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListsViewController.h; sourceTree = "<group>"; };
 		0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListsViewController.m; sourceTree = "<group>"; };
-		0D934B7E19D666D6003A51BC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		0D934B7F19D666D6003A51BC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		0D934B8119D67496003A51BC /* AddRecipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRecipeViewController.h; sourceTree = "<group>"; };
 		0D934B8219D67496003A51BC /* AddRecipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRecipeViewController.m; sourceTree = "<group>"; };
 		0D934B9519D67EA7003A51BC /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -146,8 +150,6 @@
 				0D934B5A19D6611F003A51BC /* CalendarViewController.m */,
 				0D934B5C19D6611F003A51BC /* MyRecipesViewController.h */,
 				0D934B5D19D6611F003A51BC /* MyRecipesViewController.m */,
-				0D934B7E19D666D6003A51BC /* SettingsViewController.h */,
-				0D934B7F19D666D6003A51BC /* SettingsViewController.m */,
 				0D934B7B19D666A9003A51BC /* ShoppingListsViewController.h */,
 				0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */,
 				0D5D602C1ABD22F900F9A4F1 /* TutorialViewController.h */,
@@ -155,6 +157,8 @@
 				0D76C0621ACE4C2B00CD9FD7 /* TutorialChildViewController01.h */,
 				0D76C0631ACE4C2B00CD9FD7 /* TutorialChildViewController01.m */,
 				0D76C0641ACE4C2B00CD9FD7 /* TutorialChildViewController01.xib */,
+				0D6592151AE20D82009D59FB /* RecipeInstructionsViewController.h */,
+				0D6592161AE20D82009D59FB /* RecipeInstructionsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -181,6 +185,9 @@
 		0D5B1E681A2075A6006C727C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0D6592141AE203C1009D59FB /* MyApp-Prefix.pch */,
+				0D6592111AE202E2009D59FB /* UIColor+UIColor_CustomColors.h */,
+				0D6592121AE202E2009D59FB /* UIColor+UIColor_CustomColors.m */,
 				0D5B1E691A2075D4006C727C /* Utilities.h */,
 				0D5B1E6A1A2075D4006C727C /* Utilities.m */,
 			);
@@ -436,13 +443,14 @@
 				0DA596D119E1807E002EE12E /* Recipe.m in Sources */,
 				0D76C0651ACE4C2B00CD9FD7 /* TutorialChildViewController01.m in Sources */,
 				0D934B5E19D6611F003A51BC /* MyRecipesViewController.m in Sources */,
+				0D6592171AE20D82009D59FB /* RecipeInstructionsViewController.m in Sources */,
 				0DA596CE19E18068002EE12E /* RecipeIngredient.m in Sources */,
 				0D934B9919D6824D003A51BC /* DataAccess.m in Sources */,
 				0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */,
+				0D6592131AE202E2009D59FB /* UIColor+UIColor_CustomColors.m in Sources */,
 				0D934B7D19D666A9003A51BC /* ShoppingListsViewController.m in Sources */,
 				0D934B5819D6611F003A51BC /* AppDelegate.m in Sources */,
 				0D695DA41A984B3700C3048A /* RecipeTableViewCell.m in Sources */,
-				0D934B8019D666D6003A51BC /* SettingsViewController.m in Sources */,
 				0D934B8319D67496003A51BC /* AddRecipeViewController.m in Sources */,
 				0D9735FB1A0DDB3A005E6441 /* ShoppingListIngredient.m in Sources */,
 				0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */,
@@ -571,6 +579,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MyApp-Prefix.pch";
 				INFOPLIST_FILE = "GroceryListUI/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = ReciPlan;
@@ -583,6 +593,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MyApp-Prefix.pch";
 				INFOPLIST_FILE = "GroceryListUI/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = ReciPlan;

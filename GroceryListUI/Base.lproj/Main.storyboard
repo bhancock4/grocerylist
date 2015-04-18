@@ -136,7 +136,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1e-yn-FYQ">
                                 <rect key="frame" x="16" y="281" width="22" height="22"/>
-                                <color key="tintColor" red="0.074509803920000006" green="0.28627450980000002" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.39607843139999999" green="0.0" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.074509803921568626" green="0.28627450980392155" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,13 +169,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopping List" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3P-wU-Ia4">
                                 <rect key="frame" x="203" y="282" width="94" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.074509803920000006" green="0.28627450980000002" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.39607843139999999" green="0.0" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Ingredient" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMQ-dh-b6G">
                                 <rect key="frame" x="46" y="282" width="124" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.074509803920000006" green="0.28627450980000002" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.396078431372549" green="0.0" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-yS-eVu">
@@ -196,11 +196,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recipe Instructions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyE-wH-Qtg">
-                                <rect key="frame" x="6" y="108" width="182" height="21"/>
+                                <rect key="frame" x="6" y="108" width="123" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.39607843139999999" green="0.0" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Co-Qy-AHG">
+                                <rect key="frame" x="182" y="104" width="110" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Show Full Screen">
+                                    <color key="titleColor" red="0.39607843139999999" green="0.0" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="oUc-rL-05g" kind="presentation" identifier="seguePresentRecipeInstructions" id="8OI-JW-ei2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -221,6 +232,7 @@
                         <outlet property="RecipeImage" destination="2k5-fL-jsn" id="Wdj-58-rjR"/>
                         <outlet property="addToList" destination="kpi-yS-eVu" id="i27-KP-DVA"/>
                         <outlet property="btnAddIngredient" destination="A1e-yn-FYQ" id="ZbG-O4-67l"/>
+                        <outlet property="btnFullScreenInstructions" destination="1Co-Qy-AHG" id="NrO-Fn-0N7"/>
                         <outlet property="cancelButton" destination="WLV-MZ-hnb" id="9nQ-ec-Bi1"/>
                         <outlet property="recipeDirections" destination="4B1-3h-fL0" id="7Er-2C-LHb"/>
                         <outlet property="recipeImageButton" destination="AkI-gm-ddn" id="1eI-V5-Tpy"/>
@@ -233,6 +245,46 @@
                 <exit id="85O-Cx-7dl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2318" y="-849"/>
+        </scene>
+        <!--Instructions-->
+        <scene sceneID="8XF-dV-rH7">
+            <objects>
+                <viewController id="uEt-gC-U2Y" customClass="RecipeInstructionsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="STy-AC-6cm"/>
+                        <viewControllerLayoutGuide type="bottom" id="KYl-3F-7NC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IVP-sf-RQk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kul-D2-kMk">
+                                <rect key="frame" x="16" y="82" width="288" height="478"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.39607843139999999" green="0.0" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Instructions" id="MHo-1J-lvR">
+                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="2eR-cc-mz1">
+                            <color key="tintColor" red="0.39607843139999999" green="0.0" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="SmG-8B-ziB" kind="unwind" unwindAction="unwindToMyRecipes:sender:" id="4w5-z9-NTE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="recipeInstructionsTextView" destination="Kul-D2-kMk" id="A03-DR-Zhf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OjO-I3-h79" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="SmG-8B-ziB" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3302" y="-849"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -383,6 +435,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84K-bE-Sru" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6" y="702"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DpO-LF-TxG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oUc-rL-05g" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X2l-cg-CDx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uEt-gC-U2Y" kind="relationship" relationship="rootViewController" id="882-16-Zdf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Adz-mG-tQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2770" y="-849"/>
         </scene>
     </scenes>
     <resources>
