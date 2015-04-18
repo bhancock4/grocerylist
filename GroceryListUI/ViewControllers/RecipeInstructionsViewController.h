@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecipeIngredient.h"
 
 @interface RecipeInstructionsViewController : UIViewController
 
+@property NSString* recipeName;
 @property NSString* recipeInstructions;
-
+@property NSOrderedSet* recipeIngredients;
 @property (weak, nonatomic) IBOutlet UITextView *recipeInstructionsTextView;
 
 @end

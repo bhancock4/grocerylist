@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [NSThread sleepForTimeInterval:0.3];
+    [NSThread sleepForTimeInterval:1.3];
     
     UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
     
@@ -38,7 +38,8 @@
         self.window.rootViewController = tvc;
     }
     self.window.tintColor = [UIColor customAppColor];
-
+    NSDictionary* textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor customAppColor], UITextAttributeTextColor, [UIColor customAppColor], UITextAttributeTextShadowColor, nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
     // Override point for customization after application launch.
     return YES;
 }

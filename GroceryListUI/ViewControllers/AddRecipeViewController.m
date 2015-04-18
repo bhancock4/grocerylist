@@ -575,7 +575,9 @@
     {
         RecipeInstructionsViewController* recipeInstructionsVC = (RecipeInstructionsViewController *)[segue.destinationViewController topViewController];
 
+        recipeInstructionsVC.recipeName = self.recipeName.text;
         recipeInstructionsVC.recipeInstructions = self.recipeDirections.text;
+        recipeInstructionsVC.recipeIngredients = [NSOrderedSet orderedSetWithArray: self.recipeIngredients];
     }
 }
 

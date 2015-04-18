@@ -17,7 +17,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.recipeInstructionsTextView.text = self.recipeInstructions;
+    self.navigationItem.title = self.recipeName;
+    //self.recipeInstructionsTextView.text = self.recipeInstructions;
+    
+    NSString* text = @"";
+    
+    if([self.recipeIngredients count] > 0)
+        text = @"Ingredients:\n";
+    
+    for(RecipeIngredient* ingredient in self.recipeIngredients)
+    {
+        NSString* quantity = ingredient.quantity == nil ? @"" : ingredient.quantity;
+        NSString* unit = ingredient.unit == nil ? @"" : ingredient.unit;
+        
+        text = [text stringByAppendingString:@"- "];
+        
+        text = [text stringByAppendingString:quantity];
+        if([quantity length] > 0)
+            text = [text stringByAppendingString:@" "];
+        
+        text = [text stringByAppendingString:unit];
+        if([unit length] > 0)
+            text = [text stringByAppendingString:@" "];
+        
+        text = [text stringByAppendingString:ingredient.name];
+        text = [text stringByAppendingString:@"\n"];
+    }
+    
+    if([self.recipeInstructions length] > 0)
+    {
+        text = [text stringByAppendingString:@"\n\nInstructions:\n"];
+        text = [text stringByAppendingString:self.recipeInstructions];
+    }
+    self.recipeInstructionsTextView.text = text;
 }
 
 - (void)didReceiveMemoryWarning {

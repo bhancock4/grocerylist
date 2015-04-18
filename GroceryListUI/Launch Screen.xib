@@ -11,13 +11,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ReciPlan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAl-ca-Lom">
-                    <rect key="frame" x="0.0" y="92" width="339" height="196"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="82"/>
+                    <rect key="frame" x="0.0" y="92" width="324" height="196"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="76"/>
                     <color key="textColor" red="0.86999591499999995" green="0.9537632761" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Simplify your grocery planning" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhQ-nd-VJo">
-                    <rect key="frame" x="100" y="268" width="247" height="20"/>
+                    <rect key="frame" x="81" y="268" width="236" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.67450980390000004" green="0.67450980390000004" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
