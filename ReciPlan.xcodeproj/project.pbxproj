@@ -27,7 +27,6 @@
 		0D934B5E19D6611F003A51BC /* MyRecipesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B5D19D6611F003A51BC /* MyRecipesViewController.m */; };
 		0D934B6119D6611F003A51BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D934B5F19D6611F003A51BC /* Main.storyboard */; };
 		0D934B6319D6611F003A51BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D934B6219D6611F003A51BC /* Images.xcassets */; };
-		0D934B7219D6611F003A51BC /* GroceryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7119D6611F003A51BC /* GroceryListTests.m */; };
 		0D934B7D19D666A9003A51BC /* ShoppingListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */; };
 		0D934B8319D67496003A51BC /* AddRecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B8219D67496003A51BC /* AddRecipeViewController.m */; };
 		0D934B9619D67EA7003A51BC /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D934B9419D67EA7003A51BC /* DataModel.xcdatamodeld */; };
@@ -90,8 +89,6 @@
 		0D934B6019D6611F003A51BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D934B6219D6611F003A51BC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0D934B6B19D6611F003A51BC /* ReciPlanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReciPlanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D934B7019D6611F003A51BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0D934B7119D6611F003A51BC /* GroceryListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroceryListTests.m; sourceTree = "<group>"; };
 		0D934B7B19D666A9003A51BC /* ShoppingListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListsViewController.h; sourceTree = "<group>"; };
 		0D934B7C19D666A9003A51BC /* ShoppingListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListsViewController.m; sourceTree = "<group>"; };
 		0D934B8119D67496003A51BC /* AddRecipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRecipeViewController.h; sourceTree = "<group>"; };
@@ -201,7 +198,6 @@
 				0D5B1E681A2075A6006C727C /* Utility */,
 				0D934B8D19D67BC7003A51BC /* DataModel */,
 				0D934B5119D6611F003A51BC /* GroceryListUI */,
-				0D934B6E19D6611F003A51BC /* GroceryListTests */,
 				0D934B5019D6611F003A51BC /* Products */,
 				79826A6EF6218006B2BACD66 /* Frameworks */,
 				AB99818EEB1238282BB9C8EE /* Pods */,
@@ -242,23 +238,6 @@
 			children = (
 				0D934B5319D6611F003A51BC /* Info.plist */,
 				0D934B5419D6611F003A51BC /* main.m */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0D934B6E19D6611F003A51BC /* GroceryListTests */ = {
-			isa = PBXGroup;
-			children = (
-				0D934B7119D6611F003A51BC /* GroceryListTests.m */,
-				0D934B6F19D6611F003A51BC /* Supporting Files */,
-			);
-			path = GroceryListTests;
-			sourceTree = "<group>";
-		};
-		0D934B6F19D6611F003A51BC /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0D934B7019D6611F003A51BC /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -467,7 +446,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D934B7219D6611F003A51BC /* GroceryListTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
