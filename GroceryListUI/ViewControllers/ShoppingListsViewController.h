@@ -11,6 +11,7 @@
 #import "ShoppingListIngredient.h"
 #import "IngredientTableViewCell.h"
 #import "Utilities.h"
+#import <iAd/iAd.h>
 
 @interface ShoppingListsViewController : UITableViewController
 - (IBAction)clearShoppingList:(id)sender;

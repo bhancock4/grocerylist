@@ -12,7 +12,6 @@
 #import "Recipe.h"
 #import "MyRecipesViewController.h"
 #import "SevenSwitch.h"
-#import <iAd/iAd.h>
 
 @interface CalendarViewController : UIViewController <CKCalendarViewDelegate, CKCalendarViewDataSource>
 

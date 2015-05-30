@@ -10,6 +10,8 @@
 
 @implementation ShoppingListsViewController
 
+ADBannerView* bannerView;
+
 //######################################################################################################
 #pragma mark - Initialization & setup
 
@@ -51,6 +53,10 @@
     self.tableView.allowsSelectionDuringEditing = YES;  //still allow cell selection
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.editing = YES;  //edit mode allows reordering
+    
+    //add iAd banner
+    bannerView = [ADBannerView new];
+    self.tableView.tableFooterView = bannerView;
 }
 
 - (void)didReceiveMemoryWarning
