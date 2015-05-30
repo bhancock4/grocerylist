@@ -9,8 +9,8 @@ DEPENDENCIES:
   - SevenSwitch (~> 1.4)
 
 SPEC CHECKSUMS:
-  MBCalendarKit: ba833595ff81509d2c8b9be55ea6004360a02c66
-  MCSwipeTableViewCell: 8e78ff197ab06ba7bfd5c938a00149de8a33afa9
-  SevenSwitch: 2f6832907b4f0d4eeb61e2a24acb1e28f6f8c059
+  MBCalendarKit: 0adc29bb6c279d7ecbf6e1684701671272a97a65
+  MCSwipeTableViewCell: 0fc22bd3635b9b5f4ce08675218b0a7278b6440f
+  SevenSwitch: e992e56e2e7f401eb00538b9fa92bf848bacbe27
 
 COCOAPODS: 0.34.4

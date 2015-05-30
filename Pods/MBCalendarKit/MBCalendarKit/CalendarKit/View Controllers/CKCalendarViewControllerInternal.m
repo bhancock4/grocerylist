@@ -24,12 +24,12 @@
 
 @end
 
-@implementation CKCalendarViewControllerInternal 
+@implementation CKCalendarViewControllerInternal
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
     
     /* iOS 7 hack*/
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
@@ -43,12 +43,12 @@
     [self setEvents:[NSMutableArray new]];
     
     /* Calendar View */
-
+    
     [self setCalendarView:[CKCalendarView new]];
     [[self calendarView] setDataSource:self];
     [[self calendarView] setDelegate:self];
     [[self view] addSubview:[self calendarView]];
-
+    
     [[self calendarView] setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] animated:NO];
     [[self calendarView] setDisplayMode:CKCalendarViewModeMonth animated:NO];
     

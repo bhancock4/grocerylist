@@ -10,6 +10,8 @@
 
 @implementation CalendarViewController
 
+ADBannerView* bannerView;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,6 +48,9 @@
     
     [self calendarView:self.calendar didSelectDate:truncDate];
     [self calendarView: self.calendar eventsForDate:truncDate];
+    
+    bannerView = [ADBannerView new];
+    //self.tableView.tableFooterView = bannerView;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

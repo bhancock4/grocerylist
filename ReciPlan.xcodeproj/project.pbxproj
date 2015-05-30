@@ -10,6 +10,7 @@
 		0D2439E31A0E782C0005FFA8 /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = 0D2439E21A0E782C0005FFA8 /* PodFile */; };
 		0D2D14381A159EB20017C30C /* ToDo in Resources */ = {isa = PBXBuildFile; fileRef = 0D2D14371A159EB20017C30C /* ToDo */; };
 		0D37D11E1A12F5C40061A958 /* CalendarDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D37D11D1A12F5C40061A958 /* CalendarDay.m */; };
+		0D4CA9821B1967E100AA290F /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4CA9811B1967E100AA290F /* iAd.framework */; };
 		0D5B1E6B1A2075D4006C727C /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B1E6A1A2075D4006C727C /* Utilities.m */; };
 		0D5D602E1ABD22F900F9A4F1 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5D602D1ABD22F900F9A4F1 /* TutorialViewController.m */; };
 		0D6592131AE202E2009D59FB /* UIColor+UIColor_CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6592121AE202E2009D59FB /* UIColor+UIColor_CustomColors.m */; };
@@ -58,13 +59,13 @@
 		0D2D14371A159EB20017C30C /* ToDo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ToDo; sourceTree = "<group>"; };
 		0D37D11C1A12F5C40061A958 /* CalendarDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDay.h; sourceTree = "<group>"; };
 		0D37D11D1A12F5C40061A958 /* CalendarDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDay.m; sourceTree = "<group>"; };
+		0D4CA9811B1967E100AA290F /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		0D5B1E691A2075D4006C727C /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		0D5B1E6A1A2075D4006C727C /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		0D5D602C1ABD22F900F9A4F1 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		0D5D602D1ABD22F900F9A4F1 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		0D6592111AE202E2009D59FB /* UIColor+UIColor_CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+UIColor_CustomColors.h"; path = "../UIColor+UIColor_CustomColors.h"; sourceTree = "<group>"; };
 		0D6592121AE202E2009D59FB /* UIColor+UIColor_CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+UIColor_CustomColors.m"; path = "../UIColor+UIColor_CustomColors.m"; sourceTree = "<group>"; };
-		0D6592141AE203C1009D59FB /* MyApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyApp-Prefix.pch"; path = "../GroceryListUI/Supporting Files/MyApp-Prefix.pch"; sourceTree = "<group>"; };
 		0D6592151AE20D82009D59FB /* RecipeInstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeInstructionsViewController.h; sourceTree = "<group>"; };
 		0D6592161AE20D82009D59FB /* RecipeInstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeInstructionsViewController.m; sourceTree = "<group>"; };
 		0D695DA11A984B3700C3048A /* RecipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeTableViewCell.h; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D4CA9821B1967E100AA290F /* iAd.framework in Frameworks */,
 				0DDAAC1619FDE54C00A79246 /* CoreData.framework in Frameworks */,
 				0DDAAC1419FDE54000A79246 /* Foundation.framework in Frameworks */,
 				0DDAAC1219FDE53600A79246 /* UIKit.framework in Frameworks */,
@@ -182,7 +184,6 @@
 		0D5B1E681A2075A6006C727C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				0D6592141AE203C1009D59FB /* MyApp-Prefix.pch */,
 				0D6592111AE202E2009D59FB /* UIColor+UIColor_CustomColors.h */,
 				0D6592121AE202E2009D59FB /* UIColor+UIColor_CustomColors.m */,
 				0D5B1E691A2075D4006C727C /* Utilities.h */,
@@ -258,6 +259,7 @@
 		79826A6EF6218006B2BACD66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D4CA9811B1967E100AA290F /* iAd.framework */,
 				0DDAAC1519FDE54C00A79246 /* CoreData.framework */,
 				0DDAAC1319FDE54000A79246 /* Foundation.framework */,
 				0DDAAC1119FDE53600A79246 /* UIKit.framework */,

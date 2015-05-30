@@ -42,18 +42,18 @@
 #define kCalendarColorSelectedCellBorder [@"#000000" toColor]
 
 /*
-#define kCalendarColorLightGray [@"#e2e2e4" toColor]
-#define kCalendarColorDarkGray [@"#cccbd0" toColor]
-
-#define kCalendarColorBluishGray [@"#7389a5" toColor]
-#define kCalendarColorTodayShadowBlue [@"#394452" toColor]
-#define kCalendarColorSelectedShadowBlue [@"#294f75" toColor]
-
-#define kCalendarColorDarkTextGradient [@"#2b3540" toColor]
-#define kCalendarColorLightTextGradient [@"#495a6d" toColor]
-
-#define kCalendarColorCellBorder [@"#9da0a9" toColor]
-#define kCalendarColorSelectedCellBorder [@"#293649" toColor]
-*/
+ #define kCalendarColorLightGray [@"#e2e2e4" toColor]
+ #define kCalendarColorDarkGray [@"#cccbd0" toColor]
+ 
+ #define kCalendarColorBluishGray [@"#7389a5" toColor]
+ #define kCalendarColorTodayShadowBlue [@"#394452" toColor]
+ #define kCalendarColorSelectedShadowBlue [@"#294f75" toColor]
+ 
+ #define kCalendarColorDarkTextGradient [@"#2b3540" toColor]
+ #define kCalendarColorLightTextGradient [@"#495a6d" toColor]
+ 
+ #define kCalendarColorCellBorder [@"#9da0a9" toColor]
+ #define kCalendarColorSelectedCellBorder [@"#293649" toColor]
+ */
 
 #endif

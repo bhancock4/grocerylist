@@ -142,7 +142,7 @@
     [self applyColors];
 }
 
-#pragma mark - Label 
+#pragma mark - Label
 
 - (void)configureLabel
 {
@@ -175,7 +175,7 @@
 #pragma mark - UI Coloring
 
 - (void)applyColors
-{    
+{
     [self applyColorsForState:[self state]];
     [self showBorder];
 }
