@@ -27,9 +27,49 @@
         ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
         ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Recipes"];
         ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
+        
+        //prompt for core data enablement
+        NSFileManager* fileManager = [NSFileManager defaultManager];
+        id currentiCloudToken = fileManager.ubiquityIdentityToken;
+        
+        if(currentiCloudToken)
+        {
+            NSData* newTokenData = [NSKeyedArchiver archivedDataWithRootObject:currentiCloudToken];
+            [[NSUserDefaults standardUserDefaults] setObject: newTokenData forKey: @"iCloud.com.bhancock4.reciplan"];
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"iCloud.com.bhancock4.reciplan"];
+        }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(iCloudAccountAvailabilityChanged:) name:NSUbiquityIdentityDidChangeNotification object:nil];
+        
+        if(currentiCloudToken && true)
+        {
+            UIAlertView* alert = [[UIAlertView alloc]
+                             initWithTitle: @"Select your storage option"
+                             message: @"Do you want to use iCloud to save your data?"
+                             delegate: self
+                             cancelButtonTitle: @"Local Storage Only"
+                             otherButtonTitles: @"Use iCloud", nil];
+            [alert show];
+        }
+        
+        
+        
     }
     else
     {
+        //prompt for core data enablement
+        /*NSFileManager* fileManager = [NSFileManager defaultManager];
+        id currentiCloudToken = fileManager.ubiquityIdentityToken;
+        
+        if(currentiCloudToken)
+        {
+            NSData* newTokenData = [NSKeyedArchiver archivedDataWithRootObject:currentiCloudToken];
+            [[NSUserDefaults standardUserDefaults] setObject: newTokenData forKey: @"com.apple.ReciPlan.UbiquityIdentityToken"];
+        }*/
+        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -73,15 +113,33 @@
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
-    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
+    /*NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
                                                stringByAppendingPathComponent: @"GroceryList.sqlite"]];
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
                                    initWithManagedObjectModel:[self managedObjectModel]];
     if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                   configuration:nil URL:storeUrl options:nil error:&error]) {
-        /*Error for store creation should be handled in here*/
-    }
+        //Error for store creation should be handled in here
+    }*/
+    
+    
+    NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    
+    NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"CoreData.sqlite"];
+    
+    NSError *error = nil;
+    
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
+    NSDictionary *storeOptions =
+    @{NSPersistentStoreUbiquitousContentNameKey: @"ReciPlanDataStorage"};
+    NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                         configuration:nil
+                                                                   URL:storeURL
+                                                               options:storeOptions
+                                                                 error:&error];
+    NSURL *finaliCloudURL = [store URL];
     
     return _persistentStoreCoordinator;
 }

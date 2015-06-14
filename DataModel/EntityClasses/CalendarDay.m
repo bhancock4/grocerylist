@@ -25,7 +25,9 @@
     DataAccess* da = [DataAccess sharedDataAccess];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"(date >= %@) && (date < %@)", date, dateEnd];
     
-    NSArray* objects = [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate:predicate AndSortByProperty:@"calendarOrder"];
+    //NSArray* objects = [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate:predicate AndSortByProperty:@"calendarOrder"];
+    
+    NSArray* objects = [da getEntitiesByName: NSStringFromClass([self class]) WithPredicate:predicate];
     
     if(objects.count > 0)
     {
