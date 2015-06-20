@@ -14,6 +14,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+//NEED TO UNDERSTAND HOW TO PROMPT WHEN UPDATED TO ASK ABOUT ICLOUD
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [NSThread sleepForTimeInterval:1.3];
@@ -54,22 +55,9 @@
                              otherButtonTitles: @"Use iCloud", nil];
             [alert show];
         }
-        
-        
-        
     }
     else
     {
-        //prompt for core data enablement
-        /*NSFileManager* fileManager = [NSFileManager defaultManager];
-        id currentiCloudToken = fileManager.ubiquityIdentityToken;
-        
-        if(currentiCloudToken)
-        {
-            NSData* newTokenData = [NSKeyedArchiver archivedDataWithRootObject:currentiCloudToken];
-            [[NSUserDefaults standardUserDefaults] setObject: newTokenData forKey: @"com.apple.ReciPlan.UbiquityIdentityToken"];
-        }*/
-        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -82,6 +70,20 @@
     [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
     // Override point for customization after application launch.
     return YES;
+}
+
+//SHOULD WE MIGRATE STORES HERE??????????
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [[NSUserDefaults standardUserDefaults] setBool:buttonIndex == 1 forKey:@"isRemoteStorage"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
+    {
+        [_managedObjectContext reset];
+        
+        [_persistentStoreCoordinator migratePersistentStore:[_persistentStoreCoordinator persistentStores][0] toURL:self.storeURL options:nil withType:nil error:nil];
+    }
 }
 
 // 1
@@ -108,39 +110,44 @@
     return _managedObjectModel;
 }
 
-//3
+//SHOULD WE SELECT STORES HERE??????????
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (_persistentStoreCoordinator != nil) {
+    if (_persistentStoreCoordinator != nil)
         return _persistentStoreCoordinator;
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
+    {
+        NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        
+        NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"CoreData.sqlite"];
+        
+        NSError *error = nil;
+        
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+        
+        NSDictionary *storeOptions =
+        @{NSPersistentStoreUbiquitousContentNameKey: @"ReciPlanDataStorage"};
+        NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                             configuration:nil
+                                                                                       URL:storeURL
+                                                                                   options:storeOptions
+                                                                                     error:&error];
+        
+        self.storeURL = [store URL];
     }
-    /*NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
-                                               stringByAppendingPathComponent: @"GroceryList.sqlite"]];
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
-                                   initWithManagedObjectModel:[self managedObjectModel]];
-    if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                  configuration:nil URL:storeUrl options:nil error:&error]) {
-        //Error for store creation should be handled in here
-    }*/
-    
-    
-    NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    
-    NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"CoreData.sqlite"];
-    
-    NSError *error = nil;
-    
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    
-    NSDictionary *storeOptions =
-    @{NSPersistentStoreUbiquitousContentNameKey: @"ReciPlanDataStorage"};
-    NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                         configuration:nil
-                                                                   URL:storeURL
-                                                               options:storeOptions
-                                                                 error:&error];
-    NSURL *finaliCloudURL = [store URL];
-    
+    else
+    {
+        NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
+                                                   stringByAppendingPathComponent: @"GroceryList.sqlite"]];
+        NSError *error = nil;
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
+                                       initWithManagedObjectModel:[self managedObjectModel]];
+        
+        NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:nil URL:storeUrl options:nil error:&error];
+        
+        self.storeURL = [store URL];
+    }
     return _persistentStoreCoordinator;
 }
 
