@@ -54,10 +54,10 @@
          contextName = "-[ShoppingListsViewController addShoppingListItem:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shoppingListIngredients">
+               value = "self.shoppingList">
             </PersistentString>
             <PersistentString
-               value = "self.shoppingList">
+               value = "self.shoppingListIngredients">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -112,6 +112,17 @@
          <PersistentStrings>
             <PersistentString
                value = "recipe.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate alertView:clickedButtonAtIndex:]:AppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[_persistentStoreCoordinator persistentStores][0]">
+            </PersistentString>
+            <PersistentString
+               value = "self.storeURL">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -171,13 +182,13 @@
          contextName = "-[IngredientTableViewCell setEntityValueFromTextField:]:IngredientTableViewCell.m">
          <PersistentStrings>
             <PersistentString
+               value = "self.ingredient.name">
+            </PersistentString>
+            <PersistentString
                value = "textField.text">
             </PersistentString>
             <PersistentString
                value = "self.ingredient.quantity">
-            </PersistentString>
-            <PersistentString
-               value = "self.ingredient.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -321,7 +332,7 @@
          contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.calendarDay.date">
+               value = "self.selectedCalendarDay">
             </PersistentString>
             <PersistentString
                value = "self.selectedCalendarDay.date">
@@ -333,10 +344,10 @@
                value = "segue.destinationViewController">
             </PersistentString>
             <PersistentString
-               value = "segue.identifier">
+               value = "self.calendarDay.date">
             </PersistentString>
             <PersistentString
-               value = "self.selectedCalendarDay">
+               value = "segue.identifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -352,13 +363,13 @@
          contextName = "-[ShoppingListsViewController tableView:cellForRowAtIndexPath:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "cell.backgroundColor">
+               value = "cell.ingredient.checked">
             </PersistentString>
             <PersistentString
                value = "cell.ingredient.name">
             </PersistentString>
             <PersistentString
-               value = "cell.ingredient.checked">
+               value = "cell.backgroundColor">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

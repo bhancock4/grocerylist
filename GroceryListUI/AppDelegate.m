@@ -14,7 +14,6 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-//NEED TO UNDERSTAND HOW TO PROMPT WHEN UPDATED TO ASK ABOUT ICLOUD
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [NSThread sleepForTimeInterval:1.3];
@@ -29,23 +28,8 @@
         ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Recipes"];
         ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
         
-        //prompt for core data enablement
-        NSFileManager* fileManager = [NSFileManager defaultManager];
-        id currentiCloudToken = fileManager.ubiquityIdentityToken;
-        
-        if(currentiCloudToken)
-        {
-            NSData* newTokenData = [NSKeyedArchiver archivedDataWithRootObject:currentiCloudToken];
-            [[NSUserDefaults standardUserDefaults] setObject: newTokenData forKey: @"iCloud.com.bhancock4.reciplan"];
-        }
-        else
-        {
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"iCloud.com.bhancock4.reciplan"];
-        }
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(iCloudAccountAvailabilityChanged:) name:NSUbiquityIdentityDidChangeNotification object:nil];
-        
-        if(currentiCloudToken && true)
+        //TODO:  add option for "do not ask me again"
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
         {
             UIAlertView* alert = [[UIAlertView alloc]
                              initWithTitle: @"Select your storage option"
@@ -72,45 +56,6 @@
     return YES;
 }
 
-//SHOULD WE MIGRATE STORES HERE??????????
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [[NSUserDefaults standardUserDefaults] setBool:buttonIndex == 1 forKey:@"isRemoteStorage"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
-    {
-        [_managedObjectContext reset];
-        
-        [_persistentStoreCoordinator migratePersistentStore:[_persistentStoreCoordinator persistentStores][0] toURL:self.storeURL options:nil withType:nil error:nil];
-    }
-}
-
-// 1
-- (NSManagedObjectContext *) managedObjectContext {
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
-    }
-    
-    return _managedObjectContext;
-}
-
-//2
-- (NSManagedObjectModel *)managedObjectModel {
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    
-    return _managedObjectModel;
-}
-
-//SHOULD WE SELECT STORES HERE??????????
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (_persistentStoreCoordinator != nil)
         return _persistentStoreCoordinator;
@@ -144,12 +89,85 @@
                                        initWithManagedObjectModel:[self managedObjectModel]];
         
         NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                  configuration:nil URL:storeUrl options:nil error:&error];
+                                                                             configuration:nil URL:storeUrl options:nil error:&error];
         
         self.storeURL = [store URL];
     }
     return _persistentStoreCoordinator;
 }
+
+//TODO: Need to understand how to migrate an existing store
+//TODO:  add popup asking users to restart app if they choose remote storage
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [[NSUserDefaults standardUserDefaults] setBool:buttonIndex == 1 forKey:@"isRemoteStorage"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
+    {
+        NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        
+        NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"CoreData.sqlite"];
+        
+        NSError *error = nil;
+        
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+        
+        NSDictionary *storeOptions =
+        @{NSPersistentStoreUbiquitousContentNameKey: @"ReciPlanDataStorage"};
+        NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                             configuration:nil
+                                                                                       URL:storeURL
+                                                                                   options:storeOptions
+                                                                                     error:&error];
+        
+        self.storeURL = [store URL];
+        
+        [_managedObjectContext reset];
+        
+        //THIS DOESN'T WORK??????
+        [_persistentStoreCoordinator migratePersistentStore:[_persistentStoreCoordinator persistentStores][0] toURL:self.storeURL options:nil withType:nil error:nil];
+        
+    }
+}
+
+// 1
+- (NSManagedObjectContext *) managedObjectContext {
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    
+    return _managedObjectContext;
+}
+
+//2
+- (NSManagedObjectModel *)managedObjectModel {
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
+    }
+    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    
+    return _managedObjectModel;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (NSString *)applicationDocumentsDirectory {
         NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
