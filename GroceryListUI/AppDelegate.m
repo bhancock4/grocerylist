@@ -16,32 +16,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [NSThread sleepForTimeInterval:1.3];
+    [NSThread sleepForTimeInterval:1.1];
     
     UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
     {
+        self.isFirstLaunch = YES;
         self.window.rootViewController = tabBarController;
         ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
         ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Recipes"];
         ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
         
-        //TODO:  add option for "do not ask me again"
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
-        {
-            UIAlertView* alert = [[UIAlertView alloc]
-                             initWithTitle: @"Select your storage option"
-                             message: @"Do you want to use iCloud to save your data?"
-                             delegate: self
-                             cancelButtonTitle: @"Local Storage Only"
-                             otherButtonTitles: @"Use iCloud", nil];
-            [alert show];
-        }
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasBeenMigratedToICloud"];
     }
     else
     {
+        self.isFirstLaunch = NO;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -49,13 +42,26 @@
         tvc.tabBarController = tabBarController;
         self.window.rootViewController = tvc;
     }
+    
+    //prompt for storage options...don't ask again with no prior choice defaults to local
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"promptForStorage"] || self.isFirstLaunch)
+    {
+        UIAlertView* alert = [[UIAlertView alloc]
+                              initWithTitle: @"Select your storage option"
+                              message: @"Do you want to use iCloud to save your data?"
+                              delegate: self
+                              cancelButtonTitle: @"Don't ask again"
+                              otherButtonTitles: @"Use iCloud", @"Local Storage Only", nil];
+        [alert show];
+    }
+    
     self.window.tintColor = [UIColor customAppColor];
     NSDictionary* textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor customAppColor], UITextAttributeTextColor, [UIColor customAppColor], UITextAttributeTextShadowColor, nil];
     [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
-    // Override point for customization after application launch.
     return YES;
 }
 
+//pick local or icloud store based on saved user preference
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (_persistentStoreCoordinator != nil)
         return _persistentStoreCoordinator;
@@ -96,14 +102,83 @@
     return _persistentStoreCoordinator;
 }
 
-//TODO: Need to understand how to migrate an existing store
 //TODO:  add popup asking users to restart app if they choose remote storage
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [[NSUserDefaults standardUserDefaults] setBool:buttonIndex == 1 forKey:@"isRemoteStorage"];
+    switch (buttonIndex)
+    {
+        case 0:
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"promptForStorage"];
+            if([[NSUserDefaults standardUserDefaults] objectForKey:@"isRemoteStorage"] == nil)
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isRemoteStorage"];
+            }
+            break;
+        
+        case 1:
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isRemoteStorage"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
+            break;
+            
+        case 2:
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isRemoteStorage"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
+            break;
+        
+        default:
+            break;
+    }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
+    {
+        [self migrateExistingDataToICloud];
+    }
+}
+
+- (void) migrateExistingDataToICloud
+{
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenMigratedToICloud"])
+    {
+        NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    
+        //This is the path to the new store. Note it has a different file name
+        NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"CoreData.sqlite"];
+    
+        //This is the path to the existing store
+        NSURL *seedStoreURL = [documentsDirectory URLByAppendingPathComponent:@"GroceryList.sqlite"];
+    
+        //You should create a new store here instead of using the one you presumably already have access to
+        NSPersistentStoreCoordinator *coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+    
+        NSError *seedStoreError;
+        NSDictionary *seedStoreOptions = @{ NSReadOnlyPersistentStoreOption: @YES };
+        NSPersistentStore *seedStore = [coord addPersistentStoreWithType:NSSQLiteStoreType
+                                                       configuration:nil
+                                                                 URL:seedStoreURL
+                                                             options:seedStoreOptions
+                                                               error:&seedStoreError];
+    
+        NSDictionary *iCloudOptions = @{ NSPersistentStoreUbiquitousContentNameKey: @"ReciPlanDataStorage" };
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+        //This is using an operation queue because this happens synchronously
+        [queue addOperationWithBlock:^{
+            NSError *blockError;
+            [coord migratePersistentStore:seedStore
+                                    toURL:storeURL
+                                  options:iCloudOptions
+                                 withType:NSSQLiteStoreType
+                                    error:&blockError];
+        
+            NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+            [mainQueue addOperationWithBlock:^{
+            // This will be called when the migration is done
+            }];
+        }];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasBeenMigratedToICloud"];
+    }
+    else
     {
         NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         
@@ -124,14 +199,10 @@
         self.storeURL = [store URL];
         
         [_managedObjectContext reset];
-        
-        //THIS DOESN'T WORK??????
-        [_persistentStoreCoordinator migratePersistentStore:[_persistentStoreCoordinator persistentStores][0] toURL:self.storeURL options:nil withType:nil error:nil];
-        
     }
 }
 
-// 1
+//boilerplate
 - (NSManagedObjectContext *) managedObjectContext {
     if (_managedObjectContext != nil) {
         return _managedObjectContext;
@@ -145,7 +216,7 @@
     return _managedObjectContext;
 }
 
-//2
+//boilerplate
 - (NSManagedObjectModel *)managedObjectModel {
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
@@ -154,20 +225,6 @@
     
     return _managedObjectModel;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - (NSString *)applicationDocumentsDirectory {
         NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
