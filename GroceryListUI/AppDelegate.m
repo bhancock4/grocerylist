@@ -21,19 +21,18 @@
     UITabBarController* tabBarController = (UITabBarController *)self.window.rootViewController;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
     {
-        self.isFirstLaunch = YES;
+        self.isFirstLaunch = NO;
         self.window.rootViewController = tabBarController;
         ((UITabBarItem *)tabBarController.tabBar.items[0]).selectedImage = [UIImage imageNamed:@"Calendar"];
         ((UITabBarItem *)tabBarController.tabBar.items[1]).selectedImage = [UIImage imageNamed:@"Recipes"];
         ((UITabBarItem *)tabBarController.tabBar.items[2]).selectedImage = [UIImage imageNamed:@"ShoppingList"];
-        
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasBeenMigratedToICloud"];
     }
-    else
+    else //first launch of the app
     {
-        self.isFirstLaunch = NO;
+        self.isFirstLaunch = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasBeenMigratedToICloud"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -52,6 +51,8 @@
                               delegate: self
                               cancelButtonTitle: @"Don't ask again"
                               otherButtonTitles: @"Use iCloud", @"Local Storage Only", nil];
+        
+        [alert setTag: 0];
         [alert show];
     }
     
@@ -102,43 +103,65 @@
     return _persistentStoreCoordinator;
 }
 
-//TODO:  add popup asking users to restart app if they choose remote storage
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex)
+    if(alertView.tag == 0)
     {
-        case 0:
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"promptForStorage"];
-            if([[NSUserDefaults standardUserDefaults] objectForKey:@"isRemoteStorage"] == nil)
-            {
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isRemoteStorage"];
-            }
-            break;
-        
-        case 1:
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isRemoteStorage"];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
-            break;
+        BOOL isFirstTimeSelectingRemoteStorage = NO;
+        switch (buttonIndex)
+        {
+            case 0: //don't ask again
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"promptForStorage"];
+                if([[NSUserDefaults standardUserDefaults] objectForKey:@"isRemoteStorage"] == nil)
+                {
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isRemoteStorage"];
+                }
+                break;
             
-        case 2:
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isRemoteStorage"];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
-            break;
+            case 1: //remote storage
+                if([[NSUserDefaults standardUserDefaults] objectForKey:@"isRemoteStorage"] == nil ||
+                   ![[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
+                {
+                    isFirstTimeSelectingRemoteStorage = YES;
+                }
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isRemoteStorage"];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
+                break;
+                
+            case 2: //local storage
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isRemoteStorage"];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"promptForStorage"];
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasBeenMigratedToICloud"];
+                break;
+            
+            default:
+                break;
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
-        default:
-            break;
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
-    {
-        [self migrateExistingDataToICloud];
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"isRemoteStorage"])
+        {
+            [self migrateExistingDataToICloud];
+        }
+        
+        if(isFirstTimeSelectingRemoteStorage)
+        {
+            UIAlertView* alert = [[UIAlertView alloc]
+                                  initWithTitle: @"Restart app to synchronize data"
+                                  message: @"You will have to restart the app to fully synchronize your data with iCloud"
+                                  delegate: self
+                                  cancelButtonTitle: @"OK"
+                                  otherButtonTitles: nil];
+            
+            [alert setTag: 1];
+            [alert show];
+        }
     }
 }
 
 - (void) migrateExistingDataToICloud
 {
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenMigratedToICloud"])
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasBeenMigratedToICloud"] && !self.isFirstLaunch)
     {
         NSURL *documentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     
@@ -177,6 +200,7 @@
             }];
         }];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasBeenMigratedToICloud"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else
     {
@@ -199,6 +223,12 @@
         self.storeURL = [store URL];
         
         [_managedObjectContext reset];
+        
+        if(self.isFirstLaunch)
+        {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasBeenMigratedToICloud"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
 }
 

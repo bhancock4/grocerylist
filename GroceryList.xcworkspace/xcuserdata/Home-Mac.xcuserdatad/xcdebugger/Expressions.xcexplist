@@ -54,10 +54,10 @@
          contextName = "-[ShoppingListsViewController addShoppingListItem:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shoppingListIngredients">
+               value = "self.shoppingList">
             </PersistentString>
             <PersistentString
-               value = "self.shoppingList">
+               value = "self.shoppingListIngredients">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -70,17 +70,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "recipe.name">
-            </PersistentString>
-            <PersistentString
-               value = "self.selectedRecipes">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[AppDelegate application:didFinishLaunchingWithOptions:]:AppDelegate.m">
          <PersistentStrings>
             <PersistentString
@@ -88,6 +77,17 @@
             </PersistentString>
             <PersistentString
                value = "[[NSUserDefaults standardUserDefaults] boolForKey:@&quot;promptForStorage&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecipesViewController tableView:didSelectRowAtIndexPath:]:MyRecipesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "recipe.name">
+            </PersistentString>
+            <PersistentString
+               value = "self.selectedRecipes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -193,13 +193,13 @@
          contextName = "-[IngredientTableViewCell setEntityValueFromTextField:]:IngredientTableViewCell.m">
          <PersistentStrings>
             <PersistentString
+               value = "self.ingredient.name">
+            </PersistentString>
+            <PersistentString
                value = "self.ingredient.quantity">
             </PersistentString>
             <PersistentString
                value = "textField.text">
-            </PersistentString>
-            <PersistentString
-               value = "self.ingredient.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -343,7 +343,7 @@
          contextName = "-[CalendarViewController prepareForSegue:sender:]:CalendarViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "segue.identifier">
+               value = "self.calendarDay.date">
             </PersistentString>
             <PersistentString
                value = "self.selectedCalendarDay.date">
@@ -352,13 +352,24 @@
                value = "myRecipesVC.recipes">
             </PersistentString>
             <PersistentString
+               value = "segue.identifier">
+            </PersistentString>
+            <PersistentString
                value = "segue.destinationViewController">
             </PersistentString>
             <PersistentString
                value = "self.selectedCalendarDay">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate migrateExistingDataToICloud]:AppDelegate.m">
+         <PersistentStrings>
             <PersistentString
-               value = "self.calendarDay.date">
+               value = "(BOOL)[[NSUserDefaults standardUserDefaults] boolForKey:@&quot;hasBeenMigratedToICloud&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "(BOOL)[[NSUserDefaults standardUserDefaults] boolForKey:@&quot;hasLaunched&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -374,13 +385,13 @@
          contextName = "-[ShoppingListsViewController tableView:cellForRowAtIndexPath:]:ShoppingListsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "cell.backgroundColor">
+               value = "cell.ingredient.checked">
             </PersistentString>
             <PersistentString
                value = "cell.ingredient.name">
             </PersistentString>
             <PersistentString
-               value = "cell.ingredient.checked">
+               value = "cell.backgroundColor">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
